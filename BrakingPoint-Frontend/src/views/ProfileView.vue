@@ -1,0 +1,101 @@
+<template lang="">
+  <q-layout>
+    <div class="q-pa-md">
+      <div class="row">
+        <q-linear-progress class="q-mt-sm" color="green" rounded size="20px" :value="progress">
+          <div class="absolute-full flex flex-center">
+            <q-badge color="green" :label="progressLabel" text-color="white" />
+          </div>
+        </q-linear-progress>
+        <div>
+          <q-avatar class="q-mt-lg" style="height: 150px; width: 150px">
+            <q-img alt="ProfilePicture" src="..//assets/default.png"></q-img>
+          </q-avatar>
+        </div>
+        <h2 class="q-ml-xl" style="color: white">XY Profilja</h2>
+        <!--A ranglistán lévő pozíciója-->
+        <h2 class="q-ml-xl q-mr-xl" style="color: white">500</h2>
+
+        <q-btn
+          class="on-right q-ml-xl q-mt-xl q-mb-xl"
+          color="black"
+          label="Profil szerkesztése"
+          rounded
+        />
+      </div>
+      <div class="row">
+        <div class="col">
+          <h4 style="color: white">Statisztikák</h4>
+          <q-space />
+          <p style="font-size: 140%; color: white">Nyert fogadások: 15</p>
+          <p style="font-size: 140%; color: white">Vesztes fogadások: 10</p>
+          <p style="font-size: 140%; color: white">GY/V arány: 60%</p>
+        </div>
+
+        <div class="col">
+          <h4 style="color: white">Aktív fogadás(ok)</h4>
+          <q-space />
+          <p style="font-size: 140%; color: white">
+            Abu Dhabi győztese - Max Verstappen
+            <br />
+            <sub>Szorzó: 1.10x - Tét: 5000 - Nyert</sub>
+          </p>
+          <p style="font-size: 140%; color: white">
+            Abu Dhabi győztese - Max Verstappen
+            <br />
+            <sub>Szorzó: 1.10x - Tét: 5000 - Nyert</sub>
+          </p>
+          <p style="font-size: 140%; color: white">
+            Abu Dhabi győztese - Max Verstappen
+            <br />
+            <sub>Szorzó: 1.10x - Tét: 5000 - Nyert</sub>
+          </p>
+        </div>
+        <div class="col self-end">
+          <h4 style="color: white">Előző fogadás(ok)</h4>
+          <q-space />
+          <p style="font-size: 140%; color: white">
+            Abu Dhabi győztese - Max Verstappen
+            <br />
+            <sub>Szorzó: 1.10x - Tét: 5000 - Nyert</sub>
+          </p>
+          <p style="font-size: 140%; color: white">
+            Abu Dhabi győztese - Max Verstappen
+            <br />
+            <sub>Szorzó: 1.10x - Tét: 5000 - Nyert</sub>
+          </p>
+          <p style="font-size: 140%; color: white">
+            Abu Dhabi győztese - Max Verstappen
+            <br />
+            <sub>Szorzó: 1.10x - Tét: 5000 - Nyert</sub>
+          </p>
+          <q-img class="q-ml-lg" src="..//assets/tesztkép.png"></q-img>
+        </div>
+      </div>
+    </div>
+  </q-layout>
+</template>
+
+<script lang="ts">
+  import { ref, computed } from "vue";
+
+  export default {
+    setup() {
+      //Ezt kell majd összekötni a xp-vel
+      const progress = ref(0.6);
+      return {
+        password: ref(""),
+        isPwd: ref(true),
+
+        passwordAgain: ref(""),
+        isPwdAgain: ref(true),
+
+        email: ref(""),
+
+        progress,
+        progressLabel: computed(() => (progress.value * 100).toFixed(2) + "%"),
+      };
+    },
+  };
+</script>
+<style lang="scss"></style>

@@ -7,12 +7,18 @@ import GridView from "./views/GridView.vue";
 import StartPageView from "./views/StartPageView.vue";
 import HelpView from "./views/HelpView.vue";
 import EditProfileView from "./views/EditProfileView.vue";
+import ProfileView from "./views/ProfileView.vue";
 
 const routes: Array<RouteRecordRaw> = [
   {
     path: "/",
     name: "StartPage",
     component: StartPageView,
+  },
+  {
+    path: "/profile",
+    name: "Profile",
+    component: ProfileView,
   },
   {
     path: "/editprofile",

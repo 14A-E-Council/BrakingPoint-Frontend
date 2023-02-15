@@ -109,6 +109,7 @@
           <q-btn dense flat icon="mdi-menu" round size="15px" @click="leftDrawer = !leftDrawer" />
 
           <!--Hibák kijavítása-->
+          <!--Kis menü-->
           <q-input
             v-model="text"
             class="q-ml-md"

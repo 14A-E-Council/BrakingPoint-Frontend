@@ -4,6 +4,7 @@
       <div class="row">
         <div class="col">
           <div class="column items-center">
+            <h3 style="color: white">Profil szerkesztése</h3>
             <q-avatar class="q-mt-xl" style="height: 250px; width: 250px">
               <q-img alt="ProfilePicture" src="..//assets/default.png"></q-img>
             </q-avatar>
