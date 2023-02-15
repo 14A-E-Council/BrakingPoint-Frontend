@@ -102,20 +102,29 @@
 </script>
 
 <template>
-  <div class="q-pa-md">
+  <div class="q-pa-md" style="background: linear-gradient(to bottom, #a71616, #6d0f0f)">
     <q-layout view="hHh Lpr fFf">
       <q-header class="text-white text-center" elevated style="background: #1b1b1b">
         <q-toolbar>
-          <q-btn dense flat icon="mdi-menu" round size="20px" @click="leftDrawer = !leftDrawer" />
-          <q-btn
+          <q-btn dense flat icon="mdi-menu" round size="15px" @click="leftDrawer = !leftDrawer" />
+
+          <!--Hibák kijavítása-->
+          <q-input
+            v-model="text"
+            class="q-ml-md"
+            dark
             dense
-            flat
-            icon="mdi-magnify"
-            padding="10px"
-            round
-            size="20px"
-            @click="leftDrawer = !leftDrawer"
-          />
+            input-class="text-right"
+            rounded
+            standout
+          >
+            <template #prepend>
+              <q-icon name="search" />
+            </template>
+            <template #append>
+              <q-icon class="cursor-pointer" name="close" @click="text = ''" />
+            </template>
+          </q-input>
           <q-toolbar-title
             id="title"
             style="cursor: pointer; align-items: center"
@@ -125,10 +134,15 @@
               <img alt="BrakingPointLogo" src="./assets/BrakingPointLogo.png" />
             </q-img>
           </q-toolbar-title>
-          <q-btn flat icon="mdi-account" no-caps size="20px">
-            {{ usersStore.loggedUser ? usersStore.loggedUser?.name : "You arn't logged in." }}
+
+          <q-btn no-caps size="15px">
+            <q-avatar class="q-mr-sm">
+              <q-img alt="ProfilePicture" src="./assets/default.png"></q-img>
+            </q-avatar>
+            {{ usersStore.loggedUser ? usersStore.loggedUser?.name : "Bejelentkezés." }}
           </q-btn>
-          <q-btn flat icon="mdi-theme-light-dark" size="20px" @click="$q.dark.toggle" />
+          <!--Dark mode megoldása-->
+          <q-btn flat icon="mdi-theme-light-dark" size="15px" @click="$q.dark.toggle" />
         </q-toolbar>
       </q-header>
 
