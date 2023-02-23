@@ -2,18 +2,21 @@
   <q-layout>
     <div class="q-pa-md">
       <div class="row">
-        <div class="col">
+        <div class="col-md-4 col-12">
           <div class="column items-center">
             <h3 style="color: white">Profil szerkesztése</h3>
-            <q-avatar class="q-mt-xl" style="height: 250px; width: 250px">
-              <q-img alt="ProfilePicture" src="..//assets/default.png"></q-img>
+            <q-avatar class="q-mt-xl" style="height: 300px; width: 300px">
+              <q-img alt="PictureFrame" src="..//assets/tesztKeret.png">
+                <q-avatar class="q-mt-lg q-ml-lg" style="height: 220px; width: 220px">
+                  <q-img alt="ProfilePicture" src="..//assets/default.png" />
+                </q-avatar>
+              </q-img>
             </q-avatar>
-
             <q-btn class="q-mt-xl" color="black" label="Profilkép cseréje" rounded />
           </div>
         </div>
 
-        <div class="col">
+        <div class="col-md-4 col-12">
           <p style="color: white">Felhasználónév</p>
           <q-input
             v-model="text"
@@ -93,9 +96,7 @@
             <q-btn class="vertical-middle q-mt-xl" color="black" label="Mentés" rounded />
           </div>
         </div>
-        <div class="col self-end">
-          <q-img class="q-ml-lg" src="..//assets/tesztkép.png"></q-img>
-        </div>
+        <div class="col-md-4 col-12 self-end"></div>
       </div>
     </div>
   </q-layout>

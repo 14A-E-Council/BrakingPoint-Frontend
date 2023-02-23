@@ -100,112 +100,150 @@
     },
   ]);
 </script>
-
+<!-- background: linear-gradient(to bottom, #a71616, #6d0f0f) -->
+<!-- https://reactgo.com/vue-background-image/   kép változtatása változóból-->
 <template>
-  <div class="q-pa-md" style="background: linear-gradient(to bottom, #a71616, #6d0f0f)">
-    <q-layout view="hHh Lpr fFf">
-      <q-header class="text-white text-center" elevated style="background: #1b1b1b">
-        <q-toolbar>
-          <q-btn dense flat icon="mdi-menu" round size="15px" @click="leftDrawer = !leftDrawer" />
+  <div id="bg-color" class="q-pa-md">
+    <div id="bg" class="q-pa-md" :style="{ backgroundImage: 'url(./src/assets/tesztkép.png)' }">
+      <q-layout view="hHh Lpr fFf">
+        <q-header class="text-white text-center" elevated style="background: #1b1b1b">
+          <q-toolbar>
+            <q-btn dense flat icon="mdi-menu" round size="15px" @click="leftDrawer = !leftDrawer" />
 
-          <!--Hibák kijavítása-->
-          <!--Kis menü-->
-          <q-input
-            v-model="text"
-            class="q-ml-md"
-            dark
-            dense
-            input-class="text-right"
-            rounded
-            standout
-          >
-            <template #prepend>
-              <q-icon name="search" />
-            </template>
-            <template #append>
-              <q-icon class="cursor-pointer" name="close" @click="text = ''" />
-            </template>
-          </q-input>
-          <q-toolbar-title
-            id="title"
-            style="cursor: pointer; align-items: center"
-            @click="router.push({ path: '/' })"
-          >
-            <q-img style="height: 80px; max-width: 350px">
-              <img alt="BrakingPointLogo" src="./assets/BrakingPointLogo.png" />
-            </q-img>
-          </q-toolbar-title>
+            <!--Hibák kijavítása-->
+            <!--Kis menü-->
+            <q-input
+              v-model="text"
+              class="q-ml-md"
+              dark
+              dense
+              input-class="text-right"
+              rounded
+              standout
+            >
+              <template #prepend>
+                <q-icon name="search" />
+              </template>
+              <template #append>
+                <q-icon class="cursor-pointer" name="close" @click="text = ''" />
+              </template>
+            </q-input>
+            <q-toolbar-title
+              id="title"
+              style="cursor: pointer; align-items: center"
+              @click="router.push({ path: '/' })"
+            >
+              <q-img
+                class="position: relative; text-align: center; q-mr-xl"
+                style="height: 80px; max-width: 350px"
+              >
+                <img alt="BrakingPointLogo" src="./assets/BrakingPointLogo.png" />
+              </q-img>
+            </q-toolbar-title>
 
-          <q-btn no-caps size="15px">
-            <q-avatar class="q-mr-sm">
-              <q-img alt="ProfilePicture" src="./assets/default.png"></q-img>
-            </q-avatar>
-            {{ usersStore.loggedUser ? usersStore.loggedUser?.name : "Bejelentkezés." }}
-          </q-btn>
-          <!--Dark mode megoldása-->
-          <q-btn flat icon="mdi-theme-light-dark" size="15px" @click="$q.dark.toggle" />
-        </q-toolbar>
-      </q-header>
+            <!-- Keret megoldása -->
+            <q-btn no-caps size="15px">
+              <q-avatar>
+                <q-img alt="PictureFrame" src="./assets/default.png">
+                  <q-img
+                    alt="ProfilePicture"
+                    src="./assets/tesztKeret.png"
+                    style="height: 38px; width: 37px; position: relative; text-align: center"
+                  />
+                </q-img>
+              </q-avatar>
+              {{ usersStore.loggedUser ? usersStore.loggedUser?.name : "Bejelentkezés." }}
+            </q-btn>
+            <!--Dark mode megoldása-->
+            <q-btn flat icon="mdi-theme-light-dark" size="15px" @click="$q.dark.toggle" />
+          </q-toolbar>
+        </q-header>
 
-      <q-drawer
-        v-model="leftDrawer"
-        bordered
-        :breakpoint="500"
-        :class="$q.dark.isActive ? 'bg-grey-9' : 'bg-grey-3'"
-        show-if-above
-        :width="200"
-      >
-        <q-scroll-area class="fit">
-          <!-- routes: -->
-          <q-list>
-            <template v-for="(menuItem, index) in menuItems" :key="index">
-              <q-item clickable :disable="menuItem.disabled" :to="menuItem.route">
+        <q-drawer
+          v-model="leftDrawer"
+          bordered
+          :breakpoint="500"
+          :class="$q.dark.isActive ? 'bg-grey-9' : 'bg-grey-3'"
+          show-if-above
+          :width="200"
+        >
+          <q-scroll-area class="fit">
+            <!-- routes: -->
+            <q-list>
+              <template v-for="(menuItem, index) in menuItems" :key="index">
+                <q-item clickable :disable="menuItem.disabled" :to="menuItem.route">
+                  <q-item-section avatar>
+                    <q-icon :name="menuItem.icon" />
+                  </q-item-section>
+                  <q-item-section>
+                    {{ menuItem.text }}
+                  </q-item-section>
+                </q-item>
+                <q-separator v-if="menuItem.separator" :key="'sep' + index" />
+              </template>
+              <q-item clickable :disable="usersStore.loggedUser == null" to="/qtable">
                 <q-item-section avatar>
-                  <q-icon :name="menuItem.icon" />
+                  <q-icon name="mdi-table" />
                 </q-item-section>
-                <q-item-section>
-                  {{ menuItem.text }}
-                </q-item-section>
+                <q-item-section>q-table</q-item-section>
               </q-item>
-              <q-separator v-if="menuItem.separator" :key="'sep' + index" />
-            </template>
-            <q-item clickable :disable="usersStore.loggedUser == null" to="/qtable">
-              <q-item-section avatar>
-                <q-icon name="mdi-table" />
-              </q-item-section>
-              <q-item-section>q-table</q-item-section>
-            </q-item>
-            <q-separator />
-          </q-list>
-          <!-- links: -->
-          <q-list>
-            <template v-for="(linkItem, index) in links" :key="index">
-              <q-item clickable :href="linkItem.link">
-                <q-item-section avatar>
-                  <q-icon :name="linkItem.icon" />
-                </q-item-section>
-                <q-item-section>
-                  {{ linkItem.text }}
-                </q-item-section>
-              </q-item>
-              <q-separator v-if="linkItem.separator" :key="'sep' + index" />
-            </template>
-          </q-list>
-        </q-scroll-area>
-      </q-drawer>
+              <q-separator />
+            </q-list>
+            <!-- links: -->
+            <q-list>
+              <template v-for="(linkItem, index) in links" :key="index">
+                <q-item clickable :href="linkItem.link">
+                  <q-item-section avatar>
+                    <q-icon :name="linkItem.icon" />
+                  </q-item-section>
+                  <q-item-section>
+                    {{ linkItem.text }}
+                  </q-item-section>
+                </q-item>
+                <q-separator v-if="linkItem.separator" :key="'sep' + index" />
+              </template>
+            </q-list>
+          </q-scroll-area>
+        </q-drawer>
 
-      <q-page-container id="container">
-        <router-view v-slot="{ Component }">
-          <transition name="fade">
-            <component :is="Component" />
-          </transition>
-        </router-view>
-      </q-page-container>
-    </q-layout>
+        <q-page-container id="container">
+          <router-view v-slot="{ Component }">
+            <transition name="fade">
+              <component :is="Component" />
+            </transition>
+          </router-view>
+        </q-page-container>
+      </q-layout>
+    </div>
   </div>
+  <footer style="background: #1b1b1b; min-height: 12vh; position: relative; text-align: center">
+    <q-img style="height: 80px; max-width: 350px">
+      <img alt="BrakingPointLogo" src="./assets/BrakingPointLogoSmall.png" />
+    </q-img>
+    <p style="color: white">© 2023 BrakingPoint Minden jog fenntartva.</p>
+  </footer>
 </template>
 
 <style lang="scss">
+  div#bg-color {
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-image: linear-gradient(to bottom, #a71616, #6d0f0f);
+    background-size: cover;
+    background-attachment: fixed;
+    height: 100%;
+  }
+
+  div#bg {
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 100vh;
+  }
+
   .fade-enter-active,
   .fade-leave-active {
     transition: opacity 0.5s ease;

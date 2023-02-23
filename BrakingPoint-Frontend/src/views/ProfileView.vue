@@ -24,7 +24,7 @@
         />
       </div>
       <div class="row">
-        <div class="col">
+        <div class="col-md-4 col-12">
           <h4 style="color: white">Statisztikák</h4>
           <q-space />
           <p style="font-size: 140%; color: white">Nyert fogadások: 15</p>
@@ -32,7 +32,7 @@
           <p style="font-size: 140%; color: white">GY/V arány: 60%</p>
         </div>
 
-        <div class="col">
+        <div class="col-md-4 col-12">
           <h4 style="color: white">Aktív fogadás(ok)</h4>
           <q-space />
           <p style="font-size: 140%; color: white">
@@ -51,7 +51,7 @@
             <sub>Szorzó: 1.10x - Tét: 5000 - Nyert</sub>
           </p>
         </div>
-        <div class="col self-end">
+        <div class="col-md-4 col-12 self-end">
           <h4 style="color: white">Előző fogadás(ok)</h4>
           <q-space />
           <p style="font-size: 140%; color: white">
@@ -69,7 +69,6 @@
             <br />
             <sub>Szorzó: 1.10x - Tét: 5000 - Nyert</sub>
           </p>
-          <q-img class="q-ml-lg" src="..//assets/tesztkép.png"></q-img>
         </div>
       </div>
     </div>
