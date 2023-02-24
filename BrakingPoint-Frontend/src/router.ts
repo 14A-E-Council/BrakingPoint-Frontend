@@ -8,6 +8,7 @@ import StartPageView from "./views/StartPageView.vue";
 import HelpView from "./views/HelpView.vue";
 import EditProfileView from "./views/EditProfileView.vue";
 import ProfileView from "./views/ProfileView.vue";
+import AdminView from "./views/AdminPageView.vue";
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -24,6 +25,11 @@ const routes: Array<RouteRecordRaw> = [
     path: "/editprofile",
     name: "EditProfilePage",
     component: EditProfileView,
+  },
+  {
+    path: "/admin",
+    name: "Admin",
+    component: AdminView,
   },
   {
     path: "/examples",
