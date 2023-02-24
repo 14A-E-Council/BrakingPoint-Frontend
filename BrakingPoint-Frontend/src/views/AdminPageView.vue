@@ -4,14 +4,44 @@
       <div class="row">
         <div class="col-md-12 col-12">
           <div class="column">
-            <h3 style="color: white">Felhasználók keresése</h3>
-            <div class="q-pa-md q-pr-xl">
+            <div class="row">
+              <div class="col-md-9">
+                <q-btn
+                  color="dark"
+                  dark
+                  :style="usersButtonStyle"
+                  @click="
+                    (users = true), (bets = false), (usersButton = true), (betsButton = false)
+                  "
+                >
+                  <h7 style="color: white">Felhasználók keresése</h7>
+                </q-btn>
+              </div>
+              <div class="col-md-3">
+                <q-btn
+                  color="dark"
+                  dark
+                  :style="betsButtonStyle"
+                  @click="
+                    (users = false), (bets = true), (usersButton = false), (betsButton = true)
+                  "
+                >
+                  <h7 style="color: white">Felhasználók keresése</h7>
+                </q-btn>
+              </div>
+            </div>
+
+            <!-- Users -->
+            <div v-if="users" class="q-pa-md q-pr-xl">
               <q-table
                 binary-state-sort
                 class="my-sticky-virtscroll-table"
                 :columns="columns"
+                dark
+                :filter="filter"
                 :grid="$q.screen.xs"
                 :loading="loading"
+                no-data-label="Nem található ilyen felhasználó"
                 :pagination="initialPagination"
                 row-key="index"
                 :rows="rows"
@@ -38,6 +68,7 @@
                     </template>
                   </q-input>
                 </template>
+
                 <template #body="props">
                   <q-inner-loading color="primary" />
                   <q-tr class="cards" :props="props">
@@ -81,6 +112,42 @@
                 <q-btn class="vertical-middle q-mt-xl" color="black" label="Mentés" rounded />
               </div>
             </div>
+
+            <!-- Bets -->
+            <div v-if="bets" class="q-pt-sm">
+              <div class="q-pa-md bg-dark">
+                <q-table
+                  :columns="columnsBets"
+                  dark
+                  :filter="filter"
+                  grid
+                  hide-header
+                  row-key="name"
+                  :rows="rowsBets"
+                  title="Fogadások"
+                >
+                  <template #top-right>
+                    <q-input
+                      v-model="filter"
+                      bg-color="white"
+                      borderless
+                      debounce="300"
+                      dense
+                      outlined
+                      placeholder="Search"
+                      rounded
+                    >
+                      <template #append>
+                        <q-icon name="search" />
+                      </template>
+                    </q-input>
+                  </template>
+                </q-table>
+              </div>
+              <div class="column items-center">
+                <q-btn class="vertical-middle q-mt-xl" color="black" label="Mentés" rounded />
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -93,6 +160,7 @@
 
   //https://quasar.dev/vue-components/table
   // Változók cseréje
+  //Users
   const columns = [
     {
       name: "index",
@@ -137,6 +205,66 @@
     },
   ];
 
+  //Bets
+  const columnsBets = [
+    {
+      name: "desc",
+      required: true,
+      label: "Fogadás",
+      align: "left",
+      field: (row: any) => row.name,
+      sortable: true,
+    },
+    { name: "Verseny", align: "center", label: "Verseny", field: "race", sortable: true },
+    { name: "Szorzó", label: "Szorzó", field: "odd", sortable: true },
+    { name: "Eredmény", label: "Eredmény", field: "result" },
+  ];
+
+  const rowsBets = [
+    {
+      name: "Verstappen világbajnok lesz",
+      race: "X",
+      odd: 1.2,
+      result: "Nyert",
+    },
+    {
+      name: "Verstappen világbajnok lesz",
+      race: "X",
+      odd: 1.2,
+      result: "Nyert",
+    },
+    {
+      name: "Verstappen világbajnok lesz",
+      race: "X",
+      odd: 1.2,
+      result: "Nyert",
+    },
+    {
+      name: "Verstappen világbajnok lesz",
+      race: "X",
+      odd: 1.2,
+      result: "Nyert",
+    },
+    {
+      name: "Verstappen világbajnok lesz",
+      race: "X",
+      odd: 1.2,
+      result: "Nyert",
+    },
+    {
+      name: "Verstappen világbajnok lesz",
+      race: "X",
+      odd: 1.2,
+      result: "Nyert",
+    },
+    {
+      name: "Verstappen világbajnok lesz",
+      race: "X",
+      odd: 1.2,
+      result: "Nyert",
+    },
+  ];
+
   // Később törölni, csak teszt idejére generál sorokats
   let rows: any = [];
   for (let i = 0; i < 100; i++) {
@@ -149,16 +277,11 @@
   export default {
     setup() {
       return {
-        password: ref(""),
-        isPwd: ref(true),
-
-        passwordAgain: ref(""),
-        isPwdAgain: ref(true),
-
-        email: ref(""),
-
         columns,
         rows,
+
+        columnsBets,
+        rowsBets,
 
         filter: ref(""),
         loading: ref(false),
@@ -170,6 +293,37 @@
           // rowsNumber: xx if getting data from a server
         },
       };
+    },
+    data() {
+      return {
+        users: true,
+        bets: false,
+
+        usersButton: true,
+        betsButton: false,
+      };
+    },
+    computed: {
+      usersButtonStyle() {
+        if (this.usersButton) {
+          return {
+            height: "50px",
+            width: "400px",
+          };
+        } else {
+          return "";
+        }
+      },
+      betsButtonStyle() {
+        if (this.betsButton) {
+          return {
+            height: "50px",
+            width: "400px",
+          };
+        } else {
+          return "";
+        }
+      },
     },
   };
 </script>

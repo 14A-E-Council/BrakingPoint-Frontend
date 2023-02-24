@@ -9,7 +9,7 @@
   const menuItems = ref([
     {
       icon: "mdi-home",
-      text: "startPage",
+      text: "Start",
       name: "startPage",
       route: "/",
       disabled: false,
@@ -17,17 +17,17 @@
     },
     {
       icon: "mdi-soccer",
-      text: "examples",
-      name: "examples",
-      route: "/examples",
+      text: "Profile",
+      name: "profile",
+      route: "/profile",
       disabled: false,
       separator: false,
     },
     {
       icon: "mdi-grid",
-      text: "gridDemo",
-      name: "gridDemo",
-      route: "/grid",
+      text: "Edit Profile",
+      name: "editProfile",
+      route: "/editprofile",
       disabled: false,
       separator: false,
     },
@@ -41,9 +41,9 @@
     },
     {
       icon: "mdi-information",
-      text: "about",
-      name: "about",
-      route: "/about",
+      text: "Admin",
+      name: "admin",
+      route: "/admin",
       disabled: false,
       separator: false,
     },
@@ -100,7 +100,6 @@
     },
   ]);
 </script>
-<!-- background: linear-gradient(to bottom, #a71616, #6d0f0f) -->
 <!-- https://reactgo.com/vue-background-image/   kép változtatása változóból-->
 <template>
   <div id="bg-color" class="q-pa-md">

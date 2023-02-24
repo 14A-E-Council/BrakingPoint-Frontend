@@ -8,19 +8,24 @@
           </div>
         </q-linear-progress>
         <div>
-          <q-avatar class="q-mt-lg" style="height: 150px; width: 150px">
-            <q-img alt="ProfilePicture" src="..//assets/default.png"></q-img>
+          <q-avatar class="q-mt-xl" style="height: 150px; width: 150px">
+            <q-img alt="PictureFrame" src="..//assets/tesztKeret.png">
+              <q-avatar class="q-mt-sm q-ml-sm" style="height: 100px; width: 100px">
+                <q-img alt="ProfilePicture" src="..//assets/default.png" />
+              </q-avatar>
+            </q-img>
           </q-avatar>
         </div>
-        <h2 class="q-ml-xl" style="color: white">XY Profilja</h2>
+        <h2 class="q-ml-xl q-pt-xl" style="color: white">XY Profilja</h2>
         <!--A ranglistán lévő pozíciója-->
-        <h2 class="q-ml-xl q-mr-xl" style="color: white">500</h2>
+        <h2 class="q-ml-xl q-mr-xl q-pt-xl" style="color: white">500</h2>
 
         <q-btn
-          class="on-right q-ml-xl q-mt-xl q-mb-xl"
+          class="on-right q-ml-xl q-mt-xl"
           color="black"
           label="Profil szerkesztése"
           rounded
+          style="height: 80px; width: 150px"
         />
       </div>
       <div class="row">
