@@ -12,7 +12,36 @@
                 </q-avatar>
               </q-img>
             </q-avatar>
-            <q-btn class="q-mt-xl" color="black" label="Profilkép cseréje" rounded />
+
+            <!-- https://quasar.dev/vue-components/file-picker -->
+            <q-file
+              v-model="filesImages"
+              accept=".jpg, image/*"
+              bg-color="dark"
+              bottom-slots
+              class="q-pa-md"
+              color="dark"
+              counter
+              dark
+              label="Profilkép cseréje"
+              label-color="white"
+              outlined
+              rounded
+              style="width: 300px; max-width: 300px"
+              @rejected="onRejected"
+            >
+              <template #prepend>
+                <q-icon name="cloud_upload" @click.stop.prevent />
+              </template>
+              <template #append>
+                <q-icon
+                  class="cursor-pointer"
+                  name="close"
+                  @click.stop.prevent="filesImages = null"
+                />
+              </template>
+              <template #hint>Csak kép formátum elfogadott!</template>
+            </q-file>
           </div>
         </div>
 
@@ -104,10 +133,23 @@
 
 <script lang="ts">
   import { ref } from "vue";
+  import { useQuasar } from "quasar";
 
   export default {
     setup() {
+      const $q = useQuasar();
       return {
+        filesImages: ref(null),
+
+        onRejected(rejectedEntries: any) {
+          // Notify plugin needs to be installed
+          // https://quasar.dev/quasar-plugins/notify#Installation
+          $q.notify({
+            type: "negative",
+            message: `${rejectedEntries.length} fájl formátuma nem megfelelő!`,
+          });
+        },
+
         password: ref(""),
         isPwd: ref(true),
 

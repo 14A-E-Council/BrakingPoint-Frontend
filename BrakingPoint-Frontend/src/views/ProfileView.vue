@@ -26,6 +26,7 @@
           label="Profil szerkesztése"
           rounded
           style="height: 80px; width: 150px"
+          :to="{ name: 'EditProfilePage' }"
         />
       </div>
       <div class="row">

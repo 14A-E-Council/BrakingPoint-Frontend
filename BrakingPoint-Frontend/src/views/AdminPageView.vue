@@ -26,13 +26,13 @@
                     (users = false), (bets = true), (usersButton = false), (betsButton = true)
                   "
                 >
-                  <h7 style="color: white">Felhasználók keresése</h7>
+                  <h7 style="color: white">Fogadások keresése</h7>
                 </q-btn>
               </div>
             </div>
 
             <!-- Users -->
-            <div v-if="users" class="q-pa-md q-pr-xl">
+            <div v-if="users" class="q-pa-md q-pr-xl animate__animated animate__fadeIn">
               <q-table
                 binary-state-sort
                 class="my-sticky-virtscroll-table"
@@ -114,14 +114,13 @@
             </div>
 
             <!-- Bets -->
-            <div v-if="bets" class="q-pt-sm">
+            <div v-if="bets" class="q-pt-sm animate__animated animate__fadeIn">
               <div class="q-pa-md bg-dark">
                 <q-table
+                  v-model:selected="selected"
                   :columns="columnsBets"
                   dark
                   :filter="filter"
-                  grid
-                  hide-header
                   row-key="name"
                   :rows="rowsBets"
                   title="Fogadások"
@@ -142,6 +141,35 @@
                       </template>
                     </q-input>
                   </template>
+                  <template #header="props">
+                    <q-tr :props="props">
+                      <q-th auto-width />
+                      <q-th v-for="col in props.cols" :key="col.name" :props="props">
+                        {{ col.label }}
+                      </q-th>
+                    </q-tr>
+                  </template>
+
+                  <template #body="props">
+                    <q-tr :props="props">
+                      <q-td auto-width>
+                        <q-tr>
+                          <q-btn
+                            color="dark"
+                            dense
+                            :icon="props.expand ? 'close' : 'info'"
+                            round
+                            size="sm"
+                            @click="props.expand = !props.expand"
+                          />
+                        </q-tr>
+                      </q-td>
+                      <q-td v-for="col in props.cols" :key="col.name" :props="props">
+                        {{ col.value }}
+                      </q-td>
+                    </q-tr>
+                    <q-tr v-show="props.expand" :props="props" />
+                  </template>
                 </q-table>
               </div>
               <div class="column items-center">
@@ -157,7 +185,7 @@
 
 <script lang="ts">
   import { ref } from "vue";
-
+  import "animate.css";
   //https://quasar.dev/vue-components/table
   // Változók cseréje
   //Users
@@ -173,11 +201,12 @@
       required: true,
       label: "Felhasználónév",
       sortable: true,
+      align: "center",
     },
     { name: "firstName", align: "center", label: "Keresztnév", field: "firstName", sortable: true },
-    { name: "lastName", label: "Vezetéknév", field: "lastName", sortable: true },
-    { name: "level", label: "Szint", field: "level", sortable: true },
-    { name: "balance", label: "Egyenleg", field: "balance", sortable: true },
+    { name: "lastName", align: "center", label: "Vezetéknév", field: "lastName", sortable: true },
+    { name: "level", align: "center", label: "Szint", field: "level", sortable: true },
+    { name: "balance", align: "center", label: "Egyenleg", field: "balance", sortable: true },
   ];
 
   // Teszt adatok
@@ -210,58 +239,66 @@
     {
       name: "desc",
       required: true,
-      label: "Fogadás",
+      label: "#",
       align: "left",
-      field: (row: any) => row.name,
+      field: (row: any) => row.id,
       sortable: true,
     },
+    { name: "Fogadás", align: "center", label: "Fogadás", field: "name", sortable: true },
     { name: "Verseny", align: "center", label: "Verseny", field: "race", sortable: true },
-    { name: "Szorzó", label: "Szorzó", field: "odd", sortable: true },
-    { name: "Eredmény", label: "Eredmény", field: "result" },
+    { name: "Szorzó", align: "center", label: "Szorzó", field: "odd", sortable: true },
+    { name: "Eredmény", align: "center", label: "Eredmény", field: "result" },
   ];
 
   const rowsBets = [
     {
-      name: "Verstappen világbajnok lesz",
+      id: "1",
+      name: "Max Verstappen világbajnok lesz",
       race: "X",
       odd: 1.2,
       result: "Nyert",
     },
     {
-      name: "Verstappen világbajnok lesz",
+      id: "2",
+      name: "Lewis Hamilton világbajnok lesz",
       race: "X",
-      odd: 1.2,
+      odd: 2.1,
+      result: "Vesztett",
+    },
+    {
+      id: "3",
+      name: "Max Verstappen nyer",
+      race: "Szaúd-arábiai nagydíj",
+      odd: 1.1,
       result: "Nyert",
     },
     {
-      name: "Verstappen világbajnok lesz",
-      race: "X",
-      odd: 1.2,
+      id: "4",
+      name: "George Russel nyer",
+      race: "Magyar nagydíj",
+      odd: 3.5,
+      result: "Vesztett",
+    },
+    {
+      id: "5",
+      name: "Sergio Pérez nyer",
+      race: "Szingapúri nagydíj",
+      odd: 2.7,
       result: "Nyert",
     },
     {
-      name: "Verstappen világbajnok lesz",
-      race: "X",
-      odd: 1.2,
+      id: "6",
+      name: "Charles Leclerc nyer",
+      race: "Osztrák nagydíj",
+      odd: 2.0,
       result: "Nyert",
     },
     {
-      name: "Verstappen világbajnok lesz",
-      race: "X",
-      odd: 1.2,
-      result: "Nyert",
-    },
-    {
-      name: "Verstappen világbajnok lesz",
-      race: "X",
-      odd: 1.2,
-      result: "Nyert",
-    },
-    {
-      name: "Verstappen világbajnok lesz",
-      race: "X",
-      odd: 1.2,
-      result: "Nyert",
+      id: "7",
+      name: "Valteri Bottas nyer",
+      race: "Japán nagydíj",
+      odd: 7.9,
+      result: "Vesztett",
     },
   ];
 
