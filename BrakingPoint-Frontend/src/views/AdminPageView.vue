@@ -32,6 +32,7 @@
             </div>
 
             <!-- Users -->
+            <!-- TODO Ha változtatás történik küldjön egy értesítést az érintett felhasználóknak -->
             <div v-if="users" class="q-pa-md q-pr-xl animate__animated animate__fadeIn">
               <q-table
                 binary-state-sort
@@ -115,7 +116,7 @@
 
             <!-- Bets -->
             <div v-if="bets" class="q-pt-sm animate__animated animate__fadeIn">
-              <div class="q-pa-md bg-dark">
+              <div class="q-pa-md">
                 <q-table
                   v-model:selected="selected"
                   :columns="columnsBets"
@@ -150,6 +151,8 @@
                     </q-tr>
                   </template>
 
+                  <!-- Edit Bet -->
+                  <!-- TODO Ha változtatás történik küldjön egy értesítést az érintett felhasználóknak -->
                   <template #body="props">
                     <q-tr :props="props">
                       <q-td auto-width>
@@ -160,9 +163,51 @@
                             :icon="props.expand ? 'close' : 'info'"
                             round
                             size="sm"
-                            @click="props.expand = !props.expand"
+                            @click="(props.expand = !props.expand), (cardBet = true)"
                           />
                         </q-tr>
+                        <q-dialog v-model="cardBet">
+                          <q-card bordered class="my-card" dark>
+                            <q-card-section>
+                              <div class="row no-wrap items-center">
+                                <div class="col text-h6 ellipsis">#1 Teszt Fogadás</div>
+                              </div>
+                            </q-card-section>
+
+                            <!-- TODO Változtathatóvá tenni -->
+                            <q-card-section class="q-pt-none">
+                              <div class="text-subtitle1">
+                                <!-- <q-popup-edit v-slot="scope" v-model="props.row.race">
+                                  <q-input v-model="scope.value" autofocus counter dense />
+                                </q-popup-edit> -->
+                                Verseny: X
+                              </div>
+                              <div class="text-subtitle1">
+                                <!-- <q-popup-edit v-slot="scope" v-model="props.row.race">
+                                  <q-input v-model="scope.value" autofocus counter dense />
+                                </q-popup-edit> -->
+                                Szorzó: 1.2
+                              </div>
+                              <div class="text-subtitle1">
+                                <!-- <q-popup-edit v-slot="scope" v-model="props.row.race">
+                                  <q-input v-model="scope.value" autofocus counter dense />
+                                </q-popup-edit> -->
+                                Eredmény: Nyert
+                              </div>
+                            </q-card-section>
+
+                            <q-separator />
+
+                            <q-card-actions align="right">
+                              <q-btn
+                                v-close-popup
+                                flat
+                                label="Mentés"
+                                @click="(props.expand = !props.expand), (cardBet = false)"
+                              />
+                            </q-card-actions>
+                          </q-card>
+                        </q-dialog>
                       </q-td>
                       <q-td v-for="col in props.cols" :key="col.name" :props="props">
                         {{ col.value }}
@@ -171,9 +216,6 @@
                     <q-tr v-show="props.expand" :props="props" />
                   </template>
                 </q-table>
-              </div>
-              <div class="column items-center">
-                <q-btn class="vertical-middle q-mt-xl" color="black" label="Mentés" rounded />
               </div>
             </div>
           </div>
@@ -187,7 +229,7 @@
   import { ref } from "vue";
   import "animate.css";
   //https://quasar.dev/vue-components/table
-  // Változók cseréje
+  // TODO Változók cseréje
   //Users
   const columns = [
     {
@@ -316,6 +358,8 @@
       return {
         columns,
         rows,
+
+        card: ref(false),
 
         columnsBets,
         rowsBets,

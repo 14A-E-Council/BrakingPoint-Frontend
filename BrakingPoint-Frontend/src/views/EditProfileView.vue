@@ -84,7 +84,7 @@
             type="email"
           />
 
-          <!--Ezt majd kötelezővé kell csinálni-->
+          <!--TODO Ezt majd kötelezővé kell csinálni-->
           <p class="q-mt-lg" style="color: white">Jelszó</p>
           <q-input
             v-model="password"
@@ -125,7 +125,32 @@
             <q-btn class="vertical-middle q-mt-xl" color="black" label="Mentés" rounded />
           </div>
         </div>
-        <div class="col-md-4 col-12 self-end"></div>
+        <!-- TODO összekötni a csapatokkal és aszerint az oldal színét változtatni -->
+        <div class="col-md-4 col-12 q-pl-xl">
+          <p style="color: white">Kedvenc csapat kiválasztása</p>
+          <div class="row">
+            <div class="col-md-8">
+              <q-select
+                v-model="model"
+                bg-color="white"
+                color="dark"
+                filled
+                label="Csapatok"
+                :options="options"
+                outlined
+                style="max-width: 350px"
+              />
+            </div>
+            <div class="col-md-4">
+              <q-icon class="q-ml-md" color="blue" name="info" size="50px">
+                <q-tooltip>
+                  Kedvenc csapat kiválasztásával az oldal színe is megváltozik a választott csapat
+                  színeire
+                </q-tooltip>
+              </q-icon>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </q-layout>
@@ -142,8 +167,6 @@
         filesImages: ref(null),
 
         onRejected(rejectedEntries: any) {
-          // Notify plugin needs to be installed
-          // https://quasar.dev/quasar-plugins/notify#Installation
           $q.notify({
             type: "negative",
             message: `${rejectedEntries.length} fájl formátuma nem megfelelő!`,
@@ -157,6 +180,20 @@
         isPwdAgain: ref(true),
 
         email: ref(""),
+
+        model: ref(null),
+        options: [
+          "RED BULL RACING RBPT",
+          "FERRARI",
+          "MERCEDES",
+          "ALPINE RENAULT",
+          "MCLAREN MERCEDES",
+          "ALFA ROMEO FERRARI",
+          "ASTON MARTIN ARAMCO MERCEDES",
+          "HAAS FERRARI",
+          "ALPHATAURI RBPT",
+          "WILLIAMS MERCEDES",
+        ],
       };
     },
   };

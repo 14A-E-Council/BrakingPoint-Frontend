@@ -17,7 +17,7 @@
           </q-avatar>
         </div>
         <h2 class="q-ml-xl q-pt-xl" style="color: white">XY Profilja</h2>
-        <!--A ranglistán lévő pozíciója-->
+        <!--TODO A ranglistán lévő pozíciója-->
         <h2 class="q-ml-xl q-mr-xl q-pt-xl" style="color: white">500</h2>
 
         <q-btn
@@ -33,6 +33,7 @@
         <div class="col-md-4 col-12">
           <h4 style="color: white">Statisztikák</h4>
           <q-space />
+          <p style="font-size: 140%; color: white">Kedvenc csapat: Mercedes</p>
           <p style="font-size: 140%; color: white">Nyert fogadások: 15</p>
           <p style="font-size: 140%; color: white">Vesztes fogadások: 10</p>
           <p style="font-size: 140%; color: white">GY/V arány: 60%</p>
@@ -86,7 +87,7 @@
 
   export default {
     setup() {
-      //Ezt kell majd összekötni a xp-vel
+      //TODO Ezt kell majd összekötni a xp-vel
       const progress = ref(0.6);
       return {
         password: ref(""),
