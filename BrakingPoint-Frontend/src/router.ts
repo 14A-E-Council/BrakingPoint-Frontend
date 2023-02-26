@@ -9,12 +9,18 @@ import HelpView from "./views/HelpView.vue";
 import EditProfileView from "./views/EditProfileView.vue";
 import ProfileView from "./views/ProfileView.vue";
 import AdminView from "./views/AdminPageView.vue";
+import LoginView from "./views/LoginPageView.vue";
 
 const routes: Array<RouteRecordRaw> = [
   {
     path: "/",
     name: "StartPage",
     component: StartPageView,
+  },
+  {
+    path: "/login",
+    name: "Login",
+    component: LoginView,
   },
   {
     path: "/profile",

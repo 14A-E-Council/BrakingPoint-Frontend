@@ -103,7 +103,7 @@
 <!-- https://reactgo.com/vue-background-image/   kép változtatása változóból-->
 <template>
   <div id="bg-color" class="q-pa-md">
-    <div id="bg" class="q-pa-md" :style="{ backgroundImage: 'url(./src/assets/tesztkép.png)' }">
+    <div id="bg" class="q-pa-md" :style="{ backgroundImage: 'url(./src/assets/tesztkép3.png)' }">
       <q-layout view="hHh Lpr fFf">
         <q-header class="text-white text-center" elevated style="background: #1b1b1b">
           <q-toolbar>
