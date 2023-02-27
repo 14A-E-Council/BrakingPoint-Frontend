@@ -1,80 +1,84 @@
 <script setup lang="ts"></script>
 
 <template>
-  <img class="backgroundImage" src="/src/assets/backgrounds/ferrari.png" />
-  <div class="row zdefault">
-    <div class="col-lg-5 col-md-2 col-12" style="position: relative">
-      <img
-        alt="Ferrari"
-        src="/src/assets/teamsymbols/ferrari.png"
-        style="max-width: 500px; margin-left: -100px"
-      />
+  <q-layout>
+    <div>
+      <q-img class="backgroundImage" src="/src/assets/backgrounds/ferrari.png" />
     </div>
-    <div class="col-lg-3 col-md-5 col-12 mx-auto zdefault">
-      <img
-        alt="Forest"
-        src="/src/assets/teammembers/ferrari_charles_leclerc.png"
-        style="height: 25rem"
-      />
-      <p class="racerName">Charles Leclerc</p>
+    <div class="row zdefault">
+      <div class="col-lg-5 col-md-4 col-12" style="position: relative">
+        <q-img alt="Ferrari" src="/src/assets/teamsymbols/ferrari.png" style="max-width: 17.5rem" />
+      </div>
+      <div class="col-lg-3 col-md-4 col-12 zdefault">
+        <q-img
+          alt="Charles Leclerc"
+          class="racerPicture"
+          src="/src/assets/teammembers/ferrari_charles_leclerc.png"
+        />
+        <p class="racerName">Charles Leclerc</p>
+      </div>
+      <div class="col-lg-4 col-md-4 col-12 zdefault">
+        <q-img
+          alt="Carlos Sainz"
+          class="racerPicture"
+          src="/src/assets/teammembers/ferrari_carlos_sainz.png"
+        />
+        <p class="racerName">Carlos Sainz</p>
+      </div>
     </div>
-    <div class="col-lg-4 col-md-4 col-12">
-      <img
-        alt="Mountains"
-        src="/src/assets/teammembers/ferrari_carlos_sainz.png"
-        style="height: 25rem"
-      />
-      <p class="racerName">Carlos Sainz</p>
-    </div>
-  </div>
 
-  <div style="position: relative">
-    <label class="teamInfo">
-      28 nyert futam
-      <br />
-    </label>
-    <label class="teamInfo">
-      12 a mostani szezonban
-      <br />
-    </label>
-    <label class="teamInfo">
-      3. helyezés a csapatok között
-      <br />
-    </label>
-    <label class="teamInfo">
-      placeholder info here
-      <br />
-    </label>
-  </div>
-  <div class="teamDescriptionBackground">
-    <p class="teamDescription">
-      Very Long Description aaaaaaaaaa aaaaaaaa aaaaaaaaaa aaaaaaaaaaaa aaaaaaa aaaaa aaaaaaaaaaaa
-      aaaaa aaaaaa aaaaaaaa aaaaaaaaaa aaaaaaaa aaaaaaaaaaa aaaaaaaa aaaaaa aaa aaaaa aaaa aaaaaaaa
-      aaaaaaa aaaaaaa aaaaaa aaaaaaaaaaaaaa aaaaaaa a aa aaa aaaaaaaaaaaaaaaaaaaaaaaaaaa dvbas
-      dbasfb afd b fda b sdfbndsmfknbksd kjfh kjfdh gkjhskjfhg lkjfsdhglkjsadhfglkja hklfhgla kj hd
-      glkjahsdflkg haljkhfdg lkash gkljahslkg
-    </p>
-  </div>
+    <div style="position: relative">
+      <p class="teamInfo">
+        28 nyert futam
+        <br />
+      </p>
+      <p class="teamInfo">
+        12 a mostani szezonban
+        <br />
+      </p>
+      <p class="teamInfo">
+        3. helyezés a csapatok között
+        <br />
+      </p>
+      <p class="teamInfo">
+        placeholder info here
+        <br />
+      </p>
+    </div>
+    <div class="teamDescriptionBackground">
+      <p class="teamDescription">
+        Very Long Description aaaaaaaaaa aaaaaaaa aaaaaaaaaa aaaaaaaaaaaa aaaaaaa aaaaa aaaaaaaaaaaa
+        aaaaa aaaaaa aaaaaaaa aaaaaaaaaa aaaaaaaa aaaaaaaaaaa aaaaaaaa aaaaaa aaa aaaaa aaaa
+        aaaaaaaa aaaaaaa aaaaaaa aaaaaa aaaaaaaaaaaaaa aaaaaaa a aa aaa aaaaaaaaaaaaaaaaaaaaaaaaaaa
+        dvbas dbasfb afd b fda b sdfbndsmfknbksd kjfh kjfdh gkjhskjfhg lkjfsdhglkjsadhfglkja
+        hklfhgla kj hd glkjahsdflkg haljkhfdg lkash gkljahslkg
+      </p>
+    </div>
+  </q-layout>
 </template>
 
 <style lang="scss" scoped>
+  @font-face {
+    font-family: Wallpoet;
+    src: url(src/assets/fonts/Wallpoet-Regular.otf);
+  }
   .teamInfo {
     color: white;
     font-family: "Yrsa";
     font-style: normal;
     font-weight: 600;
-    font-size: 24px;
-    line-height: 44px;
-    letter-spacing: 0.1em;
+    font-size: 1.5em;
+    line-height: 1.5em;
+    letter-spacing: 0.2em;
   }
 
   .teamDescription {
-    padding: 10px, 10px, 10px, 10px;
+    padding: 0.75rem;
     font-family: "Yrsa";
     font-style: normal;
     font-weight: 400;
-    font-size: 36px;
-    line-height: 44px;
+    font-size: 1.5em;
+    line-height: 1em;
     letter-spacing: 0.1em;
     word-wrap: normal;
 
@@ -85,39 +89,42 @@
     box-sizing: border-box;
 
     margin: auto;
-    margin-top: 75px;
+    margin-top: 2rem;
     position: relative;
     width: 90%;
     height: 250px;
+    border: 0.5em solid #a11717;
     opacity: 1;
-    background: #e6002b;
-    border-radius: 20px;
+    border-radius: 3em;
     padding: 1rem;
+    box-shadow: 0px 4px 10px 10px rgba(0, 0, 0, 0.25);
   }
 
   .racerName {
     position: relative;
-
     font-family: "Wallpoet";
     font-style: normal;
     font-weight: 400;
-    font-size: 40px;
-    line-height: 40px;
+    font-size: 2em;
+    line-height: 1em;
     letter-spacing: 0.1em;
-    text-align: center;
-    margin-top: 10px;
+    margin-top: 0.5em;
 
     color: #ffffff;
   }
   .backgroundImage {
     position: absolute;
+    top: 12em;
+    width: 80em;
     z-index: 0;
-    height: 900px;
     opacity: 0.5;
-    margin: auto;
-    background-position: center;
   }
   .zdefault {
     z-index: 1;
+  }
+  .racerPicture {
+    height: 15em;
+    width: 15em;
+    box-shadow: 0px 4px 10px 10px rgba(0, 0, 0, 0.25);
   }
 </style>
