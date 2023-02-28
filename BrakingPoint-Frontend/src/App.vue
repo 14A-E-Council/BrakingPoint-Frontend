@@ -48,62 +48,25 @@
       separator: false,
     },
     {
-      icon: "mdi-lifebuoy",
-      text: "q-help",
-      name: "qhelp",
-      route: "/qhelp",
-      disabled: false,
-      separator: true,
-    },
-  ]);
-
-  const links = ref([
-    {
-      icon: "mdi-github",
-      text: "GitHub repo",
-      name: "",
-      link: "https://github.com/nitslaszlo/jedlik-vite-quasar-template-minimal",
+      icon: "😁",
+      text: "Teams",
+      name: "teams",
+      route: "/teams/ferrari",
       disabled: false,
       separator: false,
     },
     {
-      icon: "mdi-language-typescript",
-      text: "TypeScript",
-      name: "",
-      link: "https://www.typescriptlang.org/",
-      disabled: false,
-      separator: false,
-    },
-    {
-      icon: "mdi-vuejs",
-      text: "Vue.js",
-      name: "",
-      link: "https://vuejs.org/",
-      disabled: false,
-      separator: false,
-    },
-    {
-      icon: "mdi-tire",
-      text: "Quasar",
-      name: "",
-      link: "https://quasar.dev/",
-      disabled: false,
-      separator: false,
-    },
-    {
-      icon: "mdi-fruit-pineapple",
-      text: "Pinia",
-      name: "",
-      link: "https://pinia.vuejs.org/introduction.html",
-      disabled: false,
-      separator: false,
+      icon: "👩‍🦱",
+      text: "Drivers",
+      name: "drivers",
+      route: "/drivers",
     },
   ]);
 </script>
 <!-- https://reactgo.com/vue-background-image/   kép változtatása változóból-->
 <template>
   <div id="bg-color" class="q-pa-md">
-    <div id="bg" class="q-pa-md" :style="{ backgroundImage: 'url(./src/assets/tesztkép.png)' }">
+    <div id="bg" class="q-pa-md">
       <q-layout view="hHh Lpr fFf">
         <q-header class="text-white text-center" elevated style="background: #1b1b1b">
           <q-toolbar>
@@ -180,27 +143,7 @@
                 </q-item>
                 <q-separator v-if="menuItem.separator" :key="'sep' + index" />
               </template>
-              <q-item clickable :disable="usersStore.loggedUser == null" to="/qtable">
-                <q-item-section avatar>
-                  <q-icon name="mdi-table" />
-                </q-item-section>
-                <q-item-section>q-table</q-item-section>
-              </q-item>
               <q-separator />
-            </q-list>
-            <!-- links: -->
-            <q-list>
-              <template v-for="(linkItem, index) in links" :key="index">
-                <q-item clickable :href="linkItem.link">
-                  <q-item-section avatar>
-                    <q-icon :name="linkItem.icon" />
-                  </q-item-section>
-                  <q-item-section>
-                    {{ linkItem.text }}
-                  </q-item-section>
-                </q-item>
-                <q-separator v-if="linkItem.separator" :key="'sep' + index" />
-              </template>
             </q-list>
           </q-scroll-area>
         </q-drawer>
@@ -215,7 +158,7 @@
       </q-layout>
     </div>
   </div>
-  <footer style="background: #1b1b1b; min-height: 12vh; position: relative; text-align: center">
+  <footer style="background: #1b1b1b; min-height: 12vh; text-align: center; width: 100%">
     <q-img style="height: 80px; max-width: 350px">
       <img alt="BrakingPointLogo" src="./assets/BrakingPointLogoSmall.png" />
     </q-img>

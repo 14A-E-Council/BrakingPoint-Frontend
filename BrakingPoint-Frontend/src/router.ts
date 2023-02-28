@@ -1,15 +1,12 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
-import AboutView from "./views/AboutView.vue";
 import AccountView from "./views/AccountView.vue";
 import QTableView from "./views/QTableView.vue";
-import ExamplesView from "./views/ExamplesView.vue";
-import GridView from "./views/GridView.vue";
 import StartPageView from "./views/StartPageView.vue";
-import HelpView from "./views/HelpView.vue";
 import EditProfileView from "./views/EditProfileView.vue";
 import ProfileView from "./views/ProfileView.vue";
 import AdminView from "./views/AdminPageView.vue";
 import FerrariTeamView from "./views/FerrariTeamView.vue";
+import DriverView from "./views/DriverView.vue";
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -38,11 +35,6 @@ const routes: Array<RouteRecordRaw> = [
     component: AdminView,
   },
   {
-    path: "/examples",
-    name: "examples",
-    component: ExamplesView,
-  },
-  {
     path: "/account",
     name: "account",
     component: AccountView,
@@ -53,19 +45,9 @@ const routes: Array<RouteRecordRaw> = [
     component: QTableView,
   },
   {
-    path: "/grid",
-    name: "grid",
-    component: GridView,
-  },
-  {
-    path: "/about",
-    name: "about",
-    component: AboutView,
-  },
-  {
-    path: "/qhelp",
-    name: "qhelp",
-    component: HelpView,
+    path: "/drivers",
+    name: "drivers",
+    component: DriverView,
   },
 ];
 const router = createRouter({

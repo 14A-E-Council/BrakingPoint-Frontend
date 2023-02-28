@@ -3,56 +3,62 @@
 <template>
   <q-layout>
     <div>
-      <q-img class="backgroundImage" src="/src/assets/backgrounds/ferrari.png" />
-    </div>
-    <div class="row zdefault">
-      <div class="col-lg-5 col-md-4 col-12" style="position: relative">
-        <q-img alt="Ferrari" src="/src/assets/teamsymbols/ferrari.png" style="max-width: 17.5rem" />
+      <div>
+        <q-img class="backgroundImage" src="/src/assets/backgrounds/ferrari.png" />
       </div>
-      <div class="col-lg-3 col-md-4 col-12 zdefault">
-        <q-img
-          alt="Charles Leclerc"
-          class="racerPicture"
-          src="/src/assets/teammembers/ferrari_charles_leclerc.png"
-        />
-        <p class="racerName">Charles Leclerc</p>
+      <div class="row zdefault">
+        <div class="col-lg-5 col-md-4 col-12" style="position: relative">
+          <q-img
+            alt="Ferrari"
+            src="/src/assets/teamsymbols/ferrari.png"
+            style="max-width: 17.5rem"
+          />
+        </div>
+        <div class="col-lg-3 col-md-4 col-12 zdefault">
+          <q-img
+            alt="Charles Leclerc"
+            class="racerPicture"
+            src="/src/assets/teammembers/ferrari_charles_leclerc.png"
+          />
+          <p class="racerName">Charles Leclerc</p>
+        </div>
+        <div class="col-lg-4 col-md-4 col-12 zdefault">
+          <q-img
+            alt="Carlos Sainz"
+            class="racerPicture"
+            src="/src/assets/teammembers/ferrari_carlos_sainz.png"
+          />
+          <p class="racerName">Carlos Sainz</p>
+        </div>
       </div>
-      <div class="col-lg-4 col-md-4 col-12 zdefault">
-        <q-img
-          alt="Carlos Sainz"
-          class="racerPicture"
-          src="/src/assets/teammembers/ferrari_carlos_sainz.png"
-        />
-        <p class="racerName">Carlos Sainz</p>
-      </div>
-    </div>
 
-    <div style="position: relative">
-      <p class="teamInfo">
-        28 nyert futam
-        <br />
-      </p>
-      <p class="teamInfo">
-        12 a mostani szezonban
-        <br />
-      </p>
-      <p class="teamInfo">
-        3. helyezés a csapatok között
-        <br />
-      </p>
-      <p class="teamInfo">
-        placeholder info here
-        <br />
-      </p>
-    </div>
-    <div class="teamDescriptionBackground">
-      <p class="teamDescription">
-        Very Long Description aaaaaaaaaa aaaaaaaa aaaaaaaaaa aaaaaaaaaaaa aaaaaaa aaaaa aaaaaaaaaaaa
-        aaaaa aaaaaa aaaaaaaa aaaaaaaaaa aaaaaaaa aaaaaaaaaaa aaaaaaaa aaaaaa aaa aaaaa aaaa
-        aaaaaaaa aaaaaaa aaaaaaa aaaaaa aaaaaaaaaaaaaa aaaaaaa a aa aaa aaaaaaaaaaaaaaaaaaaaaaaaaaa
-        dvbas dbasfb afd b fda b sdfbndsmfknbksd kjfh kjfdh gkjhskjfhg lkjfsdhglkjsadhfglkja
-        hklfhgla kj hd glkjahsdflkg haljkhfdg lkash gkljahslkg
-      </p>
+      <div style="position: relative">
+        <p class="teamInfo">
+          28 nyert futam
+          <br />
+        </p>
+        <p class="teamInfo">
+          12 a mostani szezonban
+          <br />
+        </p>
+        <p class="teamInfo">
+          3. helyezés a csapatok között
+          <br />
+        </p>
+        <p class="teamInfo">
+          placeholder info here
+          <br />
+        </p>
+      </div>
+      <div class="teamDescriptionBackground row">
+        <p class="teamDescription col-12">
+          Very Long Description aaaaaaaaaa aaaaaaaa aaaaaaaaaa aaaaaaaaaaaa aaaaaaa aaaaa
+          aaaaaaaaaaaa aaaaa aaaaaa aaaaaaaa aaaaaaaaaa aaaaaaaa aaaaaaaaaaa aaaaaaaa aaaaaa aaa
+          aaaaa aaaa aaaaaaaa aaaaaaa aaaaaaa aaaaaa aaaaaaaaaaaaaa aaaaaaa a aa aaa
+          aaaaaaaaaaaaaaaaaaaaaaaaaaa dvbas dbasfb afd b fda b sdfbndsmfknbksd kjfh kjfdh gkjhskjfhg
+          lkjfsdhglkjsadhfglkja hklfhgla kj hd glkjahsdflkg haljkhfdg lkash gkljahslkg
+        </p>
+      </div>
     </div>
   </q-layout>
 </template>
