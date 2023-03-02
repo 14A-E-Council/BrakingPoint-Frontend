@@ -49,9 +49,9 @@
     },
     {
       icon: "mdi-lifebuoy",
-      text: "q-help",
-      name: "qhelp",
-      route: "/qhelp",
+      text: "Leaderboard",
+      name: "leaderboard",
+      route: "/leaderboard",
       disabled: false,
       separator: true,
     },

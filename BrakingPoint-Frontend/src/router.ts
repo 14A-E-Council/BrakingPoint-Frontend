@@ -10,6 +10,7 @@ import EditProfileView from "./views/EditProfileView.vue";
 import ProfileView from "./views/ProfileView.vue";
 import AdminView from "./views/AdminPageView.vue";
 import LoginView from "./views/LoginPageView.vue";
+import LeaderboardView from "./views/LeaderboardView.vue";
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -31,6 +32,11 @@ const routes: Array<RouteRecordRaw> = [
     path: "/editprofile",
     name: "EditProfilePage",
     component: EditProfileView,
+  },
+  {
+    path: "/leaderboard",
+    name: "Leaderboard",
+    component: LeaderboardView,
   },
   {
     path: "/admin",

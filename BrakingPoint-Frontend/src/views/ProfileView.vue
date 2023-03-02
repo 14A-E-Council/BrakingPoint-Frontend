@@ -2,15 +2,15 @@
   <q-layout>
     <div class="q-pa-md">
       <div class="row">
-        <q-linear-progress class="q-mt-sm" color="green" rounded size="20px" :value="progress">
+        <q-linear-progress class="q-mt-sm" color="green" rounded size="1.5em" :value="progress">
           <div class="absolute-full flex flex-center">
             <q-badge color="green" :label="progressLabel" text-color="white" />
           </div>
         </q-linear-progress>
         <div>
-          <q-avatar class="q-mt-xl" style="height: 150px; width: 150px">
+          <q-avatar class="q-mt-xl" style="height: 5em; width: 5em">
             <q-img alt="PictureFrame" src="..//assets/tesztKeret.png">
-              <q-avatar class="q-mt-sm q-ml-sm" style="height: 100px; width: 100px">
+              <q-avatar class="q-mt-sm q-ml-sm" style="height: 3.9em; width: 3.9em">
                 <q-img alt="ProfilePicture" src="..//assets/default.png" />
               </q-avatar>
             </q-img>
@@ -25,7 +25,7 @@
           color="black"
           label="Profil szerkesztése"
           rounded
-          style="height: 80px; width: 150px"
+          style="height: 5em; width: 10em"
           :to="{ name: 'EditProfilePage' }"
         />
       </div>

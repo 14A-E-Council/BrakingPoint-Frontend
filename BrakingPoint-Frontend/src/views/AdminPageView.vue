@@ -47,7 +47,7 @@
                 row-key="index"
                 :rows="rows"
                 :rows-per-page-options="[0]"
-                style="height: 500px"
+                style="height: 35em"
                 title="Felhasználók"
                 virtual-scroll
                 :virtual-scroll-sticky-size-start="48"
@@ -70,39 +70,49 @@
                   </q-input>
                 </template>
 
-                <template #body="props">
+                <template #body="propsUsers">
+                  <q-tr>
+                    <q-btn
+                      color="dark"
+                      dense
+                      :icon="propsUsers.expand ? 'close' : 'delete'"
+                      round
+                      size="md"
+                      @click="propsUsers.expand = !propsUsers.expand"
+                    />
+                  </q-tr>
                   <q-inner-loading color="primary" />
-                  <q-tr class="cards" :props="props">
-                    <q-td key="index" :props="props">
-                      {{ props.row.index }}
+                  <q-tr class="cards" :props="propsUsers">
+                    <q-td key="index" :props="propsUsers">
+                      {{ propsUsers.row.index }}
                     </q-td>
-                    <q-td key="username" :props="props">
-                      {{ props.row.username }}
-                      <q-popup-edit v-slot="scope" v-model="props.row.username">
+                    <q-td key="username" :props="propsUsers">
+                      {{ propsUsers.row.username }}
+                      <q-popup-edit v-slot="scope" v-model="propsUsers.row.username">
                         <q-input v-model="scope.value" autofocus counter dense type="textarea" />
                       </q-popup-edit>
                     </q-td>
-                    <q-td key="firstName" :props="props">
-                      {{ props.row.firstName }}
-                      <q-popup-edit v-slot="scope" v-model="props.row.firstName" buttons>
+                    <q-td key="firstName" :props="propsUsers">
+                      {{ propsUsers.row.firstName }}
+                      <q-popup-edit v-slot="scope" v-model="propsUsers.row.firstName" buttons>
                         <q-input v-model="scope.value" autofocus dense type="textarea" />
                       </q-popup-edit>
                     </q-td>
-                    <q-td key="lastName" :props="props">
-                      <div class="text-pre-wrap">{{ props.row.lastName }}</div>
-                      <q-popup-edit v-slot="scope" v-model="props.row.lastName">
+                    <q-td key="lastName" :props="propsUsers">
+                      <div class="text-pre-wrap">{{ propsUsers.row.lastName }}</div>
+                      <q-popup-edit v-slot="scope" v-model="propsUsers.row.lastName">
                         <q-input v-model="scope.value" autofocus dense type="textarea" />
                       </q-popup-edit>
                     </q-td>
-                    <q-td key="level" :props="props">
-                      <div class="text-pre-wrap">{{ props.row.level }}</div>
-                      <q-popup-edit v-slot="scope" v-model="props.row.level">
+                    <q-td key="level" :props="propsUsers">
+                      <div class="text-pre-wrap">{{ propsUsers.row.level }}</div>
+                      <q-popup-edit v-slot="scope" v-model="propsUsers.row.level">
                         <q-input v-model="scope.value" autofocus dense type="number" />
                       </q-popup-edit>
                     </q-td>
-                    <q-td key="balance" :props="props">
-                      <div class="text-pre-wrap">{{ props.row.balance }}</div>
-                      <q-popup-edit v-slot="scope" v-model="props.row.balance">
+                    <q-td key="balance" :props="propsUsers">
+                      <div class="text-pre-wrap">{{ propsUsers.row.balance }}</div>
+                      <q-popup-edit v-slot="scope" v-model="propsUsers.row.balance">
                         <q-input v-model="scope.value" autofocus dense type="number" />
                       </q-popup-edit>
                     </q-td>
@@ -142,10 +152,10 @@
                       </template>
                     </q-input>
                   </template>
-                  <template #header="props">
-                    <q-tr :props="props">
+                  <template #header="propsBets">
+                    <q-tr :props="propsBets">
                       <q-th auto-width />
-                      <q-th v-for="col in props.cols" :key="col.name" :props="props">
+                      <q-th v-for="col in propsBets.cols" :key="col.name" :props="props">
                         {{ col.label }}
                       </q-th>
                     </q-tr>
@@ -153,17 +163,17 @@
 
                   <!-- Edit Bet -->
                   <!-- TODO Ha változtatás történik küldjön egy értesítést az érintett felhasználóknak -->
-                  <template #body="props">
-                    <q-tr :props="props">
+                  <template #body="propsBets">
+                    <q-tr :props="propsBets">
                       <q-td auto-width>
                         <q-tr>
                           <q-btn
                             color="dark"
                             dense
-                            :icon="props.expand ? 'close' : 'info'"
+                            :icon="propsBets.expand ? 'close' : 'info'"
                             round
                             size="sm"
-                            @click="(props.expand = !props.expand), (cardBet = true)"
+                            @click="(propsBets.expand = !propsBets.expand), (cardBet = true)"
                           />
                         </q-tr>
                         <q-dialog v-model="cardBet">
@@ -203,17 +213,17 @@
                                 v-close-popup
                                 flat
                                 label="Mentés"
-                                @click="(props.expand = !props.expand), (cardBet = false)"
+                                @click="(propsBets.expand = !propsBets.expand), (cardBet = false)"
                               />
                             </q-card-actions>
                           </q-card>
                         </q-dialog>
                       </q-td>
-                      <q-td v-for="col in props.cols" :key="col.name" :props="props">
+                      <q-td v-for="col in propsBets.cols" :key="col.name" :props="props">
                         {{ col.value }}
                       </q-td>
                     </q-tr>
-                    <q-tr v-show="props.expand" :props="props" />
+                    <q-tr v-show="propsBets.expand" :props="propsBets" />
                   </template>
                 </q-table>
               </div>
@@ -344,7 +354,7 @@
     },
   ];
 
-  // Később törölni, csak teszt idejére generál sorokats
+  // Később törölni, csak teszt idejére generál sorokat
   let rows: any = [];
   for (let i = 0; i < 100; i++) {
     rows = rows.concat(seed.slice(0).map((r) => ({ ...r })));
@@ -388,8 +398,8 @@
       usersButtonStyle() {
         if (this.usersButton) {
           return {
-            height: "50px",
-            width: "400px",
+            height: "3.125em",
+            width: "25em",
           };
         } else {
           return "";
@@ -398,8 +408,8 @@
       betsButtonStyle() {
         if (this.betsButton) {
           return {
-            height: "50px",
-            width: "400px",
+            height: "3.125em",
+            width: "25em",
           };
         } else {
           return "";
@@ -414,7 +424,7 @@
     color: white;
   }
   .my-sticky-virtscroll-table {
-    height: 410px;
+    height: 26em;
   }
   .q-table__top,
   .q-table__bottom,
@@ -431,7 +441,7 @@
 
   /* this will be the loading indicator */
   thead tr:last-child th {
-    top: 48px;
+    top: 3em;
   }
   /* height of all previous header rows */
 

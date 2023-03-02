@@ -19,7 +19,7 @@
               label="Felhasználónév"
               outlined
               rounded
-              style="width: 500px; max-width: 500px"
+              style="width: 37em; max-width: 37em"
             />
             <p class="q-mt-md" style="color: white">Jelszó</p>
             <q-input
@@ -29,7 +29,7 @@
               label="Jelszó"
               outlined
               rounded
-              style="width: 500px; max-width: 500px"
+              style="width: 37em; max-width: 37em"
               text-dark
               :type="isPwd ? 'password' : 'text'"
             >
@@ -71,7 +71,7 @@
               label="Felhasználónév"
               outlined
               rounded
-              style="width: 500px; max-width: 500px"
+              style="width: 37em; max-width: 37em"
             />
             <p class="q-mt-md" style="color: white">E-mail</p>
             <q-input
@@ -81,7 +81,7 @@
               label="E-mail"
               outlined
               rounded
-              style="width: 500px; max-width: 500px"
+              style="width: 37em; max-width: 37em"
               type="email"
             />
 
@@ -94,7 +94,7 @@
               label="Jelszó"
               outlined
               rounded
-              style="width: 500px; max-width: 500px"
+              style="width: 37em; max-width: 37em"
               :type="isPwd ? 'password' : 'text'"
             >
               <template #append>
@@ -113,7 +113,7 @@
               label="Jelszó megerősítése"
               outlined
               rounded
-              style="width: 500px; max-width: 500px"
+              style="width: 37em; max-width: 37em"
               :type="isPwdAgain ? 'password' : 'text'"
             >
               <template #append>
@@ -160,7 +160,7 @@
               width="1200"
             />
             <div class="column items-center absolute-center">
-              <h4 style="color: white; width: 330px">Még nem regisztrált?</h4>
+              <h4 style="color: white; width: 10em">Még nem regisztrált?</h4>
               <p style="color: white">Hozzon létre fiókot, hogy Ön is csatlakozzon!</p>
               <q-btn
                 class="vertical-middle q-mt-xl"

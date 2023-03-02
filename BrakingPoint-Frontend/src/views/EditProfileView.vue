@@ -5,9 +5,9 @@
         <div class="col-md-4 col-12">
           <div class="column items-center">
             <h3 style="color: white">Profil szerkesztése</h3>
-            <q-avatar class="q-mt-xl" style="height: 300px; width: 300px">
+            <q-avatar class="q-mt-xl" style="height: 6em; width: 6em">
               <q-img alt="PictureFrame" src="..//assets/tesztKeret.png">
-                <q-avatar class="q-mt-lg q-ml-lg" style="height: 220px; width: 220px">
+                <q-avatar class="q-mt-lg q-ml-lg" style="height: 4.5em; width: 4.5em">
                   <q-img alt="ProfilePicture" src="..//assets/default.png" />
                 </q-avatar>
               </q-img>
@@ -27,7 +27,7 @@
               label-color="white"
               outlined
               rounded
-              style="width: 300px; max-width: 300px"
+              style="width: 20em; max-width: 20em"
               @rejected="onRejected"
             >
               <template #prepend>
@@ -138,11 +138,11 @@
                 label="Csapatok"
                 :options="options"
                 outlined
-                style="max-width: 350px"
+                style="max-width: 22em"
               />
             </div>
             <div class="col-md-4">
-              <q-icon class="q-ml-md" color="blue" name="info" size="50px">
+              <q-icon class="q-ml-md" color="blue" name="info" size="4em">
                 <q-tooltip>
                   Kedvenc csapat kiválasztásával az oldal színe is megváltozik a választott csapat
                   színeire
