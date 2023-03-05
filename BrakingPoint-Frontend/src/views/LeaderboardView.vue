@@ -51,7 +51,7 @@
                   <q-tr class="cards" :props="propsUsers">
                     <q-td key="index" :props="propsUsers">
                       <q-avatar style="height: 1.6em; width: 1.6em; text-align: left">
-                        <q-img alt="PictureFrame" src="..//assets/tesztKeret.png">
+                        <q-img alt="PictureFrame" src="..//assets/bronze.png">
                           <q-avatar style="height: 1em; width: 1em; position: relative">
                             <q-img alt="ProfilePicture" src="..//assets/default.png" />
                           </q-avatar>

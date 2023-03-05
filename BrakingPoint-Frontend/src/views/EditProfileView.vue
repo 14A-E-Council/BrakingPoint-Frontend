@@ -6,7 +6,7 @@
           <div class="column items-center">
             <h3 style="color: white">Profil szerkesztése</h3>
             <q-avatar class="q-mt-xl" style="height: 6em; width: 6em">
-              <q-img alt="PictureFrame" src="..//assets/tesztKeret.png">
+              <q-img alt="PictureFrame" src="..//assets/bronze.png">
                 <q-avatar class="q-mt-lg q-ml-lg" style="height: 4.5em; width: 4.5em">
                   <q-img alt="ProfilePicture" src="..//assets/default.png" />
                 </q-avatar>

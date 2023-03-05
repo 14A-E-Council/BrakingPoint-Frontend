@@ -146,7 +146,7 @@
                 <q-img alt="PictureFrame" src="./assets/default.png">
                   <q-img
                     alt="ProfilePicture"
-                    src="./assets/tesztKeret.png"
+                    src="./assets/bronze.png"
                     style="height: 38px; width: 37px; position: relative; text-align: center"
                   />
                 </q-img>
