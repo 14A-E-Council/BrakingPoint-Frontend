@@ -7,6 +7,7 @@ import ProfileView from "./views/ProfileView.vue";
 import AdminView from "./views/AdminPageView.vue";
 import FerrariTeamView from "./views/FerrariTeamView.vue";
 import DriverView from "./views/DriverView.vue";
+import DriverTeamListView from "./views/DriverTeamListView.vue";
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -48,6 +49,11 @@ const routes: Array<RouteRecordRaw> = [
     path: "/drivers",
     name: "drivers",
     component: DriverView,
+  },
+  {
+    path: "/driverteamlist",
+    name: "driversandteams",
+    component: DriverTeamListView,
   },
 ];
 const router = createRouter({

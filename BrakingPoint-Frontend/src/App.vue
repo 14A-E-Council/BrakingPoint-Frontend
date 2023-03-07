@@ -61,6 +61,12 @@
       name: "drivers",
       route: "/drivers",
     },
+    {
+      icon: "😒",
+      text: "Drivers and Teams List",
+      name: "driversandteamslist",
+      route: "/driverteamlist",
+    },
   ]);
 </script>
 <!-- https://reactgo.com/vue-background-image/   kép változtatása változóból-->
@@ -158,7 +164,15 @@
       </q-layout>
     </div>
   </div>
-  <footer style="background: #1b1b1b; min-height: 12vh; text-align: center; width: 100%">
+  <footer
+    style="
+      background: #1b1b1b;
+      min-height: 12vh;
+      text-align: center;
+      width: 100%;
+      margin-bottom: -10%;
+    "
+  >
     <q-img style="height: 80px; max-width: 350px">
       <img alt="BrakingPointLogo" src="./assets/BrakingPointLogoSmall.png" />
     </q-img>
@@ -173,7 +187,7 @@
     -o-background-size: cover;
     background-image: linear-gradient(to bottom, #a71616, #6d0f0f);
     background-size: cover;
-    background-attachment: fixed;
+    background-attachment: scroll;
     height: 100%;
   }
 
@@ -183,7 +197,6 @@
     -o-background-size: cover;
     background-size: cover;
     background-repeat: no-repeat;
-    height: 100vh;
   }
 
   .fade-enter-active,

@@ -4,7 +4,7 @@
   <q-layout>
     <div>
       <div>
-        <q-img class="backgroundImage" src="/src/assets/backgrounds/ferrari.png" />
+        <q-img id="backgroundImage" src="/src/assets/backgrounds/ferrari.png" />
       </div>
       <div class="row zdefault">
         <div class="col-lg-5 col-md-4 col-12" style="position: relative">
@@ -50,8 +50,8 @@
           <br />
         </p>
       </div>
-      <div class="teamDescriptionBackground row">
-        <p class="teamDescription col-12">
+      <div id="teamDescriptionBackground row">
+        <p id="teamDescription col-12">
           Very Long Description aaaaaaaaaa aaaaaaaa aaaaaaaaaa aaaaaaaaaaaa aaaaaaa aaaaa
           aaaaaaaaaaaa aaaaa aaaaaa aaaaaaaa aaaaaaaaaa aaaaaaaa aaaaaaaaaaa aaaaaaaa aaaaaa aaa
           aaaaa aaaa aaaaaaaa aaaaaaa aaaaaaa aaaaaa aaaaaaaaaaaaaa aaaaaaa a aa aaa
@@ -68,32 +68,17 @@
     font-family: Wallpoet;
     src: url(src/assets/fonts/Wallpoet-Regular.otf);
   }
-  .teamInfo {
-    color: white;
-    font-family: "Yrsa";
-    font-style: normal;
-    font-weight: 600;
-    font-size: 1.5em;
-    line-height: 1.5em;
-    letter-spacing: 0.2em;
+
+  #backgroundImage {
+    position: absolute;
+    top: 12em;
+    width: 80em;
+    z-index: 0;
+    opacity: 0.5;
   }
 
-  .teamDescription {
-    padding: 0.75rem;
-    font-family: "Yrsa";
-    font-style: normal;
-    font-weight: 400;
-    font-size: 1.5em;
-    line-height: 1em;
-    letter-spacing: 0.1em;
-    word-wrap: normal;
-
-    color: #ffffff;
-  }
-
-  .teamDescriptionBackground {
+  #teamDescriptionBackground {
     box-sizing: border-box;
-
     margin: auto;
     margin-top: 2rem;
     position: relative;
@@ -106,6 +91,28 @@
     box-shadow: 0px 4px 10px 10px rgba(0, 0, 0, 0.25);
   }
 
+  #teamDescription {
+    padding: 0.75rem;
+    font-family: "Yrsa";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 1.5em;
+    line-height: 1em;
+    letter-spacing: 0.1em;
+    word-wrap: normal;
+    color: #ffffff;
+  }
+
+  .teamInfo {
+    color: white;
+    font-family: "Yrsa";
+    font-style: normal;
+    font-weight: 600;
+    font-size: 1.5em;
+    line-height: 1.5em;
+    letter-spacing: 0.2em;
+  }
+
   .racerName {
     position: relative;
     font-family: "Wallpoet";
@@ -115,19 +122,13 @@
     line-height: 1em;
     letter-spacing: 0.1em;
     margin-top: 0.5em;
-
     color: #ffffff;
   }
-  .backgroundImage {
-    position: absolute;
-    top: 12em;
-    width: 80em;
-    z-index: 0;
-    opacity: 0.5;
-  }
+
   .zdefault {
     z-index: 1;
   }
+
   .racerPicture {
     height: 15em;
     width: 15em;
