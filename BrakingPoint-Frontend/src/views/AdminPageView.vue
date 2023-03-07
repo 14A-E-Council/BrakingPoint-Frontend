@@ -162,7 +162,6 @@
                   </template>
 
                   <!-- Edit Bet -->
-                  <!-- TODO Ha változtatás történik küldjön egy értesítést az érintett felhasználóknak -->
                   <template #body="propsBets">
                     <q-tr :props="propsBets">
                       <q-td auto-width>

@@ -7,75 +7,113 @@
             <div class="row justify-center">
               <h4 class style="color: white">Ranglista</h4>
             </div>
+            <div class="row flex-center">
+              <!-- TODO Ne menjenek egymásba az elemek -->
+              <!-- Rank 1 -->
+              <div class="col-md-3 col-12">
+                <div
+                  style="background-color: #d4af37; border-radius: 10%; height: 40em; width: 30em"
+                >
+                  <div class="column items-center">
+                    <h3 style="color: white">Top 1</h3>
+                    <q-avatar style="height: 3.6em; width: 3.6em; text-align: left">
+                      <q-img alt="PictureFrame" src="..//assets/bronze.png">
+                        <q-avatar style="height: 2.8em; width: 2.8em; position: relative">
+                          <q-img alt="ProfilePicture" src="..//assets/default.png" />
+                        </q-avatar>
+                      </q-img>
+                    </q-avatar>
+                    <h4 style="color: white">Teszt Elek</h4>
+                    <p style="color: white; font-size: 2em">1200</p>
+                  </div>
+                </div>
+              </div>
 
-            <!-- Valami szépítés még ráfér -->
-            <div class="q-pa-md q-pr-xl animate__animated animate__fadeIn">
-              <q-table
-                binary-state-sort
-                class="my-sticky-virtscroll-table"
-                :columns="columns"
-                dark
-                :filter="filter"
-                :grid="$q.screen.xs"
-                :loading="loading"
-                no-data-label="Nem található ilyen felhasználó"
-                :pagination="initialPagination"
-                row-key="index"
-                :rows="rows"
-                :rows-per-page-options="[0]"
-                style="height: 35em"
-                title="Felhasználók"
-                virtual-scroll
-                :virtual-scroll-sticky-size-start="48"
-              >
-                <template #top-right>
-                  <q-input
-                    v-model="filter"
-                    bg-color="white"
-                    borderless
-                    debounce="300"
-                    dense
-                    label-color="white"
-                    outlined
-                    placeholder="Search"
-                    rounded
-                  >
-                    <template #append>
-                      <q-icon name="search" />
-                    </template>
-                  </q-input>
-                </template>
-
-                <template #body="propsUsers">
-                  <q-inner-loading color="primary" />
-                  <q-tr class="cards" :props="propsUsers">
-                    <q-td key="index" :props="propsUsers">
-                      <q-avatar style="height: 1.6em; width: 1.6em; text-align: left">
-                        <q-img alt="PictureFrame" src="..//assets/bronze.png">
-                          <q-avatar style="height: 1em; width: 1em; position: relative">
-                            <q-img alt="ProfilePicture" src="..//assets/default.png" />
+              <div class="col-md-3 col-12">
+                <div class="column">
+                  <!-- Rank 2 -->
+                  <div class="col-md-4 col-12">
+                    <div
+                      style="
+                        background-color: #c0c0c0;
+                        border-radius: 2.5em;
+                        height: 12.5em;
+                        width: 40em;
+                      "
+                    >
+                      <div class="row q-pl-sm q-pt-md items-center">
+                        <h4 style="color: white">2</h4>
+                        <div class="q-pr-xl q-pl-xl">
+                          <q-avatar style="height: 2.6em; width: 2.6em; text-align: left">
+                            <q-img alt="PictureFrame" src="..//assets/bronze.png">
+                              <q-avatar style="height: 1.95em; width: 1.95em; position: relative">
+                                <q-img alt="ProfilePicture" src="..//assets/default.png" />
+                              </q-avatar>
+                            </q-img>
                           </q-avatar>
-                        </q-img>
-                      </q-avatar>
-                    </q-td>
-                    <q-td key="index" :props="propsUsers">
-                      {{ propsUsers.row.index }}
-                    </q-td>
-                    <q-td key="username" :props="propsUsers">
-                      {{ propsUsers.row.username }}
-                    </q-td>
-                    <q-td key="firstName" :props="propsUsers">
-                      {{ propsUsers.row.firstName }}
-                    </q-td>
-                    <q-td key="lastName" :props="propsUsers">
-                      <div class="text-pre-wrap">{{ propsUsers.row.lastName }}</div>
-                    </q-td>
-                    <q-td key="level" :props="propsUsers">
-                      <div class="text-pre-wrap">{{ propsUsers.row.level }}</div>
-                    </q-td>
-                  </q-tr>
-                </template>
-              </q-table>
+                        </div>
+                        <h5 style="color: white">Teszt Elek</h5>
+                        <h5 class="q-pl-xl" style="color: white; font-size: 1.5em">1200</h5>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Rank 3 -->
+                  <div class="col-md-4 col-12 q-pt-sm">
+                    <div
+                      style="
+                        background-color: #967444;
+                        border-radius: 2.5em;
+                        height: 12.5em;
+                        width: 40em;
+                      "
+                    >
+                      <div class="row q-pl-sm q-pt-md items-center">
+                        <h4 style="color: white">3</h4>
+                        <div class="q-pr-xl q-pl-xl">
+                          <q-avatar style="height: 2.6em; width: 2.6em; text-align: left">
+                            <q-img alt="PictureFrame" src="..//assets/bronze.png">
+                              <q-avatar style="height: 1.95em; width: 1.95em; position: relative">
+                                <q-img alt="ProfilePicture" src="..//assets/default.png" />
+                              </q-avatar>
+                            </q-img>
+                          </q-avatar>
+                        </div>
+                        <h5 style="color: white">Teszt Elek</h5>
+                        <h5 class="q-pl-xl" style="color: white; font-size: 1.5em">1200</h5>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- User's rank -->
+                  <div class="col-md-4 col-12 q-pt-sm">
+                    <div
+                      style="
+                        background-color: #1b1b1b;
+                        border-radius: 2.5em;
+                        height: 12.5em;
+                        width: 40em;
+                      "
+                    >
+                      <div class="row q-pl-sm q-pt-md items-center">
+                        <!-- TODO A felhasználó ranglistán elfoglalt helye -->
+                        <h5 style="color: white">4</h5>
+                        <div class="q-pr-xl q-pl-xl">
+                          <q-avatar style="height: 1.6em; width: 1.6em; text-align: left">
+                            <q-img alt="PictureFrame" src="..//assets/bronze.png">
+                              <q-avatar style="height: 0.95em; width: 0.95em; position: relative">
+                                <q-img alt="ProfilePicture" src="..//assets/default.png" />
+                              </q-avatar>
+                            </q-img>
+                          </q-avatar>
+                        </div>
+                        <h6 style="color: white">Teszt Elek</h6>
+                        <h6 class="q-pl-xl" style="color: white; font-size: 1.5em">1200</h6>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -83,6 +121,9 @@
     </div>
   </q-layout>
 </template>
+
+<!-- TODO megirni ha a képernyő kicsi  -->
+<!-- https://quasar.dev/style/visibility#window-width-related -->
 
 <script lang="ts">
   import { ref } from "vue";

@@ -166,7 +166,26 @@
                   color="black"
                   label="Önkizárás indítása"
                   style="height: 5em; width: 10em"
+                  @click="alert = true"
                 />
+
+                <q-dialog v-model="alert">
+                  <q-card>
+                    <q-card-section>
+                      <div class="text-h6">Figyelmeztetés</div>
+                    </q-card-section>
+
+                    <q-card-section class="q-pt-none">
+                      A választott ideig nem fog tudni fogadni, ezt nem áll módunkban visszavonni.
+                      Biztosan szeretné?
+                    </q-card-section>
+
+                    <q-card-actions align="right">
+                      <q-btn v-close-popup color="red" flat label="Mégsem" />
+                      <q-btn v-close-popup color="green" flat label="OK" />
+                    </q-card-actions>
+                  </q-card>
+                </q-dialog>
               </div>
 
               <!-- Bets -->
@@ -253,6 +272,7 @@
 
         model: ref(null),
         options: ["1 nap", "1 hét", "1 hónap"],
+        alert: ref(false),
       };
     },
     data() {

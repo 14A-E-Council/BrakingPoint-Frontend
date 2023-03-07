@@ -225,22 +225,14 @@
 
 <style lang="scss">
   div#bg-color {
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
     background-image: linear-gradient(to bottom, #a71616, #6d0f0f);
     background-size: cover;
     background-attachment: fixed;
-    height: 100%;
   }
 
   div#bg {
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
     background-size: cover;
     background-repeat: no-repeat;
-    height: 100vh;
   }
 
   .fade-enter-active,
