@@ -1,4 +1,4 @@
-import $axios from "./axios.instance";
+import $server from "./axios.instance";
 import { defineStore } from "pinia";
 import { Notify, Loading } from "quasar";
 
@@ -54,7 +54,7 @@ export const usePostsStore = defineStore({
   actions: {
     async createNewPost(params: INewPostParams): Promise<void> {
       Loading.show();
-      $axios
+      $server
         .post("posts", {
           title: params.title,
           content: params.content,
@@ -75,7 +75,7 @@ export const usePostsStore = defineStore({
     },
     async editPostById(params: IEditParams): Promise<void> {
       Loading.show();
-      $axios
+      $server
         .patch(`posts/${params._id}`, {
           title: params.title,
           content: params.content,
@@ -93,7 +93,7 @@ export const usePostsStore = defineStore({
     },
     async deletePostById(params: IIdParams): Promise<void> {
       Loading.show();
-      $axios
+      $server
         .delete(`posts/${params._id}`)
         .then((res) => {
           if (res && res.data) {
@@ -110,7 +110,7 @@ export const usePostsStore = defineStore({
     },
     async fetchPosts(): Promise<void> {
       Loading.show();
-      $axios
+      $server
         .get("posts")
         .then((res) => {
           if (res && res.data) {
@@ -126,7 +126,7 @@ export const usePostsStore = defineStore({
     },
     async fetchPaginatedPosts(params: IPaginatedParams): Promise<void> {
       Loading.show();
-      $axios
+      $server
         .get(
           `posts/${params.offset}/${params.limit}/${params.order}/${params.sort}/${params.keyword}`
         )

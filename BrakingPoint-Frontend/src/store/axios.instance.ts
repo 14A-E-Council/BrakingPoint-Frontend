@@ -1,13 +1,8 @@
 import axios from "axios";
 
-// const $axios = axios.create({
-//   baseURL: "https://jedlik-expr-mongoose-backend.herokuapp.com/",
-//   withCredentials: true,
-// });
-
-const $axios = axios.create({
-  baseURL: "https://jedlik-backend.cyclic.app/",
+const $server = axios.create({
+  baseURL: "http://localhost:8000",
   withCredentials: true,
 });
 
-export default $axios;
+export default $server;

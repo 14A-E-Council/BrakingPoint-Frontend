@@ -1,35 +1,30 @@
-import $axios from "./axios.instance";
+import server from "./axios.instance";
 import { defineStore } from "pinia";
-import { Notify, Loading } from "quasar";
-
-Notify.setDefaults({
-  position: "bottom",
-  textColor: "white",
-  timeout: 3000,
-  actions: [{ icon: "close", color: "white" }],
-});
-
-interface IAddress {
-  _id: string;
-  city: string;
-  country: string;
-  street: string;
-}
+import { Loading } from "quasar";
 
 interface IUser {
-  _id?: string;
+  userID?: string;
   email?: string;
-  name?: string;
+  username?: string;
   password?: string;
-  address?: null | IAddress;
+  confirmPassword?: string;
+  last_name?: string;
+  first_name?: string;
+  balance?: number;
+  preferred_category?: string;
+  level?: number;
+  picture_frame?: string;
+  rank?: number;
+  profile_picture?: string;
+  xp?: number;
+  admin?: number;
 }
 
 interface IState {
   loggedUser: null | IUser;
 }
 
-export const useUsersStore = defineStore({
-  id: "usersStore",
+export const useUsersStore = defineStore("user", {
   state: (): IState => ({
     loggedUser: null,
   }),
@@ -39,44 +34,84 @@ export const useUsersStore = defineStore({
     },
   },
   actions: {
-    async loginUser(params: IUser): Promise<void> {
-      Loading.show();
-      $axios
-        .post("auth/login", {
+    async getSanctumCookie() {
+      try {
+        await server.get("sanctum/csrf-cookie");
+      } catch (error) {
+        if (error) throw error;
+      }
+    },
+
+    async login(params: IUser): Promise<void> {
+      {
+        Loading.show();
+
+        await server.post("login", {
           email: params.email,
           password: params.password,
-        })
-        .then((res) => {
-          this.loggedUser = res.data;
-          Loading.hide();
-          Notify.create({
-            message: `${res.data.name} with ${res.data.email} e-mail is logged in`,
-            color: "positive",
-          });
-        })
-        .catch(() => {
-          this.loggedUser = null;
-          Loading.hide();
-          Notify.create({ message: "Error on Authentication", color: "negative" });
         });
+        await server
+          .get("api/user")
+          .then((res) => {
+            this.loggedUser = res.data;
+            Loading.hide();
+          })
+          .catch((error) => {
+            console.log(error.response);
+            this.loggedUser = null;
+            Loading.hide();
+          });
+      }
     },
+
     async logOut(): Promise<void> {
       Loading.show();
-      $axios
-        .post("auth/logout")
+      await server
+        .post("logout")
         .then(() => {
           this.loggedUser = null;
           Loading.hide();
-          Notify.create({
-            message: "Successful logout",
-            color: "positive",
-          });
         })
         .catch(() => {
           this.loggedUser = null;
           Loading.hide();
-          Notify.create({ message: "Error on log out", color: "negative" });
         });
+    },
+
+    async register(params: IUser) {
+      await server
+        .post("register", {
+          username: params.username,
+          email: params.email,
+          password: params.password,
+          password_confirmation: params.confirmPassword,
+        })
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((error) => {
+          console.log(error.response);
+        });
+      await server
+        .get("api/user")
+        .then((res) => {
+          this.loggedUser = res.data;
+          Loading.hide();
+        })
+        .catch(() => {
+          this.loggedUser = null;
+          Loading.hide();
+        });
+    },
+
+    async editProfile(params: IUser) {
+      await server.put("api/editprofile", {
+        // TODO JELSZÓ
+        username: params.username,
+        email: params.email,
+        last_name: params.last_name,
+        first_name: params.first_name,
+      });
     },
   },
 });

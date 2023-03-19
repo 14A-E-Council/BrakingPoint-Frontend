@@ -1,4 +1,29 @@
-<template lang="">
+<script setup lang="ts">
+  import { ref, computed } from "vue";
+  import { useUsersStore } from "..//store/usersStore";
+
+  const usersStore = useUsersStore();
+
+  //TODO Ezt kell majd összekötni a xp-vel
+  const progress = ref(0.6);
+  var progressLabel = computed(() => (progress.value * 100).toFixed(2) + "%");
+
+  var model = ref(null);
+  const options = ["1 nap", "1 hét", "1 hónap"];
+  var alert = ref(false);
+
+  var statistics = ref(true);
+  var leagues = ref(false);
+  var selfExclusion = ref(false);
+  var bets = ref(false);
+  var selfExclusionSelected = ref(false);
+
+  function onValueChange() {
+    selfExclusionSelected.value = true;
+  }
+</script>
+
+<template>
   <q-layout>
     <div class="q-pa-md">
       <div class="row">
@@ -20,7 +45,9 @@
                 </q-img>
               </q-avatar>
             </div>
-            <h2 class="q-pl-lg" style="color: white">XY Profilja</h2>
+            <h2 class="q-pl-lg" style="color: white">
+              {{ usersStore.loggedUser?.username }} profilja
+            </h2>
             <!--TODO A ranglistán lévő pozíciója-->
             <h3 style="color: white">500</h3>
           </div>
@@ -251,47 +278,6 @@
   </q-layout>
 </template>
 
-<script lang="ts">
-  import { ref, computed } from "vue";
-
-  export default {
-    setup() {
-      //TODO Ezt kell majd összekötni a xp-vel
-      const progress = ref(0.6);
-      return {
-        password: ref(""),
-        isPwd: ref(true),
-
-        passwordAgain: ref(""),
-        isPwdAgain: ref(true),
-
-        email: ref(""),
-
-        progress,
-        progressLabel: computed(() => (progress.value * 100).toFixed(2) + "%"),
-
-        model: ref(null),
-        options: ["1 nap", "1 hét", "1 hónap"],
-        alert: ref(false),
-      };
-    },
-    data() {
-      return {
-        statistics: true,
-        leagues: false,
-        selfExclusion: false,
-        bets: false,
-
-        selfExclusionSelected: false,
-      };
-    },
-    methods: {
-      onValueChange() {
-        this.selfExclusionSelected = true;
-      },
-    },
-  };
-</script>
 <style lang="scss">
   .menuButton {
     margin-left: 1em;

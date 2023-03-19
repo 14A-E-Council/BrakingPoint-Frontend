@@ -1,6 +1,6 @@
 <script setup lang="ts">
   import { reactive, computed } from "vue";
-  import { useUsersStore } from "../store/usersStore";
+  import { useUsersStore } from "../store/testUserStore";
 
   const usersStore = useUsersStore();
 

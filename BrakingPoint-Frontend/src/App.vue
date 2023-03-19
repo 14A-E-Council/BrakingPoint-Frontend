@@ -151,7 +151,7 @@
                   />
                 </q-img>
               </q-avatar>
-              {{ usersStore.loggedUser ? usersStore.loggedUser?.name : "Bejelentkezés." }}
+              {{ usersStore.loggedUser ? usersStore.loggedUser.username : "Bejelentkezés." }}
             </q-btn>
             <!--Dark mode megoldása-->
             <q-btn flat icon="mdi-theme-light-dark" size="15px" @click="$q.dark.toggle" />

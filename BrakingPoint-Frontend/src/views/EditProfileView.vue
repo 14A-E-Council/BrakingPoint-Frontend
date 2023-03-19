@@ -1,4 +1,75 @@
-<template lang="">
+<script setup lang="ts">
+  import { ref, reactive } from "vue";
+  import { useQuasar } from "quasar";
+  import { useUsersStore } from "..//store/usersStore";
+
+  const usersStore = useUsersStore();
+
+  const $q = useQuasar();
+
+  var filesImages = ref(null);
+
+  function onRejected(rejectedEntries: any) {
+    $q.notify({
+      type: "negative",
+      message: `${rejectedEntries.length} fájl formátuma nem megfelelő!`,
+    });
+  }
+
+  var password = ref("");
+  var isPwd = ref(true);
+
+  var confirmPassword = ref("");
+  var isPwdAgain = ref(true);
+
+  var model = ref(null);
+
+  const options = [
+    "RED BULL RACING RBPT",
+    "FERRARI",
+    "MERCEDES",
+    "ALPINE RENAULT",
+    "MCLAREN MERCEDES",
+    "ALFA ROMEO FERRARI",
+    "ASTON MARTIN ARAMCO MERCEDES",
+    "HAAS FERRARI",
+    "ALPHATAURI RBPT",
+    "WILLIAMS MERCEDES",
+  ];
+
+  interface IReactiveData {
+    username: string;
+    email: string;
+    last_name: string;
+    first_name: string;
+    // password: string;
+    // confirmPassword: string;
+  }
+
+  const informations = reactive<IReactiveData>({
+    username: "",
+    email: "",
+    last_name: "",
+    first_name: "",
+    // password: "",
+    // confirmPassword: "",
+  });
+
+  async function save() {
+    await usersStore.getSanctumCookie();
+    await usersStore.editProfile({
+      username: informations.username,
+      email: informations.email,
+      // password: informations.password,
+      last_name: informations.last_name,
+      first_name: informations.first_name,
+    });
+    // await router.push({ path: "/" });
+    console.log(usersStore.loggedUser);
+  }
+</script>
+
+<template>
   <q-layout>
     <div class="q-pa-md">
       <div class="row">
@@ -48,39 +119,35 @@
         <div class="col-md-4 col-12">
           <p style="color: white">Felhasználónév</p>
           <q-input
-            v-model="text"
+            v-model="informations.username"
             bg-color="white"
             color="grey-6"
-            :dense="dense"
             filled
-            label="Felhasználónév"
+            :label="usersStore.loggedUser?.username"
           />
           <p class="q-mt-lg" style="color: white">Vezetéknév</p>
           <q-input
-            v-model="text"
+            v-model="informations.last_name"
             bg-color="white"
             color="grey-6"
-            :dense="dense"
             filled
-            label="Vezetéknév"
+            :label="usersStore.loggedUser?.last_name"
           />
           <p class="q-mt-lg" style="color: white">Keresztnév</p>
           <q-input
-            v-model="text"
+            v-model="informations.first_name"
             bg-color="white"
             color="grey-6"
-            :dense="dense"
             filled
-            label="Keresztnév"
+            :label="usersStore.loggedUser?.first_name"
           />
           <p class="q-mt-lg" style="color: white">E-mail</p>
           <q-input
-            v-model="email"
+            v-model="informations.email"
             bg-color="white"
             color="grey-6"
-            :dense="dense"
             filled
-            label="E-mail"
+            :label="usersStore.loggedUser?.email"
             type="email"
           />
 
@@ -90,7 +157,6 @@
             v-model="password"
             bg-color="white"
             color="grey-6"
-            :dense="dense"
             filled
             label="Jelszó"
             :type="isPwd ? 'password' : 'text'"
@@ -105,10 +171,9 @@
           </q-input>
           <p class="q-mt-lg" style="color: white">Jelszó megerősitése</p>
           <q-input
-            v-model="passwordAgain"
+            v-model="confirmPassword"
             bg-color="white"
             color="grey-6"
-            :dense="dense"
             filled
             label="Jelszó megerősítése"
             :type="isPwdAgain ? 'password' : 'text'"
@@ -122,7 +187,13 @@
             </template>
           </q-input>
           <div class="column items-center">
-            <q-btn class="vertical-middle q-mt-xl" color="black" label="Mentés" rounded />
+            <q-btn
+              class="vertical-middle q-mt-xl"
+              color="black"
+              label="Mentés"
+              rounded
+              @click="save"
+            />
           </div>
         </div>
         <!-- TODO összekötni a csapatokkal és aszerint az oldal színét változtatni -->
@@ -156,46 +227,4 @@
   </q-layout>
 </template>
 
-<script lang="ts">
-  import { ref } from "vue";
-  import { useQuasar } from "quasar";
-
-  export default {
-    setup() {
-      const $q = useQuasar();
-      return {
-        filesImages: ref(null),
-
-        onRejected(rejectedEntries: any) {
-          $q.notify({
-            type: "negative",
-            message: `${rejectedEntries.length} fájl formátuma nem megfelelő!`,
-          });
-        },
-
-        password: ref(""),
-        isPwd: ref(true),
-
-        passwordAgain: ref(""),
-        isPwdAgain: ref(true),
-
-        email: ref(""),
-
-        model: ref(null),
-        options: [
-          "RED BULL RACING RBPT",
-          "FERRARI",
-          "MERCEDES",
-          "ALPINE RENAULT",
-          "MCLAREN MERCEDES",
-          "ALFA ROMEO FERRARI",
-          "ASTON MARTIN ARAMCO MERCEDES",
-          "HAAS FERRARI",
-          "ALPHATAURI RBPT",
-          "WILLIAMS MERCEDES",
-        ],
-      };
-    },
-  };
-</script>
 <style lang="scss"></style>

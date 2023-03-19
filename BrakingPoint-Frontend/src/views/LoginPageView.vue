@@ -1,9 +1,71 @@
+<script setup lang="ts">
+  import { useUsersStore } from "..//store/usersStore";
+  import { ref, reactive, computed } from "vue";
+  import router from "src/router";
+
+  const usersStore = useUsersStore();
+
+  const anyLoggedUser = computed(() => (usersStore.getLoggedUser ? true : false));
+
+  interface IReactiveData {
+    username: string;
+    email: string;
+    password: string;
+    confirmPassword: string;
+  }
+
+  const informations = reactive<IReactiveData>({
+    username: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+  });
+
+  async function login() {
+    await usersStore.getSanctumCookie();
+    if (!anyLoggedUser.value) {
+      await usersStore.login({
+        email: informations.email,
+        password: informations.password,
+      });
+      await router.push({ path: "/" });
+      console.log(usersStore.loggedUser);
+    } else {
+      usersStore.logOut();
+    }
+  }
+
+  async function register() {
+    await usersStore.getSanctumCookie();
+    if (!anyLoggedUser.value) {
+      await usersStore.register({
+        username: informations.username,
+        email: informations.email,
+        password: informations.password,
+        confirmPassword: informations.confirmPassword,
+      });
+      await router.push({ path: "/" });
+    } else {
+      usersStore.logOut();
+    }
+  }
+
+  const isPwd = ref(true);
+  const left = ref(true);
+
+  var loginState = ref(true);
+  var registrationState = ref(false);
+
+  var isPwdAgain = ref(true);
+  var isPwdLogin = ref(true);
+</script>
+
 <template>
   <q-layout>
     <div class="q-pa-md">
       <div class="row">
         <div class="col-md-8 col-12">
-          <div v-if="login" class="column items-center animate__animated animate__fadeInDown">
+          <div v-if="loginState" class="column items-center animate__animated animate__fadeInDown">
             <!-- Login -->
             <h3 style="color: white">Belépés</h3>
             <div class="q-gutter-sm">
@@ -11,19 +73,20 @@
               <q-btn class="q-mb-md" color="blue" label="Belépés Facebookkal" />
             </div>
             <p style="color: white"><sub>vagy</sub></p>
-            <p style="color: white">Felhasználónév</p>
+            <p style="color: white">E-mail</p>
             <q-input
-              v-model="text"
+              v-model="informations.email"
               bg-color="white"
               color="grey-6"
-              label="Felhasználónév"
+              label="E-mail"
               outlined
               rounded
               style="width: 37em; max-width: 37em"
+              type="email"
             />
             <p class="q-mt-md" style="color: white">Jelszó</p>
             <q-input
-              v-model="password"
+              v-model="informations.password"
               bg-color="white"
               color="grey-6"
               label="Jelszó"
@@ -53,19 +116,25 @@
               />
             </div>
             <div class="column items-center">
-              <q-btn class="vertical-middle q-mt-xl" color="black" label="Belépés" rounded />
+              <q-btn
+                class="vertical-middle q-mt-xl"
+                color="black"
+                :label="anyLoggedUser ? 'Kijelentkezés' : 'Belépés'"
+                rounded
+                @click="login"
+              />
             </div>
           </div>
 
           <!-- Registration -->
           <div
-            v-if="registration"
+            v-if="registrationState"
             class="column items-center animate__animated animate__fadeInDown"
           >
             <h3 style="color: white">Regisztráció</h3>
             <p style="color: white">Felhasználónév</p>
             <q-input
-              v-model="text"
+              v-model="informations.username"
               bg-color="white"
               color="grey-6"
               label="Felhasználónév"
@@ -75,7 +144,7 @@
             />
             <p class="q-mt-md" style="color: white">E-mail</p>
             <q-input
-              v-model="email"
+              v-model="informations.email"
               bg-color="white"
               color="grey-6"
               label="E-mail"
@@ -88,7 +157,7 @@
             <!--TODO Ezt majd kötelezővé kell csinálni-->
             <p class="q-mt-md" style="color: white">Jelszó</p>
             <q-input
-              v-model="password"
+              v-model="informations.password"
               bg-color="white"
               color="grey-6"
               label="Jelszó"
@@ -107,7 +176,7 @@
             </q-input>
             <p class="q-mt-md" style="color: white">Jelszó megerősitése</p>
             <q-input
-              v-model="passwordAgain"
+              v-model="informations.confirmPassword"
               bg-color="white"
               color="grey-6"
               label="Jelszó megerősítése"
@@ -135,14 +204,20 @@
               />
             </div>
             <div class="column items-center">
-              <q-btn class="vertical-middle q-mt-xl" color="black" label="Regisztálás" rounded />
+              <q-btn
+                class="vertical-middle q-mt-xl"
+                color="black"
+                label="Regisztálás"
+                rounded
+                @click="register"
+              />
             </div>
           </div>
         </div>
 
         <!-- Login -->
         <div
-          v-if="login"
+          v-if="loginState"
           class="col-md-4 col-12 column items-center q-pa-md animate__animated animate__fadeInDown"
           rounded
           style="background-color: #1b1b1b; border-radius: 15%; height: 50em"
@@ -167,14 +242,14 @@
                 color="black"
                 label="Regisztráció"
                 rounded
-                @click="(registration = true), (login = false)"
+                @click="(registrationState = true), (loginState = false)"
               />
             </div>
           </q-parallax>
         </div>
         <!-- Registration -->
         <div
-          v-if="registration"
+          v-if="registrationState"
           class="col-md-4 col-12 column items-center q-pa-md animate__animated animate__fadeInDown"
           rounded
           style="background-color: #1b1b1b; border-radius: 15%; height: 50em"
@@ -199,7 +274,7 @@
                 color="black"
                 label="Belépés"
                 rounded
-                @click="(login = true), (registration = false)"
+                @click="(loginState = true), (registrationState = false)"
               />
             </div>
           </q-parallax>
@@ -209,33 +284,4 @@
   </q-layout>
 </template>
 
-<script lang="ts">
-  import { ref } from "vue";
-  export default {
-    setup() {
-      return {
-        password: ref(""),
-        isPwd: ref(true),
-        left: ref(true),
-
-        passwordAgain: ref(""),
-        isPwdAgain: ref(true),
-
-        passwordLogin: ref(""),
-        isPwdLogin: ref(true),
-
-        email: ref(""),
-      };
-    },
-    data() {
-      return {
-        login: true,
-        registration: false,
-
-        usersButton: true,
-        betsButton: false,
-      };
-    },
-  };
-</script>
 <style lang="scss"></style>
