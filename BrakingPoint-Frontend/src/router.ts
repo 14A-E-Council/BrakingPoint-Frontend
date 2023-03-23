@@ -11,6 +11,19 @@ import ProfileView from "./views/ProfileView.vue";
 import AdminView from "./views/AdminPageView.vue";
 import LoginView from "./views/LoginPageView.vue";
 import LeaderboardView from "./views/LeaderboardView.vue";
+import { createPinia } from "pinia";
+import { computed } from "vue";
+
+import { createApp } from "vue";
+import App from "./App.vue";
+
+const pinia = createPinia();
+const app = createApp(App);
+app.use(pinia);
+import { useUsersStore } from "./store/usersStore";
+
+const usersStore = useUsersStore();
+const anyLoggedUser = computed(() => (usersStore.getLoggedUser ? true : false));
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -27,6 +40,11 @@ const routes: Array<RouteRecordRaw> = [
     path: "/profile",
     name: "Profile",
     component: ProfileView,
+    beforeEnter: async () => {
+      if (!anyLoggedUser.value) {
+        return "/login";
+      }
+    },
   },
   {
     path: "/editprofile",
@@ -79,7 +97,7 @@ const router = createRouter({
   routes,
 });
 
-router.beforeEach((to, from, next) => {
+router.beforeEach(async (to, from, next) => {
   next();
 });
 

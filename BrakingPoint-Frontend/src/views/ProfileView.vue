@@ -1,12 +1,15 @@
+<!-- eslint-disable @typescript-eslint/no-non-null-asserted-optional-chain -->
+<!-- eslint-disable @typescript-eslint/no-non-null-assertion -->
 <script setup lang="ts">
   import { ref, computed } from "vue";
   import { useUsersStore } from "..//store/usersStore";
 
   const usersStore = useUsersStore();
 
+  const xpConst = 5000;
   //TODO Ezt kell majd összekötni a xp-vel
-  const progress = ref(0.6);
-  var progressLabel = computed(() => (progress.value * 100).toFixed(2) + "%");
+  var progress = usersStore.getLoggedUser?.xp! / (xpConst * usersStore.getLoggedUser?.level!);
+  var progressLabel = computed(() => (progress * 100).toFixed(2) + "%");
 
   var model = ref(null);
   const options = ["1 nap", "1 hét", "1 hónap"];
@@ -21,6 +24,10 @@
   function onValueChange() {
     selfExclusionSelected.value = true;
   }
+
+  var picture_frame = usersStore.getLoggedUser
+    ? "../src/assets/" + usersStore.getLoggedUser.picture_frame
+    : "../src/assets/bronze.png";
 </script>
 
 <template>
@@ -38,7 +45,7 @@
           <div class="column items-center">
             <div>
               <q-avatar class="q-mt-xl" style="height: 5em; width: 5em">
-                <q-img alt="PictureFrame" src="..//assets/bronze.png">
+                <q-img alt="PictureFrame" :src="picture_frame">
                   <q-avatar class="q-mt-sm q-ml-sm" style="height: 3.9em; width: 3.9em">
                     <q-img alt="ProfilePicture" src="..//assets/default.png" />
                   </q-avatar>

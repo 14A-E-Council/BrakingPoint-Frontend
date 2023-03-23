@@ -10,7 +10,7 @@
             <div class="row flex-center">
               <!-- TODO Ne menjenek egymásba az elemek -->
               <!-- Rank 1 -->
-              <div class="col-md-3 col-12">
+              <div class="gt-md col-md-3 col-12">
                 <div
                   style="background-color: #d4af37; border-radius: 10%; height: 40em; width: 30em"
                 >
@@ -31,6 +31,32 @@
 
               <div class="col-md-3 col-12">
                 <div class="column">
+                  <!-- If user's resolution lower than 1440x1920px  -->
+                  <div class="lt-lg col-md-3 col-12 q-pb-sm">
+                    <div
+                      style="
+                        background-color: #d4af37;
+                        border-radius: 2.5em;
+                        height: 15em;
+                        width: 40em;
+                      "
+                    >
+                      <div class="row q-pl-sm q-pt-md items-center">
+                        <h3 style="color: white">1</h3>
+                        <div class="q-pr-xl q-pl-xl">
+                          <q-avatar style="height: 3.6em; width: 3.6em; text-align: left">
+                            <q-img alt="PictureFrame" src="..//assets/bronze.png">
+                              <q-avatar style="height: 2.8em; width: 2.8em; position: relative">
+                                <q-img alt="ProfilePicture" src="..//assets/default.png" />
+                              </q-avatar>
+                            </q-img>
+                          </q-avatar>
+                        </div>
+                        <h4 style="color: white; font-size: 2em">Teszt Elek</h4>
+                        <p class="q-pl-xl q-pt-sm" style="color: white; font-size: 1.7em">1200</p>
+                      </div>
+                    </div>
+                  </div>
                   <!-- Rank 2 -->
                   <div class="col-md-4 col-12">
                     <div

@@ -1,10 +1,18 @@
 <script setup lang="ts">
-  import { ref } from "vue";
+  import { ref, computed } from "vue";
   import router from "src/router";
   import { useUsersStore } from "./store/usersStore";
 
   const leftDrawer = ref<boolean>(true);
   const usersStore = useUsersStore();
+
+  const anyLoggedUser = computed(() => (usersStore.getLoggedUser ? true : false));
+
+  function toolbarButtonClicked() {
+    if (anyLoggedUser.value == false) {
+      router.push({ name: "Login" });
+    }
+  }
 
   const menuItems = ref([
     {
@@ -141,17 +149,8 @@
             </q-toolbar-title>
 
             <!-- Keret megoldása -->
-            <q-btn no-caps size="15px">
-              <q-avatar>
-                <q-img alt="PictureFrame" src="./assets/default.png">
-                  <q-img
-                    alt="ProfilePicture"
-                    src="./assets/bronze.png"
-                    style="height: 38px; width: 37px; position: relative; text-align: center"
-                  />
-                </q-img>
-              </q-avatar>
-              {{ usersStore.loggedUser ? usersStore.loggedUser.username : "Bejelentkezés." }}
+            <q-btn no-caps size="15px" @click="toolbarButtonClicked">
+              {{ usersStore.loggedUser ? usersStore.loggedUser.username : "Bejelentkezés" }}
             </q-btn>
             <!--Dark mode megoldása-->
             <q-btn flat icon="mdi-theme-light-dark" size="15px" @click="$q.dark.toggle" />
@@ -215,6 +214,7 @@
       </q-layout>
     </div>
   </div>
+
   <footer style="background: #1b1b1b; min-height: 12vh; position: relative; text-align: center">
     <q-img style="height: 80px; max-width: 350px">
       <img alt="BrakingPointLogo" src="./assets/BrakingPointLogoSmall.png" />

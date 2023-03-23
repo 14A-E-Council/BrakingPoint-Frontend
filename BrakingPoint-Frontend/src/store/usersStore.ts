@@ -18,6 +18,7 @@ interface IUser {
   profile_picture?: string;
   xp?: number;
   admin?: number;
+  email_verified_at?: Date;
 }
 
 interface IState {
@@ -30,6 +31,10 @@ export const useUsersStore = defineStore("user", {
   }),
   getters: {
     getLoggedUser(): null | IUser {
+      server.get("api/user").then((res) => {
+        this.loggedUser = res.data;
+        console.log(this.loggedUser);
+      });
       return this.loggedUser;
     },
   },
@@ -50,17 +55,10 @@ export const useUsersStore = defineStore("user", {
           email: params.email,
           password: params.password,
         });
-        await server
-          .get("api/user")
-          .then((res) => {
-            this.loggedUser = res.data;
-            Loading.hide();
-          })
-          .catch((error) => {
-            console.log(error.response);
-            this.loggedUser = null;
-            Loading.hide();
-          });
+        await server.get("api/user").then((res) => {
+          this.loggedUser = res.data;
+          Loading.hide();
+        });
       }
     },
 
@@ -104,6 +102,15 @@ export const useUsersStore = defineStore("user", {
         });
     },
 
+    // async checkIfVerifiedEmail(params: emailVerified) {
+    //   await server.get("api/user").then(() => {
+    //     if (this.loggedUser?.email_verified_at != null) {
+    //       params = true;
+    //     } else {
+    //       params = false;
+    //     }
+    //   });
+    // },
     async editProfile(params: IUser) {
       await server.put("api/editprofile", {
         // TODO JELSZÓ

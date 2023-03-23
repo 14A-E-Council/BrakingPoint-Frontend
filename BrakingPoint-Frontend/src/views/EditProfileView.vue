@@ -1,9 +1,14 @@
 <script setup lang="ts">
-  import { ref, reactive } from "vue";
+  import { ref, reactive, computed } from "vue";
   import { useQuasar } from "quasar";
   import { useUsersStore } from "..//store/usersStore";
 
   const usersStore = useUsersStore();
+  const anyLoggedUser = computed(() => (usersStore.getLoggedUser ? true : false));
+
+  const loggedUserHasVerifiedEmail = computed(() =>
+    usersStore.getLoggedUser?.email_verified_at ? true : false
+  );
 
   const $q = useQuasar();
 
@@ -67,17 +72,36 @@
     // await router.push({ path: "/" });
     console.log(usersStore.loggedUser);
   }
+
+  var emailNotVerified = ref(false);
+  if (loggedUserHasVerifiedEmail.value == false && anyLoggedUser.value != false) {
+    emailNotVerified.value = true;
+  } else {
+    emailNotVerified.value = false;
+  }
+
+  var picture_frame = usersStore.getLoggedUser
+    ? "../src/assets/" + usersStore.getLoggedUser.picture_frame
+    : "../src/assets/bronze.png";
 </script>
 
 <template>
   <q-layout>
+    <div v-if="emailNotVerified" class="q-pa-md q-gutter-sm q-pt-xl row justify-center">
+      <q-banner class="bg-red text-white" style="max-width: 50em">
+        Kérjük erősítse meg email címét! ({{ usersStore.loggedUser?.email }})
+        <template #action>
+          <q-btn color="white" flat label="Megerősítő email újraküldése" />
+        </template>
+      </q-banner>
+    </div>
     <div class="q-pa-md">
       <div class="row">
         <div class="col-md-4 col-12">
           <div class="column items-center">
             <h3 style="color: white">Profil szerkesztése</h3>
             <q-avatar class="q-mt-xl" style="height: 6em; width: 6em">
-              <q-img alt="PictureFrame" src="..//assets/bronze.png">
+              <q-img alt="PictureFrame" :src="picture_frame">
                 <q-avatar class="q-mt-lg q-ml-lg" style="height: 4.5em; width: 4.5em">
                   <q-img alt="ProfilePicture" src="..//assets/default.png" />
                 </q-avatar>
