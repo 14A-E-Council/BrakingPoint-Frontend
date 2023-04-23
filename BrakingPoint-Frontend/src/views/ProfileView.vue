@@ -7,8 +7,9 @@
   const usersStore = useUsersStore();
 
   const xpConst = 5000;
-  //TODO Ezt kell majd összekötni a xp-vel
-  var progress = usersStore.getLoggedUser?.xp! / (xpConst * usersStore.getLoggedUser?.level!);
+  // eslint-disable-next-line prettier/prettier
+  var progress = usersStore.getLoggedUser?.xp! 
+    / (xpConst * usersStore.getLoggedUser?.level!);
   var progressLabel = computed(() => (progress * 100).toFixed(2) + "%");
 
   var model = ref(null);

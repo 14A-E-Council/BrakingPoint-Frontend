@@ -6,11 +6,13 @@
   const leftDrawer = ref<boolean>(true);
   const usersStore = useUsersStore();
 
-  const anyLoggedUser = computed(() => (usersStore.getLoggedUser ? true : false));
+  const anyLoggedUser = computed(() => (usersStore.loggedUser ? true : false));
 
   function toolbarButtonClicked() {
     if (anyLoggedUser.value == false) {
       router.push({ name: "Login" });
+    } else {
+      router.push({ name: "Profile" });
     }
   }
 
