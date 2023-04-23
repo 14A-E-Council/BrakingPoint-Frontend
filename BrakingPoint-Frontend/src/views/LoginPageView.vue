@@ -14,7 +14,13 @@
     confirmPassword: string;
   }
 
-  const informations = reactive<IReactiveData>({
+  const informationsLogin = reactive<IReactiveData>({
+    username: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+  });
+  const informationsReg = reactive<IReactiveData>({
     username: "",
     email: "",
     password: "",
@@ -25,8 +31,8 @@
     await usersStore.getSanctumCookie();
     if (!anyLoggedUser.value) {
       await usersStore.login({
-        email: informations.email,
-        password: informations.password,
+        email: informationsLogin.email,
+        password: informationsLogin.password,
       });
       await router.push({ path: "/" });
       console.log(usersStore.loggedUser);
@@ -39,10 +45,10 @@
     await usersStore.getSanctumCookie();
     if (!anyLoggedUser.value) {
       await usersStore.register({
-        username: informations.username,
-        email: informations.email,
-        password: informations.password,
-        confirmPassword: informations.confirmPassword,
+        username: informationsReg.username,
+        email: informationsReg.email,
+        password: informationsReg.password,
+        confirmPassword: informationsReg.confirmPassword,
       });
       await router.push({ path: "/" });
     } else {
@@ -75,7 +81,7 @@
             <p style="color: white"><sub>vagy</sub></p>
             <p style="color: white">E-mail</p>
             <q-input
-              v-model="informations.email"
+              v-model="informationsLogin.email"
               bg-color="white"
               color="grey-6"
               label="E-mail"
@@ -86,7 +92,7 @@
             />
             <p class="q-mt-md" style="color: white">Jelszó</p>
             <q-input
-              v-model="informations.password"
+              v-model="informationsLogin.password"
               bg-color="white"
               color="grey-6"
               label="Jelszó"
@@ -134,7 +140,7 @@
             <h3 style="color: white">Regisztráció</h3>
             <p style="color: white">Felhasználónév</p>
             <q-input
-              v-model="informations.username"
+              v-model="informationsReg.username"
               bg-color="white"
               color="grey-6"
               label="Felhasználónév"
@@ -144,7 +150,7 @@
             />
             <p class="q-mt-md" style="color: white">E-mail</p>
             <q-input
-              v-model="informations.email"
+              v-model="informationsReg.email"
               bg-color="white"
               color="grey-6"
               label="E-mail"
@@ -157,7 +163,7 @@
             <!--TODO Ezt majd kötelezővé kell csinálni-->
             <p class="q-mt-md" style="color: white">Jelszó</p>
             <q-input
-              v-model="informations.password"
+              v-model="informationsReg.password"
               bg-color="white"
               color="grey-6"
               label="Jelszó"
@@ -176,7 +182,7 @@
             </q-input>
             <p class="q-mt-md" style="color: white">Jelszó megerősitése</p>
             <q-input
-              v-model="informations.confirmPassword"
+              v-model="informationsReg.confirmPassword"
               bg-color="white"
               color="grey-6"
               label="Jelszó megerősítése"

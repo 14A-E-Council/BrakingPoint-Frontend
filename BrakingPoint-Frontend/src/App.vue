@@ -16,6 +16,10 @@
     }
   }
 
+  function logout() {
+    usersStore.logOut();
+  }
+
   const menuItems = ref([
     {
       icon: "mdi-home",
@@ -149,11 +153,12 @@
                 <img alt="BrakingPointLogo" src="./assets/BrakingPointLogo.png" />
               </q-img>
             </q-toolbar-title>
-
-            <!-- Keret megoldása -->
             <q-btn no-caps size="15px" @click="toolbarButtonClicked">
               {{ usersStore.loggedUser ? usersStore.loggedUser.username : "Bejelentkezés" }}
             </q-btn>
+            <label v-if="usersStore.loggedUser">
+              Egyenleg: {{ usersStore.loggedUser.balance }}
+            </label>
             <!--Dark mode megoldása-->
             <q-btn flat icon="mdi-theme-light-dark" size="15px" @click="$q.dark.toggle" />
           </q-toolbar>
@@ -203,6 +208,7 @@
                 <q-separator v-if="linkItem.separator" :key="'sep' + index" />
               </template>
             </q-list>
+            <q-btn v-if="anyLoggedUser" no-caps size="15px" @click="logout">Kijelentkezés</q-btn>
           </q-scroll-area>
         </q-drawer>
 

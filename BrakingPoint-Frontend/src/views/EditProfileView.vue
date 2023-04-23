@@ -1,7 +1,10 @@
+<!-- eslint-disable @typescript-eslint/no-non-null-asserted-optional-chain -->
+<!-- eslint-disable @typescript-eslint/no-non-null-assertion -->
 <script setup lang="ts">
   import { ref, reactive, computed } from "vue";
   import { useQuasar } from "quasar";
   import { useUsersStore } from "..//store/usersStore";
+  import router from "src/router";
 
   const usersStore = useUsersStore();
   const anyLoggedUser = computed(() => (usersStore.getLoggedUser ? true : false));
@@ -52,10 +55,10 @@
   }
 
   const informations = reactive<IReactiveData>({
-    username: "",
-    email: "",
-    last_name: "",
-    first_name: "",
+    username: usersStore.loggedUser?.username!,
+    email: usersStore.loggedUser?.email!,
+    last_name: usersStore.loggedUser?.last_name!,
+    first_name: usersStore.loggedUser?.first_name!,
     // password: "",
     // confirmPassword: "",
   });
@@ -69,7 +72,7 @@
       last_name: informations.last_name,
       first_name: informations.first_name,
     });
-    // await router.push({ path: "/" });
+    //router.push({ name: "Profile" });
     console.log(usersStore.loggedUser);
   }
 

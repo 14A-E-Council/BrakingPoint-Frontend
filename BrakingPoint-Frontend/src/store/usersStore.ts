@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import server from "./axios.instance";
 import { defineStore } from "pinia";
 import { Loading } from "quasar";
@@ -112,7 +113,7 @@ export const useUsersStore = defineStore("user", {
     //   });
     // },
     async editProfile(params: IUser) {
-      await server.put("api/editprofile", {
+      await server.put("api/editprofile/" + this.loggedUser?.userID, {
         // TODO JELSZÓ
         username: params.username,
         email: params.email,
