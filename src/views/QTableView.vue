@@ -36,6 +36,13 @@
         sortable: true,
       },
       {
+        name: "title",
+        label: "title",
+        field: "title",
+        align: "left",
+        sortable: true,
+      },
+      {
         name: "date",
         label: "date",
         field: "date",
