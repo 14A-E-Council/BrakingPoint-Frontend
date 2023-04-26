@@ -1,7 +1,6 @@
 import $axios from "./axios.instance";
 import { defineStore } from "pinia";
-import { Notify, Loading, date } from "quasar";
-import { useUsersStore } from "./usersStore";
+import { Notify, Loading } from "quasar";
 
 Notify.setDefaults({
   position: "bottom",
@@ -109,7 +108,7 @@ export const useBetStore = defineStore({
           Loading.show();
           this.isLoading = true;
           $axios
-            .patch(`bets/${this.data.available_betID}`, diff)
+            .patch(`http://localhost:8000/api/bets/${this.data.available_betID}`, diff)
             .then((res) => {
               Loading.hide();
               if (res && res.data) {
@@ -217,6 +216,7 @@ export const useBetStore = defineStore({
           this.betAmount = 0;
         });
     },
+
     async deleteById(): Promise<void> {
       Loading.show();
       this.isLoading = true;

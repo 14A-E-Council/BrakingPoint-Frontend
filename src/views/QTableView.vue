@@ -7,7 +7,6 @@
   import { useI18n } from "vue-i18n";
   import { IColumns } from "../store/columns";
   import { generateRaceBets } from "../store/ticketsStore";
-  import { send } from "vite";
   const betStore = useBetStore();
   const appStore = useAppStore();
 
@@ -131,7 +130,6 @@
     betStore.createNewBet();
     appStore.showNewBetDialog = false;
   }
-
   function resetBetDialog() {
     onRequest({
       filter: betStore.filter,
@@ -142,10 +140,6 @@
   }
   function generateDialog() {
     appStore.showGenerateDialog = true;
-  }
-  function sendRaceBets() {
-    appStore.showGenerateDialog = false;
-    generateRaceBets(betStore.title, betStore.raceDate);
   }
   function resetGenerateDialog() {
     appStore.showGenerateDialog = false;
@@ -167,6 +161,7 @@
   <q-page>
     <div class="q-pa-md">
       <q-table
+        v-model:selected="betStore.selected"
         binary-state-sort
         :columns="columnsI18n()"
         dense
@@ -176,7 +171,6 @@
         :rows="betStore.bets"
         :rows-per-page-label="$t('rowsPerPageLabel')"
         selection="multiple"
-        v-model:selected="betStore.selected"
         :title="$t('bets')"
         wrap-cells
         @request="onRequest"
@@ -217,13 +211,13 @@
           <div class="row">
             <div v-if="betStore.data" class="col-12 q-gutter-md">
               <h4 class="text-center q-mt-lg q-mb-none">{{ $t("editBet") }}</h4>
-              <q-input filled v-model="betStore.data.date" mask="date" :rules="['date']">
-                <template v-slot:append>
-                  <q-icon name="event" class="cursor-pointer">
-                    <q-popup-proxy cover transition-show="scale" transition-hide="scale">
+              <q-input v-model="betStore.data.date" filled mask="date" :rules="['date']">
+                <template #append>
+                  <q-icon class="cursor-pointer" name="event">
+                    <q-popup-proxy cover transition-hide="scale" transition-show="scale">
                       <q-date v-model="betStore.data.date">
                         <div class="row items-center justify-end">
-                          <q-btn v-close-popup label="Close" color="primary" flat />
+                          <q-btn v-close-popup color="primary" flat label="Close" />
                         </div>
                       </q-date>
                     </q-popup-proxy>
@@ -252,13 +246,13 @@
           <div class="row">
             <div v-if="betStore.data" class="col-12 q-gutter-md">
               <h4 class="text-center q-mt-lg q-mb-none">{{ t("newPost") }}</h4>
-              <q-input filled v-model="betStore.data.date" :label="'date'" mask="date" :rules="['date']">
-                <template v-slot:append>
-                  <q-icon name="event" class="cursor-pointer">
-                    <q-popup-proxy cover transition-show="scale" transition-hide="scale">
+              <q-input v-model="betStore.data.date" filled :label="'date'" mask="date" :rules="['date']">
+                <template #append>
+                  <q-icon class="cursor-pointer" name="event">
+                    <q-popup-proxy cover transition-hide="scale" transition-show="scale">
                       <q-date v-model="betStore.data.date">
                         <div class="row items-center justify-end">
-                          <q-btn v-close-popup label="Close" color="primary" flat />
+                          <q-btn v-close-popup color="primary" flat label="Close" />
                         </div>
                       </q-date>
                     </q-popup-proxy>
@@ -269,8 +263,8 @@
               <q-select v-model="betStore.data.category" filled :label="'category'" :options="options" />
               <q-input v-model="betStore.data.odds" filled :label="'odds'" type="text" />
               <q-input
-                v-model="betStore.data.odds2"
                 v-if="betStore.data.category == 'versus'"
+                v-model="betStore.data.odds2"
                 filled
                 :label="'odds2'"
                 type="text"
@@ -296,7 +290,7 @@
             <div v-if="betStore.data" class="col-12 q-gutter-md">
               <h4 class="text-center q-mt-lg q-mb-none">{{ t("newPost") }}</h4>
 
-              <q-input filled v-model="betStore.raceDate"></q-input>
+              <q-input v-model="betStore.raceDate" filled></q-input>
               <q-input v-model="betStore.title" filled :label="'odds2'" type="text" />
               <div class="row justify-center">
                 <q-btn class="q-mr-md" color="green" :label="$t('save')" no-caps type="submit" />

@@ -32,7 +32,7 @@
         </q-card-section>
         <q-card-actions align="right">
           <q-btn label="Cancel" @click="showBetDialog = false" />
-          <q-btn label="Confirm" color="primary" @click="sendTicket()" />
+          <q-btn color="primary" label="Confirm" @click="sendTicket()" />
         </q-card-actions>
       </q-card>
     </q-dialog>
@@ -41,7 +41,14 @@
 
 <script>
   import axios from "axios";
-
+  import { Notify } from "quasar";
+  Notify.setDefaults({
+    position: "bottom",
+    textColor: "white",
+    timeout: 3000,
+    actions: [{ icon: "close", color: "white" }],
+    progress: true,
+  });
   export default {
     data() {
       return {
@@ -55,42 +62,6 @@
         userId: null,
       };
     },
-    methods: {
-      filterData(category) {
-        this.filteredData = this.data.filter((item) => item.category === category);
-        this.showTable = true;
-      },
-      openBetDialog(item) {
-        this.showBetDialog = true;
-        this.selectedItem = item;
-      },
-      closeBetDialog() {
-        this.showBetDialog = true;
-        this.selectedItem = null;
-      },
-      sendTicket() {
-        const today = new Date();
-        const currentDate = today.toISOString().slice(0, 10);
-        axios
-          .post(`http://localhost:8000/api/tickets/`, {
-            status: "ongoing",
-            debt: this.ticketBetAmount,
-            sum_odds: this.selectedItem.odds,
-            races: this.selectedItem.category,
-            payment_date: currentDate,
-            userID: this.userId,
-            betID: this.selectedItem.available_betID,
-          })
-          .then((response) => {
-            console.log("Tickets updated:", response.data);
-          })
-          .catch((error) => {
-            console.log(error);
-          });
-        this.closeBetDialog();
-      },
-    },
-
     created() {
       axios
         .get("http://localhost:8000/api/bets")
@@ -118,6 +89,57 @@
         .catch((error) => {
           console.error(error);
         });
+    },
+    methods: {
+      filterData(category) {
+        this.filteredData = this.data.filter((item) => item.category === category);
+        this.showTable = true;
+      },
+      openBetDialog(item) {
+        this.showBetDialog = true;
+        this.selectedItem = item;
+      },
+      closeBetDialog() {
+        this.showBetDialog = false;
+        this.selectedItem = null;
+      },
+      sendTicket() {
+        const today = new Date();
+        const currentDate = today.toISOString().slice(0, 10);
+        axios
+          .post(`http://localhost:8000/api/tickets/`, {
+            status: "ongoing",
+            debt: this.ticketBetAmount,
+            sum_odds: this.selectedItem.odds,
+            races: this.selectedItem.category,
+            payment_date: currentDate,
+            userID: this.userId,
+            betID: this.selectedItem.available_betID,
+          })
+          .then((response) => {
+            Notify.create({
+              message: `Bet with id=${response.data.ticketID} has been created successfully!`,
+              color: "positive",
+            });
+            this.closeBetDialog();
+          })
+          .catch((error) => {
+            if (error.response.data.message.includes("Insufficient balance")) {
+              Notify.create({
+                message: `Insufficient balance`,
+                color: "negative",
+              });
+            } else {
+              Notify.create({
+                message: `Error in create bet: ${error.response.data.message}`,
+                color: "negative",
+              });
+            }
+          })
+          .finally(() => {
+            this.closeBetDialog();
+          });
+      },
     },
   };
 </script>

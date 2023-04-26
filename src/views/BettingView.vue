@@ -123,18 +123,18 @@
   <q-page>
     <div class="q-pa-md">
       <q-table
+        v-model:selected="betStore.selected"
         binary-state-sort
-        grid
-        selection="single"
         :columns="columnsI18n()"
         dense
         :filter="betStore.filter"
+        grid
         :loading="betStore.isLoading"
         row-key="available_betID"
         :rows="betStore.bets"
         :rows-per-page-label="$t('rowsPerPageLabel')"
+        selection="single"
         :title="$t('bets')"
-        v-model:selected="betStore.selected"
         wrap-cells
         @request="onRequest"
       >
