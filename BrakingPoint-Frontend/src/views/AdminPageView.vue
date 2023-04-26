@@ -263,25 +263,39 @@
   // Teszt adatok
   const seed = [
     {
-      username: "tesztelek12",
+      username: "teszt12",
       firstName: "Elek",
       lastName: "Teszt",
       balance: 1500,
       level: 52,
     },
     {
-      username: "tesztelek13",
+      username: "teszt13",
       firstName: "Pista",
       lastName: "Nagy",
       balance: 2500,
       level: 120,
     },
     {
-      username: "tesztelek14",
+      username: "teszt14",
       firstName: "Pista",
       lastName: "Kis",
       balance: 150,
       level: 5,
+    },
+    {
+      username: "teszt15",
+      firstName: "Endre",
+      lastName: "Tóth",
+      balance: 15000,
+      level: 260,
+    },
+    {
+      username: "teszt16",
+      firstName: "László",
+      lastName: "Török",
+      balance: 2400,
+      level: 45,
     },
   ];
 

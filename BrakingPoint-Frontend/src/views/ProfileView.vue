@@ -233,35 +233,35 @@
                     <p style="font-size: 140%; color: white">
                       Abu Dhabi győztese - Max Verstappen
                       <br />
-                      <sub>Szorzó: 1.10x - Tét: 5000 - Nyert</sub>
+                      <sub>Szorzó: 1.10x - Tét: 5000 - Folyamatban</sub>
                     </p>
                     <p style="font-size: 140%; color: white">
-                      Abu Dhabi győztese - Max Verstappen
+                      Magyar nagydíj győztese - Lewis Hamilton
                       <br />
-                      <sub>Szorzó: 1.10x - Tét: 5000 - Nyert</sub>
+                      <sub>Szorzó: 1.35x - Tét: 25000 - Folyamatban</sub>
                     </p>
                     <p style="font-size: 140%; color: white">
-                      Abu Dhabi győztese - Max Verstappen
+                      Végső győztes - Max Verstappen
                       <br />
-                      <sub>Szorzó: 1.10x - Tét: 5000 - Nyert</sub>
+                      <sub>Szorzó: 1.70x - Tét: 10000 - Folyamatban</sub>
                     </p>
                   </div>
                   <div class="col-md-6 q-pl-lg">
                     <h4 style="color: white">Előző fogadás(ok)</h4>
                     <p style="font-size: 140%; color: white">
-                      Abu Dhabi győztese - Max Verstappen
+                      Bahreini nagydíj Lesz kieső? - Igen
                       <br />
-                      <sub>Szorzó: 1.10x - Tét: 5000 - Nyert</sub>
+                      <sub>Szorzó: 2.02x - Tét: 1300 - Nyert</sub>
                     </p>
                     <p style="font-size: 140%; color: white">
-                      Abu Dhabi győztese - Max Verstappen
+                      Ausztrál nagydíj győztese - Esteban Ocon
                       <br />
-                      <sub>Szorzó: 1.10x - Tét: 5000 - Nyert</sub>
+                      <sub>Szorzó: 15x - Tét: 1000 - Vesztes</sub>
                     </p>
                     <p style="font-size: 140%; color: white">
-                      Abu Dhabi győztese - Max Verstappen
+                      Olasz nagydíj Ferrari pontott szerez? - Igen
                       <br />
-                      <sub>Szorzó: 1.10x - Tét: 5000 - Nyert</sub>
+                      <sub>Szorzó: 1.56x - Tét: 5000 - Nyert</sub>
                     </p>
                   </div>
                 </div>

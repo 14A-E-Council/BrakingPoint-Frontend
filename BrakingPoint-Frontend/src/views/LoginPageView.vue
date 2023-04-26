@@ -213,7 +213,7 @@
               <q-btn
                 class="vertical-middle q-mt-xl"
                 color="black"
-                label="Regisztálás"
+                label="Regisztrálás"
                 rounded
                 @click="register"
               />
