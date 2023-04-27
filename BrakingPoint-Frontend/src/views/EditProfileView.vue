@@ -27,7 +27,7 @@
   var confirmPassword = ref("");
   var isPwdAgain = ref(true);
 
-  var model = ref(null);
+  var model = "";
 
   const options = [
     "RED BULL RACING RBPT",
@@ -47,7 +47,9 @@
     email: string;
     last_name: string;
     first_name: string;
+    preferred_category: string;
     profile_picture: string;
+    colour_palette: string;
     // password: string;
     // confirmPassword: string;
   }
@@ -57,7 +59,9 @@
     email: usersStore.loggedUser?.email!,
     last_name: usersStore.loggedUser?.last_name!,
     first_name: usersStore.loggedUser?.first_name!,
+    preferred_category: usersStore.loggedUser?.preferred_category!,
     profile_picture: usersStore.loggedUser?.profile_picture!,
+    colour_palette: usersStore.loggedUser?.colour_palette!,
     // password: "",
     // confirmPassword: "",
   });
@@ -82,17 +86,88 @@
     ? "../src/assets/" + usersStore.getLoggedUser.picture_frame
     : "../src/assets/bronze.png";
 
-  var profile_picture = usersStore.getLoggedUser?.profile_picture;
+  var color = "";
+  var color2 = "";
+  var logo = "";
+  //var profile_picture = usersStore.getLoggedUser?.profile_picture;
+  function teamSelected() {
+    switch (model) {
+      case "RED BULL RACING RBPT":
+        color = "#000B8D";
+        color2 = "#000A82";
+        logo = "url(../src/assets/bgImg/redbull.png)";
+        break;
+      case "FERRARI":
+        color = "#EF1A2D";
+        color2 = "#CB1626";
+        logo = "url(../src/assets/bgImg/ferrari.png)";
+        break;
+      case "MERCEDES":
+        color = "#00A19B";
+        color2 = "#008883";
+        logo = "url(../src/assets/bgImg/mercedes.png)";
+        break;
+      case "ALPINE RENAULT":
+        color = "#0078C1";
+        color2 = "#005BA9";
+        logo = "url(../src/assets/bgImg/alpine.png)";
+        break;
+      case "MCLAREN MERCEDES":
+        color = "#FF8000";
+        color2 = "#EE7800";
+        logo = "url(../src/assets/bgImg/mclaren.png)";
+        break;
+      case "ALFA ROMEO FERRARI":
+        color = "#295294";
+        color2 = "#981E32";
+        logo = "url(../src/assets/bgImg/alfaromeo.png)";
+        break;
+      case "ASTON MARTIN ARAMCO MERCEDES":
+        color = "#00594F";
+        color2 = "#00352F";
+        logo = "url(../src/assets/bgImg/astonmartin.png)";
+        break;
+      case "HAAS FERRARI":
+        color = "#EFEFEF";
+        color2 = "#AEAEAE";
+        logo = "url(../src/assets/bgImg/haas.png)";
+        break;
+      case "ALPHATAURI RBPT":
+        color = "#041F3D";
+        color2 = "#011321";
+        logo = "url(../src/assets/bgImg/alphatauri.png)";
+        break;
+      case "WILLIAMS MERCEDES":
+        color = "#00A3E0";
+        color2 = "#041E42";
+        logo = "url(../src/assets/bgImg/williams.png)";
+        break;
+
+      default:
+        color = "#a71616";
+        color2 = "#6d0f0f";
+        logo = "url(../src/assets/bgImg/tesztkep3)";
+        break;
+    }
+    console.log(color);
+  }
 
   async function save() {
+    console.log(informations);
+    var colors = `${color}${color2}`;
+    console.log(colors);
+    informations.preferred_category = logo;
+    informations.colour_palette = colors;
     await usersStore.getSanctumCookie();
     await usersStore.editProfile({
       username: informations.username,
       email: informations.email,
-      // password: informations.password,
+      //password: informations.password,
       last_name: informations.last_name,
       first_name: informations.first_name,
-      profile_picture: imageUrl.value.toString(),
+      profile_picture: imageUrl.value,
+      preferred_category: informations.preferred_category,
+      colour_palette: informations.colour_palette,
     });
     //router.push({ name: "Profile" });
     console.log(usersStore.loggedUser);
@@ -117,7 +192,7 @@
             <q-avatar class="q-mt-xl" style="height: 6em; width: 6em">
               <q-img alt="PictureFrame" :src="picture_frame">
                 <q-avatar class="q-mt-lg q-ml-lg" style="height: 4.5em; width: 4.5em">
-                  <q-img alt="ProfilePicture" src="..//assets/default.png" />
+                  <q-img alt="ProfilePicture" :src="usersStore.loggedUser?.profile_picture" />
                 </q-avatar>
               </q-img>
             </q-avatar>
@@ -161,6 +236,7 @@
             v-model="informations.username"
             bg-color="white"
             color="grey-6"
+            :default="usersStore.loggedUser?.username"
             filled
             :label="usersStore.loggedUser?.username"
           />
@@ -169,6 +245,7 @@
             v-model="informations.last_name"
             bg-color="white"
             color="grey-6"
+            :default="usersStore.loggedUser?.last_name"
             filled
             :label="usersStore.loggedUser?.last_name"
           />
@@ -177,6 +254,7 @@
             v-model="informations.first_name"
             bg-color="white"
             color="grey-6"
+            :default="usersStore.loggedUser?.first_name"
             filled
             :label="usersStore.loggedUser?.first_name"
           />
@@ -185,6 +263,7 @@
             v-model="informations.email"
             bg-color="white"
             color="grey-6"
+            :default="usersStore.loggedUser?.email"
             filled
             :label="usersStore.loggedUser?.email"
             type="email"
@@ -249,6 +328,7 @@
                 :options="options"
                 outlined
                 style="max-width: 22em"
+                @update:model-value="teamSelected()"
               />
             </div>
             <div class="col-md-4">

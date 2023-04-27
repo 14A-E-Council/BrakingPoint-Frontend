@@ -5,8 +5,6 @@
 
   const usersStore = useUsersStore();
 
-  const anyLoggedUser = computed(() => (usersStore.getLoggedUser ? true : false));
-
   interface IReactiveData {
     username: string;
     email: string;
@@ -29,7 +27,7 @@
 
   async function login() {
     await usersStore.getSanctumCookie();
-    if (!anyLoggedUser.value) {
+    if (!usersStore.getLoggedUser) {
       await usersStore.login({
         email: informationsLogin.email,
         password: informationsLogin.password,
@@ -43,7 +41,7 @@
 
   async function register() {
     await usersStore.getSanctumCookie();
-    if (!anyLoggedUser.value) {
+    if (usersStore.getLoggedUser) {
       await usersStore.register({
         username: informationsReg.username,
         email: informationsReg.email,
@@ -125,7 +123,7 @@
               <q-btn
                 class="vertical-middle q-mt-xl"
                 color="black"
-                :label="anyLoggedUser ? 'Kijelentkezés' : 'Belépés'"
+                :label="usersStore.getLoggedUser ? 'Kijelentkezés' : 'Belépés'"
                 rounded
                 @click="login"
               />

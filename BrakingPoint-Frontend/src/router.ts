@@ -28,49 +28,41 @@ const routes: Array<RouteRecordRaw> = [
     path: "/",
     name: "FrontPage",
     component: FrontPageView,
-    meta: { mustBeLoggedIn: true },
   },
   {
     path: "/login",
     name: "Login",
     component: LoginView,
-    meta: { mustNotBeLoggedIn: true, loggedIn: false },
   },
   {
     path: "/profile",
     name: "Profile",
     component: ProfileView,
-    meta: { mustNotBeLoggedIn: false },
   },
   {
     path: "/editprofile",
     name: "EditProfilePage",
     component: EditProfileView,
-    meta: { mustNotBeLoggedIn: false },
   },
   {
     path: "/leaderboard",
     name: "Leaderboard",
     component: LeaderboardView,
-    meta: { mustNotBeLoggedIn: false },
   },
   {
     path: "/admin",
     name: "Admin",
     component: AdminView,
-    meta: { mustNotBeLoggedIn: false },
   },
   {
     path: "/examples",
     name: "examples",
     component: ExamplesView,
-    meta: { mustNotBeLoggedIn: true },
   },
   {
     path: "/account",
     name: "account",
     component: AccountView,
-    meta: { mustNotBeLoggedIn: true },
   },
   {
     path: "/qtable",
@@ -113,14 +105,12 @@ const router = createRouter({
   routes,
 });
 
-router.beforeEach(async (to, from, next) => {
-  const usersStore = await import("./store/usersStore");
-  const user = usersStore.useUsersStore().getLoggedUser;
-  if (user?.username != null) next();
-  else {
-    if (to.meta.mustNotBeLoggedIn) next();
-    else next("/login");
-  }
-});
+// const usersStore = await import("./store/usersStore");
+// const user = usersStore.useUsersStore().getLoggedUser;
+// router.beforeEach(async (to, from, next) => {
+//   const user = usersStore.useUsersStore().getLoggedUser;
+//   if (user != null) next();
+//   else next("/login");
+// });
 
 export default router;

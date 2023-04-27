@@ -31,11 +31,20 @@
     : "../src/assets/bronze.png";
 
   var profile_picture = usersStore.getLoggedUser?.profile_picture;
+
+  var bgColor1 = usersStore.getLoggedUser?.colour_palette?.slice(0, 7);
+  var bgColor2 = usersStore.getLoggedUser?.colour_palette?.slice(7, 14);
+  var logo = usersStore.getLoggedUser?.preferred_category;
+
+  console.log(bgColor1);
+
+  var bgColor = "linear-gradient(to bottom, " + bgColor1 + ", " + bgColor2 + ")";
+  console.log(bgColor);
 </script>
 
 <template>
-  <q-layout>
-    <div class="q-pa-md">
+  <q-layout id="bg-color" :style="{ backgroundImage: bgColor }">
+    <div id="bg-img" class="q-pa-md" :style="{ backgroundImage: logo }">
       <div class="row">
         <q-linear-progress class="q-mt-sm" color="green" rounded size="1.5em" :value="progress">
           <div class="absolute-full flex flex-center">
@@ -289,6 +298,18 @@
 </template>
 
 <style lang="scss">
+  #bg-color {
+    background-image: v-bind(bgColor);
+    background-size: cover;
+    background-attachment: fixed;
+  }
+
+  #bg-img {
+    background-size: 50%;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+
   .menuButton {
     margin-left: 1em;
     background-color: black;

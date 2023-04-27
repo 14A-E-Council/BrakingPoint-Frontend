@@ -21,6 +21,7 @@ interface IUser {
   xp?: number;
   admin?: number;
   email_verified_at?: Date;
+  colour_palette?: string;
 }
 
 interface IState {
@@ -34,6 +35,9 @@ export const useUsersStore = defineStore("user", {
   getters: {
     getLoggedUser(): null | IUser {
       console.log(this.loggedUser);
+      server.get("api/user").then((res) => {
+        this.loggedUser = res.data;
+      });
       return this.loggedUser;
     },
   },
@@ -48,17 +52,16 @@ export const useUsersStore = defineStore("user", {
 
     async login(params: IUser): Promise<void> {
       {
-        Loading.show();
-
-        await server.post("login", {
-          email: params.email,
-          password: params.password,
-        });
-        await server.get("api/user").then((res) => {
-          this.loggedUser = res.data;
-          router.push({ name: "FrontPage" });
-          Loading.hide();
-        });
+        await server
+          .post("login", {
+            email: params.email,
+            password: params.password,
+          })
+          .then((res) => {
+            this.loggedUser = res.data;
+            router.push({ name: "FrontPage" });
+            Loading.hide();
+          });
       }
     },
 
@@ -86,20 +89,11 @@ export const useUsersStore = defineStore("user", {
         })
         .then((res) => {
           console.log(res);
+          this.loggedUser = res.data;
+          router.push({ name: "FrontPage" });
         })
         .catch((error) => {
           console.log(error.response);
-        });
-      await server
-        .get("api/user")
-        .then((res) => {
-          this.loggedUser = res.data;
-          Loading.hide();
-          router.push({ name: "FrontPage" });
-        })
-        .catch(() => {
-          this.loggedUser = null;
-          Loading.hide();
         });
     },
 
@@ -113,14 +107,24 @@ export const useUsersStore = defineStore("user", {
     //   });
     // },
     async editProfile(params: IUser) {
-      await server.put("api/editprofile/" + this.loggedUser?.userID, {
-        // TODO JELSZÓ
-        username: params.username,
-        email: params.email,
-        last_name: params.last_name,
-        first_name: params.first_name,
-        profile_picture: params.profile_picture,
-      });
+      await server
+        .put("api/editprofile/" + this.loggedUser?.userID, {
+          // TODO JELSZÓ
+          username: params.username,
+          email: params.email,
+          last_name: params.last_name,
+          first_name: params.first_name,
+          preferred_category: params.preferred_category,
+          profile_picture: params.profile_picture,
+          colour_palette: params.colour_palette,
+        })
+        .then((res) => {
+          console.log(res);
+          router.push({ name: "Profile" });
+        })
+        .catch((error) => {
+          console.log(error.response);
+        });
     },
   },
 });

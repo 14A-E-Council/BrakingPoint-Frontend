@@ -137,8 +137,8 @@
 </script>
 <!-- https://reactgo.com/vue-background-image/   kép változtatása változóból-->
 <template>
-  <div id="bg-color" class="q-pa-md">
-    <div id="bg" class="q-pa-md" :style="{ backgroundImage: 'url(./src/assets/tesztkép3.png)' }">
+  <div id="bg-color" elevated style="background: #1b1b1b">
+    <div id="bg">
       <q-layout view="hHh Lpr fFf">
         <q-header class="text-white text-center" elevated style="background: #1b1b1b">
           <q-toolbar>
@@ -254,15 +254,15 @@
   </footer>
 </template>
 
-<style lang="scss">
-  div#bg-color {
-    background-image: linear-gradient(to bottom, #a71616, #6d0f0f);
+<style>
+  #bg-color {
+    /* background-image: linear-gradient(to bottom, v-bind(mainColor1), v-bind(mainColor2)); */
     background-size: cover;
     background-attachment: fixed;
   }
 
   div#bg {
-    background-size: cover;
+    background-size: 50%;
     background-repeat: no-repeat;
   }
 
