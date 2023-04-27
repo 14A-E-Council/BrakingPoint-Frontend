@@ -1,4 +1,65 @@
-<template lang="">
+<!-- eslint-disable @typescript-eslint/no-non-null-assertion -->
+<script setup lang="ts">
+  import "animate.css";
+  import { useUsersStore } from "..//store/usersStore";
+  import { useAllUserStore } from "..//store/allUserStore";
+
+  const usersStore = useUsersStore();
+  const allUserStore = useAllUserStore();
+
+  var picture_frame = usersStore.getLoggedUser
+    ? "../src/assets/" + usersStore.getLoggedUser.picture_frame
+    : "../src/assets/bronze.png";
+
+  // var picture_frameFirst = "../src/assets/bronze.png";
+
+  // var picture_frameSecond = "../src/assets/bronze.png";
+
+  // var picture_frameThird = "../src/assets/bronze.png";
+
+  // var nameFirst = "Teszt";
+  // var nameSecond = "Teszt";
+  // var nameThird = "Teszt";
+
+  // var levelFirst = 12;
+  // var levelSecond = 12;
+  // var levelThird = 12;
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+  if (allUserStore.getAllUser != null) {
+    var users = allUserStore.getAllUser;
+
+    console.log(users);
+
+    // picture_frameFirst = users
+    //   ? "../src/assets/" + users.picture_frame
+    //   : "../src/assets/bronze.png";
+
+    // picture_frameSecond = users[1]
+    //   ? "../src/assets/" + users[1].picture_frame
+    //   : "../src/assets/bronze.png";
+
+    // picture_frameThird = users[2]
+    //   ? "../src/assets/" + users[2].picture_frame
+    //   : "../src/assets/bronze.png";
+
+    // nameFirst = users ? users[0].username! : "Teszt";
+    // nameSecond = users ? users[1].username! : "Teszt";
+    // nameThird = users ? users[2].username! : "Teszt";
+
+    // levelFirst = users ? users[0].level! : 12;
+    // levelSecond = users ? users[1].level! : 12;
+    // levelThird = users ? users[2].level! : 12;
+  } else {
+    console.log("Még nem!");
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+  // var sortedUsers = users.sort((a, b) => a.level! - b.level!);
+</script>
+
+<template>
   <q-layout>
     <div class="q-pa-md">
       <div class="row">
@@ -17,14 +78,17 @@
                   <div class="column items-center">
                     <h3 style="color: white">Top 1</h3>
                     <q-avatar style="height: 3.6em; width: 3.6em; text-align: left">
-                      <q-img alt="PictureFrame" src="..//assets/bronze.png">
+                      <q-img alt="PictureFrame" src="..//assets/amethyst.png">
                         <q-avatar style="height: 2.8em; width: 2.8em; position: relative">
-                          <q-img alt="ProfilePicture" src="..//assets/default.png" />
+                          <q-img
+                            alt="ProfilePicture"
+                            src="..//assets/2560px-Mercedes_AMG_Petronas_F1_Logo.svg.png"
+                          />
                         </q-avatar>
                       </q-img>
                     </q-avatar>
-                    <h4 style="color: white">Teszt Elek</h4>
-                    <p style="color: white; font-size: 2em">1200</p>
+                    <h4 style="color: white">Levente</h4>
+                    <p style="color: white; font-size: 2em">3512</p>
                   </div>
                 </div>
               </div>
@@ -45,15 +109,15 @@
                         <h3 style="color: white">1</h3>
                         <div class="q-pr-xl q-pl-xl">
                           <q-avatar style="height: 3.6em; width: 3.6em; text-align: left">
-                            <q-img alt="PictureFrame" src="..//assets/bronze.png">
+                            <q-img alt="PictureFrame" src="..//assets/amethyst.png">
                               <q-avatar style="height: 2.8em; width: 2.8em; position: relative">
                                 <q-img alt="ProfilePicture" src="..//assets/default.png" />
                               </q-avatar>
                             </q-img>
                           </q-avatar>
                         </div>
-                        <h4 style="color: white; font-size: 2em">Teszt Elek</h4>
-                        <p class="q-pl-xl q-pt-sm" style="color: white; font-size: 1.7em">1200</p>
+                        <h4 style="color: white; font-size: 2em">Levente</h4>
+                        <p class="q-pl-xl q-pt-sm" style="color: white; font-size: 1.7em">3512</p>
                       </div>
                     </div>
                   </div>
@@ -71,15 +135,15 @@
                         <h4 style="color: white">2</h4>
                         <div class="q-pr-xl q-pl-xl">
                           <q-avatar style="height: 2.6em; width: 2.6em; text-align: left">
-                            <q-img alt="PictureFrame" src="..//assets/bronze.png">
+                            <q-img alt="PictureFrame" src="..//assets/amethyst.png">
                               <q-avatar style="height: 1.95em; width: 1.95em; position: relative">
-                                <q-img alt="ProfilePicture" src="..//assets/default.png" />
+                                <q-img alt="ProfilePicture" src="..//assets/Jedlik_small.png" />
                               </q-avatar>
                             </q-img>
                           </q-avatar>
                         </div>
-                        <h5 style="color: white">Teszt Elek</h5>
-                        <h5 class="q-pl-xl" style="color: white; font-size: 1.5em">1200</h5>
+                        <h5 style="color: white">Larisza</h5>
+                        <h5 class="q-pl-xl" style="color: white; font-size: 1.5em">2000</h5>
                       </div>
                     </div>
                   </div>
@@ -98,15 +162,15 @@
                         <h4 style="color: white">3</h4>
                         <div class="q-pr-xl q-pl-xl">
                           <q-avatar style="height: 2.6em; width: 2.6em; text-align: left">
-                            <q-img alt="PictureFrame" src="..//assets/bronze.png">
+                            <q-img alt="PictureFrame" src="..//assets/amethyst.png">
                               <q-avatar style="height: 1.95em; width: 1.95em; position: relative">
-                                <q-img alt="ProfilePicture" src="..//assets/default.png" />
+                                <q-img alt="ProfilePicture" src="..//assets/tesztkep2.png" />
                               </q-avatar>
                             </q-img>
                           </q-avatar>
                         </div>
-                        <h5 style="color: white">Teszt Elek</h5>
-                        <h5 class="q-pl-xl" style="color: white; font-size: 1.5em">1200</h5>
+                        <h5 style="color: white">István</h5>
+                        <h5 class="q-pl-xl" style="color: white; font-size: 1.5em">743</h5>
                       </div>
                     </div>
                   </div>
@@ -126,15 +190,17 @@
                         <h5 style="color: white">4</h5>
                         <div class="q-pr-xl q-pl-xl">
                           <q-avatar style="height: 1.6em; width: 1.6em; text-align: left">
-                            <q-img alt="PictureFrame" src="..//assets/bronze.png">
+                            <q-img alt="PictureFrame" :src="picture_frame">
                               <q-avatar style="height: 0.95em; width: 0.95em; position: relative">
                                 <q-img alt="ProfilePicture" src="..//assets/default.png" />
                               </q-avatar>
                             </q-img>
                           </q-avatar>
                         </div>
-                        <h6 style="color: white">Teszt Elek</h6>
-                        <h6 class="q-pl-xl" style="color: white; font-size: 1.5em">1200</h6>
+                        <h6 style="color: white">{{ usersStore.loggedUser?.username }}</h6>
+                        <h6 class="q-pl-xl" style="color: white; font-size: 1.5em">
+                          {{ usersStore.loggedUser?.level }}
+                        </h6>
                       </div>
                     </div>
                   </div>
@@ -148,89 +214,6 @@
   </q-layout>
 </template>
 
-<!-- TODO megirni ha a képernyő kicsi  -->
-<!-- https://quasar.dev/style/visibility#window-width-related -->
-
-<script lang="ts">
-  import { ref } from "vue";
-  import "animate.css";
-  //https://quasar.dev/vue-components/table
-  // TODO Változók cseréje
-  //Users
-  const columns = [
-    {
-      name: "picture",
-      label: "",
-      field: "picture",
-    },
-    {
-      name: "index",
-      label: "#",
-      field: "index",
-    },
-    {
-      name: "username",
-      required: true,
-      label: "Felhasználónév",
-      align: "center",
-    },
-    { name: "firstName", align: "center", label: "Keresztnév", field: "firstName" },
-    { name: "lastName", align: "center", label: "Vezetéknév", field: "lastName" },
-    { name: "level", align: "center", label: "Szint", field: "level" },
-  ];
-
-  // Teszt adatok
-  const seed = [
-    {
-      username: "tesztelek12",
-      firstName: "Elek",
-      lastName: "Teszt",
-      level: 52,
-    },
-    {
-      username: "tesztelek13",
-      firstName: "Pista",
-      lastName: "Nagy",
-      level: 120,
-    },
-    {
-      username: "tesztelek14",
-      firstName: "Pista",
-      lastName: "Kis",
-      level: 5,
-    },
-  ];
-
-  // Később törölni, csak teszt idejére generál sorokat
-  let rows: any = [];
-  for (let i = 0; i < 100; i++) {
-    rows = rows.concat(seed.slice(0).map((r) => ({ ...r })));
-  }
-  rows.forEach((row: any, index: any) => {
-    row.index = index;
-  });
-
-  export default {
-    setup() {
-      return {
-        columns,
-        rows,
-
-        card: ref(false),
-
-        filter: ref(""),
-        loading: ref(false),
-        initialPagination: {
-          sortBy: "level",
-          descending: true,
-          page: 1,
-          rowsPerPage: 25,
-          // rowsNumber: xx if getting data from a server
-        },
-      };
-    },
-  };
-</script>
 <style lang="scss">
   .cards {
     background-color: #1b1b1b;

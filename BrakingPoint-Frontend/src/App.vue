@@ -16,7 +16,8 @@
     }
   }
 
-  function logout() {
+  function logoutButtonClicked() {
+    router.push({ name: "StartPage" });
     usersStore.logOut();
   }
 
@@ -208,7 +209,9 @@
                 <q-separator v-if="linkItem.separator" :key="'sep' + index" />
               </template>
             </q-list>
-            <q-btn v-if="anyLoggedUser" no-caps size="15px" @click="logout">Kijelentkezés</q-btn>
+            <q-btn v-if="anyLoggedUser" no-caps size="15px" @click="logoutButtonClicked">
+              Kijelentkezés
+            </q-btn>
           </q-scroll-area>
         </q-drawer>
 

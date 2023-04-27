@@ -34,8 +34,8 @@
         email: informationsLogin.email,
         password: informationsLogin.password,
       });
-      await router.push({ path: "/" });
       console.log(usersStore.loggedUser);
+      router.push({ name: "StartPage" });
     } else {
       usersStore.logOut();
     }

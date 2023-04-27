@@ -2,6 +2,7 @@
 import server from "./axios.instance";
 import { defineStore } from "pinia";
 import { Loading } from "quasar";
+import router from "src/router";
 
 interface IUser {
   userID?: string;
@@ -32,10 +33,7 @@ export const useUsersStore = defineStore("user", {
   }),
   getters: {
     getLoggedUser(): null | IUser {
-      server.get("api/user").then((res) => {
-        this.loggedUser = res.data;
-        console.log(this.loggedUser);
-      });
+      console.log(this.loggedUser);
       return this.loggedUser;
     },
   },
@@ -58,6 +56,7 @@ export const useUsersStore = defineStore("user", {
         });
         await server.get("api/user").then((res) => {
           this.loggedUser = res.data;
+          router.push({ name: "StartPage" });
           Loading.hide();
         });
       }
@@ -96,6 +95,7 @@ export const useUsersStore = defineStore("user", {
         .then((res) => {
           this.loggedUser = res.data;
           Loading.hide();
+          router.push({ name: "StartPage" });
         })
         .catch(() => {
           this.loggedUser = null;
@@ -119,6 +119,7 @@ export const useUsersStore = defineStore("user", {
         email: params.email,
         last_name: params.last_name,
         first_name: params.first_name,
+        profile_picture: params.profile_picture,
       });
     },
   },

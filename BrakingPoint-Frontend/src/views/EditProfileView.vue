@@ -4,7 +4,6 @@
   import { ref, reactive, computed } from "vue";
   import { useQuasar } from "quasar";
   import { useUsersStore } from "..//store/usersStore";
-  import router from "src/router";
 
   const usersStore = useUsersStore();
   const anyLoggedUser = computed(() => (usersStore.getLoggedUser ? true : false));
@@ -14,8 +13,6 @@
   );
 
   const $q = useQuasar();
-
-  var filesImages = ref(null);
 
   function onRejected(rejectedEntries: any) {
     $q.notify({
@@ -50,6 +47,7 @@
     email: string;
     last_name: string;
     first_name: string;
+    profile_picture: string;
     // password: string;
     // confirmPassword: string;
   }
@@ -59,21 +57,18 @@
     email: usersStore.loggedUser?.email!,
     last_name: usersStore.loggedUser?.last_name!,
     first_name: usersStore.loggedUser?.first_name!,
+    profile_picture: usersStore.loggedUser?.profile_picture!,
     // password: "",
     // confirmPassword: "",
   });
 
-  async function save() {
-    await usersStore.getSanctumCookie();
-    await usersStore.editProfile({
-      username: informations.username,
-      email: informations.email,
-      // password: informations.password,
-      last_name: informations.last_name,
-      first_name: informations.first_name,
-    });
-    //router.push({ name: "Profile" });
-    console.log(usersStore.loggedUser);
+  var filesImages = ref(null);
+  var imageUrl = ref();
+  function changeProfPic() {
+    if (filesImages.value) {
+      imageUrl.value = URL.createObjectURL(filesImages.value);
+      console.log(imageUrl);
+    }
   }
 
   var emailNotVerified = ref(false);
@@ -86,6 +81,22 @@
   var picture_frame = usersStore.getLoggedUser
     ? "../src/assets/" + usersStore.getLoggedUser.picture_frame
     : "../src/assets/bronze.png";
+
+  var profile_picture = usersStore.getLoggedUser?.profile_picture;
+
+  async function save() {
+    await usersStore.getSanctumCookie();
+    await usersStore.editProfile({
+      username: informations.username,
+      email: informations.email,
+      // password: informations.password,
+      last_name: informations.last_name,
+      first_name: informations.first_name,
+      profile_picture: imageUrl.value.toString(),
+    });
+    //router.push({ name: "Profile" });
+    console.log(usersStore.loggedUser);
+  }
 </script>
 
 <template>
@@ -127,6 +138,7 @@
               rounded
               style="width: 20em; max-width: 20em"
               @rejected="onRejected"
+              @update:model-value="changeProfPic()"
             >
               <template #prepend>
                 <q-icon name="cloud_upload" @click.stop.prevent />

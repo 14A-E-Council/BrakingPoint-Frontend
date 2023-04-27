@@ -29,6 +29,8 @@
   var picture_frame = usersStore.getLoggedUser
     ? "../src/assets/" + usersStore.getLoggedUser.picture_frame
     : "../src/assets/bronze.png";
+
+  var profile_picture = usersStore.getLoggedUser?.profile_picture;
 </script>
 
 <template>
@@ -48,7 +50,7 @@
               <q-avatar class="q-mt-xl" style="height: 5em; width: 5em">
                 <q-img alt="PictureFrame" :src="picture_frame">
                   <q-avatar class="q-mt-sm q-ml-sm" style="height: 3.9em; width: 3.9em">
-                    <q-img alt="ProfilePicture" src="..//assets/default.png" />
+                    <q-img alt="ProfilePicture" :src="profile_picture" />
                   </q-avatar>
                 </q-img>
               </q-avatar>
