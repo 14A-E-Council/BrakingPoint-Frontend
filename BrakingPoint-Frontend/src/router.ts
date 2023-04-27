@@ -1,19 +1,19 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
 import AccountView from "./views/AccountView.vue";
 import QTableView from "./views/QTableView.vue";
-import StartPageView from "./views/StartPageView.vue";
+import FrontPageView from "./views/FrontPageView.vue";
 import EditProfileView from "./views/EditProfileView.vue";
 import ProfileView from "./views/ProfileView.vue";
 import AdminView from "./views/AdminPageView.vue";
-import FerrariTeamView from "./views/FerrariTeamView.vue";
-import DriverView from "./views/DriverView.vue";
-import DriverTeamListView from "./views/DriverTeamListView.vue";
+import FerrariTeamView from "./views/infoViews/FerrariTeamView.vue";
+import DriverView from "./views/infoViews/DriverView.vue";
+import DriverTeamListView from "./views/infoViews/DriverTeamListView.vue";
 
 const routes: Array<RouteRecordRaw> = [
   {
     path: "/",
-    name: "StartPage",
-    component: StartPageView,
+    name: "FrontPage",
+    component: FrontPageView,
   },
   {
     path: "/profile",

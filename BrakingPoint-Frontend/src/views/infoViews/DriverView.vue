@@ -8,24 +8,21 @@
       </div>
       <div id="mainInfo" class="row">
         <div class="col-lg-6">
-          <q-img id="driverImage" src="/src/assets/teamsymbols/ferrari.png" />
+          <q-img id="driverImage" src="/src/assets/teammembers/leclerc.png" />
         </div>
         <div class="col-lg-6">
-          <p id="driverName">Nico Hulkenberg</p>
+          <p id="driverName">Charles Leclerc</p>
+          <p id="dob">(1997.10.16)</p>
           <p class="driverInfo">
-            28 nyert futam
+            Nemzetiség: monacói
             <br />
           </p>
           <p class="driverInfo">
-            12 a mostani szezonban
+            Nyert futamok száma: 5
             <br />
           </p>
           <p class="driverInfo">
-            3. helyezés a csapatok között
-            <br />
-          </p>
-          <p class="driverInfo">
-            placeholder info here
+            Legutóbbi helyezés: 10.
             <br />
           </p>
         </div>
@@ -34,11 +31,9 @@
       <div style="position: relative"></div>
       <div id="driverDescriptionBackground">
         <p id="driverDescription">
-          Very Long Description aaaaaaaaaa aaaaaaaa aaaaaaaaaa aaaaaaaaaaaa aaaaaaa aaaaa
-          aaaaaaaaaaaa aaaaa aaaaaa aaaaaaaa aaaaaaaaaa aaaaaaaa aaaaaaaaaaa aaaaaaaa aaaaaa aaa
-          aaaaa aaaa aaaaaaaa aaaaaaa aaaaaaa aaaaaa aaaaaaaaaaaaaa aaaaaaa a aa aaa
-          aaaaaaaaaaaaaaaaaaaaaaaaaaa dvbas dbasfb afd b fda b sdfbndsmfknbksd kjfh kjfdh gkjhskjfhg
-          lkjfsdhglkjsadhfglkja hklfhgla kj hd glkjahsdflkg haljkhfdg lkash gkljahslkg
+          A 2016-os GP3-szezon és a 2017-es FIA Formula–2 szezon bajnoka. 2018-ban az Alfa Romeo
+          Sauber csapat pilótájaként szerepelt először a Formula–1-ben. 2019-től a Scuderia Ferrari
+          versenyzője.
         </p>
       </div>
     </div>
@@ -69,7 +64,6 @@
     margin-top: 2rem;
     position: relative;
     width: 90%;
-    height: 250px;
     border: 0.5em solid #a11717;
     opacity: 1;
     border-radius: 3em;
@@ -105,9 +99,22 @@
   }
 
   #driverImage {
-    width: 17em;
+    width: 20em;
     margin: 2em;
     box-shadow: 0px 4px 10px 10px rgba(0, 0, 0, 0.25);
+  }
+  #dob {
+    color: darkgray;
+    font-family: "Yrsa";
+    font-style: normal;
+    font-weight: 600;
+    letter-spacing: 1em;
+    opacity: 0.5;
+
+    position: relative;
+    margin-left: 3em;
+    margin-top: -4em;
+    margin-bottom: 2em;
   }
 
   .driverInfo {

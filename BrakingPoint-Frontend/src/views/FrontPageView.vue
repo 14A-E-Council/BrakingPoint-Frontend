@@ -1,0 +1,138 @@
+<script setup lang="ts"></script>
+
+<template>
+  <q-layout>
+    <div>
+      <div id="circuitImage" class="row">
+        <div class="col-lg-8 q-ml-lg">
+          <div id="circuitCountry">Azerbaijan</div>
+          <div id="circuitName">Baku City Circuit</div>
+          <div id="raceDate">2023.04.30.</div>
+        </div>
+        <div class="col-lg-4">
+          <q-img id="circuitPlan" src="/src/assets/circuitimages/baku.png" />
+        </div>
+      </div>
+      <div class="row q-mt-md">
+        <div id="lastRaceResultsTitle" class="col-lg-6">Előző verseny helyezettjei</div>
+        <div id="seasonsResultsTitle" class="col-lg-6">A szezon legjobbjai</div>
+      </div>
+      <div class="row">
+        <div id="lastRaceResults" class="col-lg-6">
+          <p class="placements">1. Max Verstappen</p>
+          <p class="placements">2. Lewis Hamilton</p>
+          <p class="placements">3. Fernando Alonso</p>
+          <p class="placements">4. Lance Stroll</p>
+          <p class="placements">5. Sergio Perez</p>
+        </div>
+        <div id="seasonsResults" class="col-lg-6">
+          <p class="placements">1. Max Verstappen - 69 pt</p>
+          <p class="placements">2. Sergio Perez - 54 pt</p>
+          <p class="placements">3. Fernando Alonso - 45 pt</p>
+          <p class="placements">4. Lewis Hamilton - 38 pt</p>
+          <p class="placements">5. Carlos Sainz - 20 pt</p>
+        </div>
+      </div>
+    </div>
+  </q-layout>
+</template>
+
+<style lang="scss" scoped>
+  @font-face {
+    font-family: Wallpoet;
+    src: url(src/assets/fonts/Wallpoet-Regular.otf);
+  }
+  @font-face {
+    font-family: Formula1;
+    src: url(src/assets/fonts/Formula1-Regular.otf);
+  }
+  @font-face {
+    font-family: Formula1_Bold;
+    src: url(src/assets/fonts/Formula1-Bold.otf);
+  }
+
+  #backgroundImage {
+    position: absolute;
+    top: 12em;
+    width: 80em;
+  }
+
+  #bgColor {
+    padding: 0px;
+  }
+
+  #circuitCountry {
+    font-family: Formula1;
+    font-size: 7em;
+    color: white;
+  }
+
+  #circuitImage {
+    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+      url("/src/assets/backgrounds/bakuCityImage.png");
+    width: 100%;
+  }
+
+  #circuitPlan {
+    margin-left: 4em;
+    margin-bottom: 3em;
+    margin-top: 2em;
+
+    width: 40em;
+  }
+
+  #circuitName {
+    font-family: Formula1_Bold;
+    font-size: 3em;
+    color: white;
+
+    margin-top: -0.5em;
+  }
+
+  #lastRaceResults {
+    text-align: right;
+    border-right: 0.05em solid white;
+    width: 50%;
+
+    padding-right: 1em;
+  }
+
+  #lastRaceResultsTitle {
+    font-family: Formula1;
+    font-size: 2em;
+    color: white;
+
+    text-align: center;
+    width: 50%;
+    margin-bottom: 2em;
+  }
+
+  #raceDate {
+    font-family: Formula1;
+    font-size: 2em;
+    color: white;
+  }
+
+  #seasonsResults {
+    text-align: left;
+    border-left: 0.05em solid white;
+    width: 50%;
+
+    padding-left: 1em;
+  }
+
+  #seasonsResultsTitle {
+    font-family: Formula1;
+    font-size: 2em;
+    color: white;
+
+    text-align: center;
+    width: 50%;
+  }
+
+  .placements {
+    font-family: Formula1;
+    font-size: 2em;
+    color: white;
+  }
+</style>
