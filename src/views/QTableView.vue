@@ -6,10 +6,10 @@
   import { storeToRefs } from "pinia";
   import { useI18n } from "vue-i18n";
   import { IColumns } from "../store/columns";
-  import { generateRaceBets } from "../store/ticketsStore";
+  import { generateRaceBets, useTicketsStore } from "../store/ticketsStore";
   const betStore = useBetStore();
   const appStore = useAppStore();
-
+  const ticketsStore = useTicketsStore();
   let { t } = useI18n();
 
   // isLoading variable is reactive, but we need convert to ref() for watch
@@ -134,10 +134,14 @@
     appStore.showNewBetDialog = false;
   }
   function generateDialog() {
-    appStore.showGenerateDialog = true;
+    ticketsStore.showGenerateDialog = true;
+  }
+  function sendGenerateDialog() {
+    generateRaceBets(betStore.title, betStore.raceDate);
+    ticketsStore.showGenerateDialog = false;
   }
   function resetGenerateDialog() {
-    appStore.showGenerateDialog = false;
+    ticketsStore.showGenerateDialog = false;
     betStore.raceDate = "";
     betStore.title = "";
   }
@@ -280,13 +284,9 @@
       </q-card>
     </q-dialog>
     <!-- Generate Bets Dialog -->
-    <q-dialog v-model="appStore.showGenerateDialog" persistent>
+    <q-dialog v-model="ticketsStore.showGenerateDialog" persistent>
       <q-card class="q-pa-md" style="width: 60vw; min-width: 300px">
-        <q-form
-          class="q-mx-md"
-          @reset="resetGenerateDialog()"
-          @submit="generateRaceBets(betStore.title, betStore.raceDate)"
-        >
+        <q-form class="q-mx-md" @reset="resetGenerateDialog()" @submit="sendGenerateDialog()">
           <div class="row">
             <div v-if="betStore.data" class="col-12 q-gutter-md">
               <h4 class="text-center q-mt-lg q-mb-none">{{ t("newPost") }}</h4>

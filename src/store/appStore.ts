@@ -5,7 +5,6 @@ interface IState {
   showEditBetDialog: boolean;
   showNewBetDialog: boolean;
   showTicketDialog: boolean;
-  showGenerateDialog: boolean;
   showEndDialog: boolean;
 }
 
@@ -16,7 +15,6 @@ export const useAppStore = defineStore({
     showEditBetDialog: false,
     showNewBetDialog: false,
     showTicketDialog: false,
-    showGenerateDialog: false,
     showEndDialog: false,
   }),
   persist: {
