@@ -17,7 +17,7 @@ export const useAppStore = defineStore({
     showNewBetDialog: false,
     showTicketDialog: false,
     showGenerateDialog: false,
-    showEndDialog: true,
+    showEndDialog: false,
   }),
   persist: {
     enabled: true,

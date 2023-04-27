@@ -39,6 +39,7 @@ interface IState {
   win: boolean;
   title: string;
   raceDate: string;
+  winner: string;
 }
 export const useBetStore = defineStore({
   id: "betStore",
@@ -60,6 +61,7 @@ export const useBetStore = defineStore({
     win: false,
     title: "",
     raceDate: "",
+    winner: "",
   }),
   getters: {
     // example getter, not in use
@@ -131,9 +133,25 @@ export const useBetStore = defineStore({
       }
     },
     async endBet(): Promise<void> {
+      let sendStatus = "";
+      console.log(this.win);
+      if (this.win == true) {
+        if (this.data.category == "versus") {
+          if (this.winner == "First") {
+            sendStatus = "winFirst";
+          } else if (this.winner == "Second") {
+            sendStatus = "winSecond";
+          }
+        } else {
+          sendStatus = "win";
+        }
+      }
+      if (this.win == false) {
+        sendStatus = "lose";
+      }
       $axios
         .patch(`http://localhost:8000/api/bets/${this.data.available_betID}`, {
-          status: "win",
+          status: sendStatus,
         })
         .then((res) => {
           Notify.create({
@@ -199,7 +217,6 @@ export const useBetStore = defineStore({
           userID: userId,
         })
         .then((res) => {
-          console.log(this.data);
           Notify.create({
             message: `Bet with id=${res.data.ticketID} has been created successfully!`,
             color: "positive",

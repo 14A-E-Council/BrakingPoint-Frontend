@@ -77,21 +77,9 @@
         align: "left",
         sortable: true,
       },
-      {
-        name: "sportID",
-        label: "sportID",
-        field: "sportID",
-        align: "left",
-        sortable: true,
-      },
     ];
     return columns;
   }
-
-  // const columns: QTableColumn[] = [
-  //   { name: "title", label: "Title", field: "title", align: "left", sortable: true },
-  //   { name: "content", label: "Content", field: "content", align: "left", sortable: true },
-  // ];
 
   function onRequest(props: QTableProps) {
     if (props.pagination) {
@@ -150,6 +138,8 @@
   }
   function resetGenerateDialog() {
     appStore.showGenerateDialog = false;
+    betStore.raceDate = "";
+    betStore.title = "";
   }
   function endBetDialog() {
     betStore.data = betStore.selected[0];
@@ -157,10 +147,14 @@
   }
   function resetEndBet() {
     appStore.showEndDialog = false;
+    betStore.win = false;
+    betStore.winner = "";
   }
   function sendEndBet() {
     betStore.endBet();
     appStore.showEndDialog = false;
+    betStore.win = false;
+    betStore.winner = "";
   }
 </script>
 
@@ -197,18 +191,18 @@
           {{ betStore.selected.length > 1 ? $t("clearSelections") : $t("clearSelection") }}
         </q-btn>
         <q-btn v-show="betStore.selected.length == 0" color="green" no-caps @click="newBet()">
-          {{ $t("newBet") }}
+          {{ $t("New Bet") }}
         </q-btn>
         <q-btn v-show="betStore.selected.length == 1" color="blue" no-caps @click="editBet()">
-          {{ $t("editBet") }}
+          {{ $t("Edit Bet") }}
         </q-btn>
         <q-btn v-show="betStore.selected.length != 0" color="red" no-caps @click="betStore.deleteById()">
-          {{ betStore.selected.length > 1 ? $t("deleteBets") : $t("deleteBet") }}
+          {{ betStore.selected.length > 1 ? $t("Delete Bets") : $t("Delete Bet") }}
         </q-btn>
         <q-btn v-show="betStore.selected.length == 0" color="red" no-caps @click="generateDialog()">
           Generate Bets
         </q-btn>
-        <q-btn v-show="betStore.selected.length == 1" color="green" no-caps @click="endBetDialog()">end bet</q-btn>
+        <q-btn v-show="betStore.selected.length == 1" color="green" no-caps @click="endBetDialog()">End Bet</q-btn>
       </div>
     </div>
     <!-- Edit post dialog: -->
@@ -297,8 +291,8 @@
             <div v-if="betStore.data" class="col-12 q-gutter-md">
               <h4 class="text-center q-mt-lg q-mb-none">{{ t("newPost") }}</h4>
 
-              <q-input v-model="betStore.raceDate" filled></q-input>
-              <q-input v-model="betStore.title" filled :label="'odds2'" type="text" />
+              <q-input v-model="betStore.raceDate" filled :label="'Date'"></q-input>
+              <q-input v-model="betStore.title" filled :label="'Title'" type="text" />
               <div class="row justify-center">
                 <q-btn class="q-mr-md" color="green" :label="$t('save')" no-caps type="submit" />
                 <q-btn class="q-mr-md" color="red" :label="$t('cancel')" no-caps type="reset" />
@@ -314,6 +308,11 @@
         <q-form class="q-mx-md" @reset="resetEndBet()" @submit="sendEndBet()">
           <div class="row">
             <div v-if="betStore.data" class="col-12 q-gutter-md">
+              <div v-if="betStore.data.category == 'versus'">
+                <q-radio v-model="betStore.winner" val="First" label="First driver"></q-radio>
+                <p>Choose</p>
+                <q-radio v-model="betStore.winner" val="Second" label="Second driver"></q-radio>
+              </div>
               <q-checkbox v-model="betStore.win">Win?</q-checkbox>
 
               <div class="row justify-center">
