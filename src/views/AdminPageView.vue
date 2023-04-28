@@ -10,9 +10,7 @@
                   color="dark"
                   dark
                   :style="usersButtonStyle"
-                  @click="
-                    (users = true), (bets = false), (usersButton = true), (betsButton = false)
-                  "
+                  @click="(users = true), (bets = false), (usersButton = true), (betsButton = false)"
                 >
                   <h7 style="color: white">Felhasználók keresése</h7>
                 </q-btn>
@@ -22,9 +20,7 @@
                   color="dark"
                   dark
                   :style="betsButtonStyle"
-                  @click="
-                    (users = false), (bets = true), (usersButton = false), (betsButton = true)
-                  "
+                  @click="(users = false), (bets = true), (usersButton = false), (betsButton = true)"
                 >
                   <h7 style="color: white">Fogadások keresése</h7>
                 </q-btn>

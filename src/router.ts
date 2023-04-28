@@ -1,6 +1,5 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
 import AboutView from "./views/AboutView.vue";
-import AccountView from "./views/AccountView.vue";
 import QTableView from "./views/QTableView.vue";
 import ExamplesView from "./views/ExamplesView.vue";
 import GridView from "./views/GridView.vue";
@@ -15,17 +14,17 @@ import FerrariTeamView from "./views/infoViews/FerrariTeamView.vue";
 import DriverView from "./views/infoViews/DriverView.vue";
 import FrontPageView from "./views/FrontPageView.vue";
 import DriverTeamListView from "./views/infoViews/DriverTeamListView.vue";
-import { createPinia } from "pinia";
+import NewBettingView from "./views/NewBettingView.vue";
+import StartPageView from "./views/StartPageView.vue";
+import BettingView from "./views/BettingView.vue";
 
+import { createPinia } from "pinia";
 import { createApp } from "vue";
 import App from "./App.vue";
 
 const pinia = createPinia();
 const app = createApp(App);
 app.use(pinia);
-import NewBettingView from "./views/NewBettingView.vue";
-import StartPageView from "./views/StartPageView.vue";
-import BettingView from "./views/BettingView.vue";
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -77,11 +76,6 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: "/:id",
     component: StartPageView,
-  },
-  {
-    path: "/account",
-    name: "account",
-    component: AccountView,
   },
   {
     path: "/qtable",
@@ -136,8 +130,8 @@ const router = createRouter({
 //   if (user != null) next();
 //   else next("/login");
 // });
-
 router.beforeEach((to, from, next) => {
   next();
 });
+
 export default router;

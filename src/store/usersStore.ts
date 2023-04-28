@@ -34,12 +34,17 @@ export const useUsersStore = defineStore("user", {
   }),
   getters: {
     getLoggedUser(): null | IUser {
-      console.log(this.loggedUser);
-      server.get("api/user").then((res) => {
-        this.loggedUser = res.data;
-        localStorage.setItem("id", this.loggedUser.userID);
-      });
-      return this.loggedUser;
+      if (this.loggedUser == null) {
+        server.get("api/user").then((res) => {
+          this.loggedUser = res.data;
+          console.log(this.loggedUser);
+        });
+        return this.loggedUser;
+      } else {
+        console.log(this.loggedUser);
+        localStorage.setItem("id", this.loggedUser.userID!);
+        return this.loggedUser;
+      }
     },
   },
   actions: {
@@ -58,9 +63,15 @@ export const useUsersStore = defineStore("user", {
             email: params.email,
             password: params.password,
           })
-          .then((res) => {
-            this.loggedUser = res.data;
-            router.push({ name: "FrontPage" });
+          .then(() => {
+            server.get("api/user").then((res) => {
+              this.loggedUser = res.data;
+              console.log(this.loggedUser);
+              router.push({ name: "FrontPage" });
+            });
+          })
+          .catch(() => {
+            this.loggedUser = null;
             Loading.hide();
           });
       }
@@ -88,10 +99,12 @@ export const useUsersStore = defineStore("user", {
           password: params.password,
           password_confirmation: params.confirmPassword,
         })
-        .then((res) => {
-          console.log(res);
-          this.loggedUser = res.data;
-          router.push({ name: "FrontPage" });
+        .then(() => {
+          server.get("api/user").then((res) => {
+            this.loggedUser = res.data;
+            console.log(this.loggedUser);
+            router.push({ name: "FrontPage" });
+          });
         })
         .catch((error) => {
           console.log(error.response);

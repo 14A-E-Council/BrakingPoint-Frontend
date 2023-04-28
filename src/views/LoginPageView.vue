@@ -1,9 +1,11 @@
 <script setup lang="ts">
   import { useUsersStore } from "..//store/usersStore";
-  import { ref, reactive } from "vue";
+  import { ref, reactive, computed } from "vue";
   import router from "src/router";
 
   const usersStore = useUsersStore();
+
+  const anyLoggedUser = computed(() => (usersStore.loggedUser ? true : false));
 
   interface IReactiveData {
     username: string;
@@ -27,13 +29,16 @@
 
   async function login() {
     await usersStore.getSanctumCookie();
-    if (!usersStore.getLoggedUser) {
-      await usersStore.login({
-        email: informationsLogin.email,
-        password: informationsLogin.password,
-      });
-      console.log(usersStore.loggedUser);
-      router.push({ name: "FrontPage" });
+    if (!anyLoggedUser.value) {
+      await usersStore
+        .login({
+          email: informationsLogin.email,
+          password: informationsLogin.password,
+        })
+        .then(() => {
+          router.push({ path: "/" });
+          console.log(anyLoggedUser.value);
+        });
     } else {
       usersStore.logOut();
     }
@@ -41,7 +46,7 @@
 
   async function register() {
     await usersStore.getSanctumCookie();
-    if (!usersStore.getLoggedUser) {
+    if (!anyLoggedUser.value) {
       await usersStore.register({
         username: informationsReg.username,
         email: informationsReg.email,
@@ -123,7 +128,7 @@
               <q-btn
                 class="vertical-middle q-mt-xl"
                 color="black"
-                :label="usersStore.getLoggedUser ? 'Kijelentkezés' : 'Belépés'"
+                :label="anyLoggedUser ? 'Kijelentkezés' : 'Belépés'"
                 rounded
                 @click="login"
               />
