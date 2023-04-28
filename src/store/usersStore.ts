@@ -37,6 +37,7 @@ export const useUsersStore = defineStore("user", {
       console.log(this.loggedUser);
       server.get("api/user").then((res) => {
         this.loggedUser = res.data;
+        localStorage.setItem("id", this.loggedUser.userID);
       });
       return this.loggedUser;
     },
