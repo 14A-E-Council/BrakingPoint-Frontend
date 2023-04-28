@@ -2,36 +2,37 @@
 
 <template>
   <q-layout>
-    <div>
+    <div class="q-pb-xl">
       <div id="circuitImage" class="row">
-        <div class="col-lg-8 q-ml-lg">
+        <div class="q-pl-md col-xs-12 col-sm-12 col-md-12 col-lg-5">
           <div id="circuitCountry">Azerbaijan</div>
           <div id="circuitName">Baku City Circuit</div>
           <div id="raceDate">2023.04.30.</div>
         </div>
-        <div class="col-lg-4">
-          <q-img id="circuitPlan" src="/src/assets/circuitimages/baku.png" />
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-7">
+          <q-img id="circuitPlanImage" src="/src/assets/circuitimages/baku.png" />
         </div>
       </div>
-      <div class="row q-mt-md">
-        <div id="lastRaceResultsTitle" class="col-lg-6">Előző verseny helyezettjei</div>
-        <div id="seasonsResultsTitle" class="col-lg-6">A szezon legjobbjai</div>
-      </div>
       <div class="row">
-        <div id="lastRaceResults" class="col-lg-6">
+        <div id="lastRaceResults" class="col-xs-12 col-sm-12 col-md-6">
+          <p id="lastRaceResultsTitle">Előző verseny helyezettjei</p>
           <p class="placements">1. Max Verstappen</p>
           <p class="placements">2. Lewis Hamilton</p>
           <p class="placements">3. Fernando Alonso</p>
           <p class="placements">4. Lance Stroll</p>
           <p class="placements">5. Sergio Perez</p>
         </div>
-        <div id="seasonsResults" class="col-lg-6">
+        <div id="seasonsResults" class="col-xs-12 col-sm-12 col-md-6">
+          <p id="seasonsResultsTitle">A szezon legjobbjai</p>
           <p class="placements">1. Max Verstappen - 69 pt</p>
           <p class="placements">2. Sergio Perez - 54 pt</p>
           <p class="placements">3. Fernando Alonso - 45 pt</p>
           <p class="placements">4. Lewis Hamilton - 38 pt</p>
           <p class="placements">5. Carlos Sainz - 20 pt</p>
         </div>
+      </div>
+      <div class="row">
+        <div id="seasonsResults" class="col-lg-6"></div>
       </div>
     </div>
   </q-layout>
@@ -70,15 +71,17 @@
   #circuitImage {
     background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
       url("/src/assets/backgrounds/bakuCityImage.png");
+
     width: 100%;
+    background-repeat: no-repeat;
+    background-size: cover;
   }
 
-  #circuitPlan {
+  #circuitPlanImage {
     margin-left: 4em;
     margin-bottom: 3em;
     margin-top: 2em;
-
-    width: 40em;
+    width: 40rem;
   }
 
   #circuitName {
@@ -103,8 +106,8 @@
     color: white;
 
     text-align: center;
-    width: 50%;
-    margin-bottom: 2em;
+    padding-top: 1em;
+    padding-bottom: 1em;
   }
 
   #raceDate {
@@ -117,7 +120,6 @@
     text-align: left;
     border-left: 0.05em solid white;
     width: 50%;
-
     padding-left: 1em;
   }
 
@@ -127,7 +129,8 @@
     color: white;
 
     text-align: center;
-    width: 50%;
+    padding-top: 1em;
+    padding-bottom: 1em;
   }
 
   .placements {

@@ -1,9 +1,5 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
-import AboutView from "./views/AboutView.vue";
 import QTableView from "./views/QTableView.vue";
-import ExamplesView from "./views/ExamplesView.vue";
-import GridView from "./views/GridView.vue";
-import HelpView from "./views/HelpView.vue";
 import EditProfileView from "./views/EditProfileView.vue";
 import ProfileView from "./views/ProfileView.vue";
 import AdminPageView from "./views/AdminPageView.vue";
@@ -15,8 +11,6 @@ import DriverView from "./views/infoViews/DriverView.vue";
 import FrontPageView from "./views/FrontPageView.vue";
 import DriverTeamListView from "./views/infoViews/DriverTeamListView.vue";
 import NewBettingView from "./views/NewBettingView.vue";
-import StartPageView from "./views/StartPageView.vue";
-import BettingView from "./views/BettingView.vue";
 
 import { createPinia } from "pinia";
 import { createApp } from "vue";
@@ -58,24 +52,9 @@ const routes: Array<RouteRecordRaw> = [
     component: AdminPageView,
   },
   {
-    path: "/examples",
-    name: "examples",
-    component: ExamplesView,
-  },
-
-  {
     path: "/betting",
-    name: "betting",
-    component: BettingView,
-  },
-  {
-    path: "/newbetting",
-    name: "newbetting",
+    name: "Betting",
     component: NewBettingView,
-  },
-  {
-    path: "/:id",
-    component: StartPageView,
   },
   {
     path: "/qtable",
@@ -83,24 +62,9 @@ const routes: Array<RouteRecordRaw> = [
     component: QTableView,
   },
   {
-    path: "/grid",
-    name: "grid",
-    component: GridView,
-  },
-  {
-    path: "/about",
-    name: "about",
-    component: AboutView,
-  },
-  {
     path: "/admin2",
     name: "admin2",
     component: AdminView,
-  },
-  {
-    path: "/qhelp",
-    name: "qhelp",
-    component: HelpView,
   },
   {
     path: "/drivers",

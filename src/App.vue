@@ -23,39 +23,27 @@
 
   const menuItems = ref([
     {
-      icon: "mdi-home",
-      text: "Start",
+      text: "Kezdőlap",
       name: "FrontPage",
       route: "/",
       disabled: false,
       separator: false,
     },
     {
-      icon: "mdi-soccer",
-      text: "Profile",
+      text: "Profil",
       name: "profile",
       route: "/profile",
       disabled: false,
       separator: false,
     },
     {
-      icon: "mdi-grid",
-      text: "Edit Profile",
+      text: "Profil módosítása",
       name: "editProfile",
       route: "/editprofile",
       disabled: false,
       separator: false,
     },
     {
-      icon: "mdi-account",
-      text: "account",
-      name: "account",
-      route: "/account",
-      disabled: false,
-      separator: false,
-    },
-    {
-      icon: "mdi-information",
       text: "Admin",
       name: "admin",
       route: "/admin",
@@ -63,93 +51,26 @@
       separator: false,
     },
     {
-      icon: "mdi-lifebuoy",
-      text: "Leaderboard",
+      text: "Ranglista",
       name: "leaderboard",
       route: "/leaderboard",
       disabled: false,
       separator: true,
     },
     {
-      icon: "😁",
-      text: "Teams",
-      name: "teams",
-      route: "/teams/ferrari",
-      disabled: false,
-      separator: false,
-    },
-    {
-      icon: "👩‍🦱",
-      text: "Drivers",
-      name: "drivers",
-      route: "/drivers",
-    },
-    {
-      icon: "😒",
-      text: "Drivers and Teams List",
+      text: "Csapatok",
       name: "driversandteamslist",
       route: "/driverteamlist",
     },
     {
-      icon: "😒",
-      text: "Drivers and Teams List",
-      name: "driversandteamslist",
-      route: "/driverteamlist",
+      text: "Fogadás",
+      name: "bettingview",
+      route: "/betting",
     },
     {
-      icon: "😒",
-      text: "Drivers and Teams List",
-      name: "driversandteamslist",
-      route: "/driverteamlist",
-    },
-    {
-      icon: "😒",
-      text: "simaadmin",
-      name: "admin",
-      route: "/admin",
-    },
-  ]);
-
-  const links = ref([
-    {
-      icon: "mdi-github",
-      text: "GitHub repo",
-      name: "",
-      link: "https://github.com/nitslaszlo/jedlik-vite-quasar-template-minimal",
-      disabled: false,
-      separator: false,
-    },
-    {
-      icon: "mdi-language-typescript",
-      text: "TypeScript",
-      name: "",
-      link: "https://www.typescriptlang.org/",
-      disabled: false,
-      separator: false,
-    },
-    {
-      icon: "mdi-vuejs",
-      text: "Vue.js",
-      name: "",
-      link: "https://vuejs.org/",
-      disabled: false,
-      separator: false,
-    },
-    {
-      icon: "mdi-tire",
-      text: "Quasar",
-      name: "",
-      link: "https://quasar.dev/",
-      disabled: false,
-      separator: false,
-    },
-    {
-      icon: "mdi-fruit-pineapple",
-      text: "Pinia",
-      name: "",
-      link: "https://pinia.vuejs.org/introduction.html",
-      disabled: false,
-      separator: false,
+      text: "Fogadás tábla",
+      name: "qtable",
+      route: "/qtable",
     },
   ]);
 </script>
@@ -213,12 +134,6 @@
                 </q-item>
                 <q-separator v-if="menuItem.separator" :key="'sep' + index" />
               </template>
-              <q-item clickable :disable="usersStore.loggedUser == null" to="/qtable">
-                <q-item-section avatar>
-                  <q-icon name="mdi-table" />
-                </q-item-section>
-                <q-item-section>q-table</q-item-section>
-              </q-item>
               <q-separator />
             </q-list>
             <!-- links: -->
