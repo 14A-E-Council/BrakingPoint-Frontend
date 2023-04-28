@@ -50,6 +50,7 @@
 <script>
   import axios from "axios";
   import { Notify } from "quasar";
+
   Notify.setDefaults({
     position: "bottom",
     textColor: "white",
@@ -86,18 +87,6 @@
         .catch((error) => {
           console.log(error);
         });
-      axios
-        .get(`http://localhost:8000/api/user`, {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        })
-        .then((response) => {
-          this.userId = response.data.userID;
-        })
-        .catch((error) => {
-          console.error(error);
-        });
     },
     methods: {
       filterData(category) {
@@ -126,14 +115,14 @@
         const today = new Date();
         const currentDate = today.toISOString().slice(0, 10);
         axios
-          .post(`http://localhost:8000/api/tickets/`, {
+          .post(`http://localhost:8000/api/tickets`, {
             status: "ongoing",
             debt: this.ticketBetAmount,
             sum_odds: sendOdds,
             races: this.selectedItem.category,
             payment_date: currentDate,
-            userID: this.userId,
-            betID: this.selectedItem.available_betID,
+            userID: localStorage.getItem("id"),
+            betID: this.selectedItem.id,
           })
           .then((response) => {
             Notify.create({

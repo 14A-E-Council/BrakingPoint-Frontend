@@ -27,9 +27,9 @@
   function columnsI18n(): IColumns[] {
     let columns: IColumns[] = [
       {
-        name: "available_betID",
-        label: "available_betID",
-        field: "available_betID",
+        name: "id",
+        label: "id",
+        field: "id",
         align: "left",
         sortable: true,
       },
@@ -168,9 +168,10 @@
         binary-state-sort
         :columns="columnsI18n()"
         dense
+        dark
         :filter="betStore.filter"
         :loading="betStore.isLoading"
-        row-key="available_betID"
+        row-key="id"
         :rows="betStore.bets"
         :rows-per-page-label="'rowsPerPageLabel'"
         selection="multiple"

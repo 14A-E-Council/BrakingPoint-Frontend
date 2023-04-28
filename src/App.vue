@@ -6,7 +6,6 @@
 
   const leftDrawer = ref<boolean>(true);
   const usersStore = useUsersStore();
-
   const anyLoggedUser = computed(() => (usersStore.loggedUser ? true : false));
 
   function toolbarButtonClicked() {
@@ -154,6 +153,7 @@
     },
   ]);
 </script>
+
 <!-- https://reactgo.com/vue-background-image/   kép változtatása változóból-->
 <template>
   <div id="bg-color" elevated style="background: #1b1b1b">

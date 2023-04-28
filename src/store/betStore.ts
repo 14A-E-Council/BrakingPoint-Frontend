@@ -10,7 +10,7 @@ Notify.setDefaults({
   progress: true,
 });
 export interface IBet {
-  available_betID?: number;
+  id?: number;
   title?: string;
   date?: string;
   category?: string;
@@ -51,7 +51,7 @@ export const useBetStore = defineStore({
     selected: [],
     filter: "",
     pagination: {
-      sortBy: "available_betID",
+      sortBy: "id",
       descending: false,
       page: 0,
       rowsPerPage: 10,
@@ -64,6 +64,7 @@ export const useBetStore = defineStore({
     winner: "",
   }),
   getters: {
+    
     // example getter, not in use
     getPosts(): Array<IBet> {
       return this.bets;
@@ -71,10 +72,10 @@ export const useBetStore = defineStore({
   },
   actions: {
     async getBetById(): Promise<void> {
-      if (this.data && this.data.available_betID) {
+      if (this.data && this.data.id) {
         Loading.show();
         $axios
-          .get(`http://localhost:8000/api/bets/${this.data.available_betID}`)
+          .get(`http://localhost:8000/api/bets/${this.data.id}`)
           .then((res) => {
             Loading.hide();
             if (res && res.data) {
@@ -92,7 +93,7 @@ export const useBetStore = defineStore({
       }
     },
     async editBetById(): Promise<void> {
-      if (this.data && this.data.available_betID) {
+      if (this.data && this.data.id) {
         const diff: any = {}; // only the changed fields are included
         Object.keys(this.data).forEach((k, i) => {
           const newValue = Object.values(this.data)[i];
@@ -110,14 +111,14 @@ export const useBetStore = defineStore({
           Loading.show();
           this.isLoading = true;
           $axios
-            .patch(`http://localhost:8000/api/bets/${this.data.available_betID}`, diff)
+            .patch(`http://localhost:8000/api/bets/${this.data.id}`, diff)
             .then((res) => {
               Loading.hide();
               if (res && res.data) {
                 this.isLoading = false;
                 this.selected[0] = res.data;
                 Notify.create({
-                  message: `Bet with id=${res.data.available_betID} has been edited successfully!`,
+                  message: `Bet with id=${res.data.id} has been edited successfully!`,
                   color: "positive",
                 });
               }
@@ -150,12 +151,12 @@ export const useBetStore = defineStore({
         sendStatus = "lose";
       }
       $axios
-        .patch(`http://localhost:8000/api/bets/${this.data.available_betID}`, {
+        .patch(`http://localhost:8000/api/bets/${this.data.id}`, {
           status: sendStatus,
         })
         .then((res) => {
           Notify.create({
-            message: `Bet with id=${res.data.available_betID} has been edited successfully!`,
+            message: `Bet with id=${res.data.id} has been edited successfully!`,
             color: "positive",
           });
         })
@@ -176,7 +177,7 @@ export const useBetStore = defineStore({
       $axios
         .post("http://localhost:8000/api/bets", {
           title: this.data.title,
-          available_betID: this.data.available_betID,
+          id: this.data.id,
           date: this.data.date,
           category: this.data.category,
           odds: this.data.odds,
@@ -186,7 +187,7 @@ export const useBetStore = defineStore({
         })
         .then((res) => {
           Notify.create({
-            message: `Bet with id=${res.data.available_betID} has been created successfully!`,
+            message: `Bet with id=${res.data.id} has been created successfully!`,
             color: "positive",
           });
         })
@@ -213,7 +214,7 @@ export const useBetStore = defineStore({
           sum_odds: this.data.odds,
           races: this.data.category,
           payment_date: formattedDate,
-          betID: this.data.available_betID,
+          betID: this.data.id,
           userID: userId,
         })
         .then((res) => {
@@ -238,7 +239,7 @@ export const useBetStore = defineStore({
       Loading.show();
       this.isLoading = true;
       if (this.selected.length) {
-        const id_for_delete = this.selected.pop()?.available_betID;
+        const id_for_delete = this.selected.pop()?.id;
         await $axios
           .delete(`http://localhost:8000/api/bets/${id_for_delete}`)
           .then(() => {
@@ -259,6 +260,7 @@ export const useBetStore = defineStore({
           });
       }
     },
+
     async fetchBets(): Promise<void> {
       Loading.show();
 
@@ -272,18 +274,8 @@ export const useBetStore = defineStore({
         .catch((error) => {
           console.log(error);
         });
-      $axios
-        .get(`http://localhost:8000/api/user`, {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        })
-        .then((response) => {
-          userId = response.data.userID;
-        })
-        .catch((error) => {
-          console.error(error);
-        });
     },
+    
   },
+  
 });

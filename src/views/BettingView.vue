@@ -127,7 +127,7 @@
         :filter="betStore.filter"
         grid
         :loading="betStore.isLoading"
-        row-key="available_betID"
+        row-key="id"
         :rows="betStore.bets"
         :rows-per-page-label="'rowsPerPageLabel'"
         selection="single"
