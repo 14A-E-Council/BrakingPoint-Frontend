@@ -1,112 +1,329 @@
 <script setup lang="ts">
-  import { ref, watch, onMounted } from "vue";
-  import { usePostsStore } from "../store/postsStore";
+  import { QTableProps } from "quasar";
+  import { useBetStore } from "../store/betStore";
+  import { useAppStore } from "../store/appStore";
+  import { onMounted, watch } from "vue";
+  import { storeToRefs } from "pinia";
+  import { useI18n } from "vue-i18n";
+  import { IColumns } from "../store/columns";
+  import { generateRaceBets, useTicketsStore } from "../store/ticketsStore";
+  const betStore = useBetStore();
+  const appStore = useAppStore();
+  const ticketsStore = useTicketsStore();
+  let { t } = useI18n();
 
-  const postsStore = usePostsStore();
-  // Selected row(s) -> selection="single" or selection="multiple"
-  const selected = ref<any>([]);
+  // isLoading variable is reactive, but we need convert to ref() for watch
+  const { isLoading } = storeToRefs(betStore);
+  watch(isLoading, () => {
+    if (isLoading.value == false) {
+      // if turn from true to false:
+      onRequest({
+        filter: betStore.filter,
+        pagination: betStore.pagination,
+      });
+    }
+  });
 
-  function deleteRecord(): void {
-    postsStore.deletePostById({ _id: selected.value[0]._id });
-    // postsStore.posts = postsStore.posts.filter((i) => i._id !== selected.value[0]._id);
+  const options = ["overall", "versus", "race", "special"];
 
-    selected.value = [];
+  function columnsI18n(): IColumns[] {
+    let columns: IColumns[] = [
+      {
+        name: "available_betID",
+        label: "available_betID",
+        field: "available_betID",
+        align: "left",
+        sortable: true,
+      },
+      {
+        name: "title",
+        label: "title",
+        field: "title",
+        align: "left",
+        sortable: true,
+      },
+      {
+        name: "date",
+        label: "date",
+        field: "date",
+        align: "left",
+        sortable: true,
+      },
+      {
+        name: "category",
+        label: "category",
+        field: "category",
+        align: "left",
+        sortable: true,
+      },
+      {
+        name: "odds",
+        label: "odds",
+        field: "odds",
+        align: "left",
+        sortable: true,
+      },
+      {
+        name: "odds2",
+        label: "odds2",
+        field: "odds2",
+        align: "left",
+        sortable: true,
+      },
+      {
+        name: "status",
+        label: "status",
+        field: "status",
+        align: "left",
+        sortable: true,
+      },
+    ];
+    return columns;
   }
 
-  const columns: any[] = [
-    { name: "title", label: "Title", field: "title", align: "left", sortable: true },
-    { name: "content", label: "Content", field: "content", align: "left", sortable: true },
-  ];
+  function onRequest(props: QTableProps) {
+    if (props.pagination) {
+      const { page, rowsPerPage, sortBy, descending } = props.pagination;
+      betStore.pagination.page = page as number;
+      betStore.pagination.rowsPerPage = rowsPerPage as number;
+      betStore.pagination.sortBy = sortBy as string;
+      betStore.pagination!.descending = descending as boolean;
 
-  const pagination = ref({
-    sortBy: "title",
-    descending: false,
-    page: 1,
-    rowsPerPage: 5,
-    rowsNumber: postsStore.numberOfPosts,
-    filter: "",
-  });
-
-  const filter = ref("");
-
-  watch(postsStore, () => {
-    pagination.value.rowsNumber = postsStore.numberOfPosts;
-  });
-
-  function onRequest(props: any) {
-    const { page, rowsPerPage, sortBy, descending } = props.pagination;
-
-    postsStore.fetchPaginatedPosts({
-      offset: (page - 1) * rowsPerPage,
-      limit: rowsPerPage,
-      order: sortBy,
-      sort: descending ? "-1" : "1",
-      keyword: filter.value,
-    });
-
-    // don't forget to update local pagination object
-    pagination.value.page = page;
-    pagination.value.rowsPerPage = rowsPerPage;
-    pagination.value.sortBy = sortBy;
-    pagination.value.descending = descending;
+      betStore.fetchBets(); // get bets
+    }
   }
 
   onMounted(() => {
+    // load posts on start
     onRequest({
-      pagination: pagination.value,
+      filter: betStore.filter,
+      pagination: betStore.pagination,
     });
   });
+
+  function editBet(): void {
+    betStore.data = betStore.selected[0];
+    betStore.getBetById();
+    appStore.showEditBetDialog = true;
+  }
+
+  function newBet(): void {
+    betStore.data = {};
+    appStore.showNewBetDialog = true;
+  }
+
+  function submitEditBetDialog() {
+    betStore.editBetById();
+    onRequest({
+      filter: betStore.filter,
+      pagination: betStore.pagination,
+    });
+    appStore.showEditBetDialog = false;
+  }
+
+  function submitNewBetDialog() {
+    betStore.createNewBet();
+    appStore.showNewBetDialog = false;
+  }
+  function resetBetDialog() {
+    onRequest({
+      filter: betStore.filter,
+      pagination: betStore.pagination,
+    });
+    appStore.showEditBetDialog = false;
+    appStore.showNewBetDialog = false;
+  }
+  function generateDialog() {
+    ticketsStore.showGenerateDialog = true;
+  }
+  function sendGenerateDialog() {
+    generateRaceBets(betStore.title, betStore.raceDate);
+    ticketsStore.showGenerateDialog = false;
+  }
+  function resetGenerateDialog() {
+    ticketsStore.showGenerateDialog = false;
+    betStore.raceDate = "";
+    betStore.title = "";
+  }
+  function endBetDialog() {
+    betStore.data = betStore.selected[0];
+    appStore.showEndDialog = true;
+  }
+  function resetEndBet() {
+    appStore.showEndDialog = false;
+    betStore.win = false;
+    betStore.winner = "";
+  }
+  function sendEndBet() {
+    betStore.endBet();
+    appStore.showEndDialog = false;
+    betStore.win = false;
+    betStore.winner = "";
+  }
 </script>
 
 <template>
   <q-page>
     <div class="q-pa-md">
       <q-table
-        v-model:pagination="pagination"
-        v-model:selected="selected"
+        v-model:selected="betStore.selected"
         binary-state-sort
-        :columns="columns"
+        :columns="columnsI18n()"
         dense
-        :filter="filter"
-        row-key="_id"
-        :rows="postsStore.posts"
-        selection="single"
-        title="Posts"
+        :filter="betStore.filter"
+        :loading="betStore.isLoading"
+        row-key="available_betID"
+        :rows="betStore.bets"
+        :rows-per-page-label="$t('rowsPerPageLabel')"
+        selection="multiple"
+        :title="$t('bets')"
         wrap-cells
         @request="onRequest"
       >
+        <!-- Search field -->
         <template #top-right>
-          <q-input v-model="filter" debounce="300" dense placeholder="Search">
+          <q-input v-model="betStore.filter" debounce="500" dense :placeholder="$t('search')">
             <template #append>
               <q-icon name="search" />
             </template>
           </q-input>
         </template>
-        <!-- slot1: -->
-        <!-- <template #body-cell-boolField="props">
-          <q-td :props="props">
-            <q-badge v-if="props.value" color="green" label="Yes" outline />
-            <q-badge v-else color="red" label="No" outline />
-          </q-td>
-        </template> -->
-        <!-- slot2: -->
-        <!-- <template #body-cell-imgField="props">
-          <q-td :props="props">
-            <img :src="props.value" style="max-height: 100px" />
-          </q-td>
-        </template> -->
       </q-table>
-      <!-- Button for delete selected record: -->
-      <div class="row justify-center q-ma-md">
-        <q-btn
-          v-show="selected.length != 0"
-          color="red"
-          label="Delete selected record"
-          no-caps
-          @click="deleteRecord"
-        />
+      <!-- Action buttons: -->
+      <div class="row justify-center q-ma-sm q-gutter-sm">
+        <q-btn v-show="betStore.selected.length != 0" color="orange" no-caps @click="betStore.selected = []">
+          {{ betStore.selected.length > 1 ? $t("clearSelections") : $t("clearSelection") }}
+        </q-btn>
+        <q-btn v-show="betStore.selected.length == 0" color="green" no-caps @click="newBet()">
+          {{ $t("New Bet") }}
+        </q-btn>
+        <q-btn v-show="betStore.selected.length == 1" color="blue" no-caps @click="editBet()">
+          {{ $t("Edit Bet") }}
+        </q-btn>
+        <q-btn v-show="betStore.selected.length != 0" color="red" no-caps @click="betStore.deleteById()">
+          {{ betStore.selected.length > 1 ? $t("Delete Bets") : $t("Delete Bet") }}
+        </q-btn>
+        <q-btn v-show="betStore.selected.length == 0" color="red" no-caps @click="generateDialog()">
+          Generate Bets
+        </q-btn>
+        <q-btn v-show="betStore.selected.length == 1" color="green" no-caps @click="endBetDialog()">End Bet</q-btn>
       </div>
     </div>
+    <!-- Edit post dialog: -->
+    <q-dialog v-model="appStore.showEditBetDialog" persistent>
+      <q-card class="q-pa-md" style="width: 60vw; min-width: 300px">
+        <q-form class="q-mx-md" @reset="resetBetDialog()" @submit="submitEditBetDialog()">
+          <div class="row">
+            <div v-if="betStore.data" class="col-12 q-gutter-md">
+              <h4 class="text-center q-mt-lg q-mb-none">{{ $t("editBet") }}</h4>
+              <q-input v-model="betStore.data.date" filled mask="date" :rules="['date']">
+                <template #append>
+                  <q-icon class="cursor-pointer" name="event">
+                    <q-popup-proxy cover transition-hide="scale" transition-show="scale">
+                      <q-date v-model="betStore.data.date">
+                        <div class="row items-center justify-end">
+                          <q-btn v-close-popup color="primary" flat label="Close" />
+                        </div>
+                      </q-date>
+                    </q-popup-proxy>
+                  </q-icon>
+                </template>
+              </q-input>
+              <q-input v-model="betStore.data.title" filled :label="'title'" type="text" />
+              <q-input v-model="betStore.data.category" filled :label="'category'" type="text" />
+              <q-input v-model="betStore.data.odds" filled :label="'odds'" type="text" />
+              <q-input v-model="betStore.data.odds2" filled :label="'odds2'" type="text" />
+              <q-input v-model="betStore.data.status" filled :label="'status'" type="text" />
+              <q-input v-model="betStore.data.sportID" filled :label="'sportID'" type="text" />
+              <div class="row justify-center">
+                <q-btn class="q-mr-md" color="green" :label="$t('save')" no-caps type="submit" />
+                <q-btn class="q-mr-md" color="red" :label="$t('cancel')" no-caps type="reset" />
+              </div>
+            </div>
+          </div>
+        </q-form>
+      </q-card>
+    </q-dialog>
+    <!-- New post dialog: -->
+    <q-dialog v-model="appStore.showNewBetDialog" persistent>
+      <q-card class="q-pa-md" style="width: 60vw; min-width: 300px">
+        <q-form class="q-mx-md" @reset="resetBetDialog()" @submit="submitNewBetDialog()">
+          <div class="row">
+            <div v-if="betStore.data" class="col-12 q-gutter-md">
+              <h4 class="text-center q-mt-lg q-mb-none">{{ t("newPost") }}</h4>
+              <q-input v-model="betStore.data.date" filled :label="'date'" mask="date" :rules="['date']">
+                <template #append>
+                  <q-icon class="cursor-pointer" name="event">
+                    <q-popup-proxy cover transition-hide="scale" transition-show="scale">
+                      <q-date v-model="betStore.data.date">
+                        <div class="row items-center justify-end">
+                          <q-btn v-close-popup color="primary" flat label="Close" />
+                        </div>
+                      </q-date>
+                    </q-popup-proxy>
+                  </q-icon>
+                </template>
+              </q-input>
+              <q-input v-model="betStore.data.title" filled :label="'title'" type="text" />
+              <q-select v-model="betStore.data.category" filled :label="'category'" :options="options" />
+              <q-input v-model="betStore.data.odds" filled :label="'odds'" type="text" />
+              <q-input
+                v-if="betStore.data.category == 'versus'"
+                v-model="betStore.data.odds2"
+                filled
+                :label="'odds2'"
+                type="text"
+              />
+              <div class="row justify-center">
+                <q-btn class="q-mr-md" color="green" :label="$t('save')" no-caps type="submit" />
+                <q-btn class="q-mr-md" color="red" :label="$t('cancel')" no-caps type="reset" />
+              </div>
+            </div>
+          </div>
+        </q-form>
+      </q-card>
+    </q-dialog>
+    <!-- Generate Bets Dialog -->
+    <q-dialog v-model="ticketsStore.showGenerateDialog" persistent>
+      <q-card class="q-pa-md" style="width: 60vw; min-width: 300px">
+        <q-form class="q-mx-md" @reset="resetGenerateDialog()" @submit="sendGenerateDialog()">
+          <div class="row">
+            <div v-if="betStore.data" class="col-12 q-gutter-md">
+              <h4 class="text-center q-mt-lg q-mb-none">{{ t("newPost") }}</h4>
+
+              <q-input v-model="betStore.raceDate" filled :label="'Date'"></q-input>
+              <q-input v-model="betStore.title" filled :label="'Title'" type="text" />
+              <div class="row justify-center">
+                <q-btn class="q-mr-md" color="green" :label="$t('save')" no-caps type="submit" />
+                <q-btn class="q-mr-md" color="red" :label="$t('cancel')" no-caps type="reset" />
+              </div>
+            </div>
+          </div>
+        </q-form>
+      </q-card>
+    </q-dialog>
+    <!-- End Dialog -->
+    <q-dialog v-model="appStore.showEndDialog" persistent>
+      <q-card class="q-pa-md" style="width: 60vw; min-width: 300px">
+        <q-form class="q-mx-md" @reset="resetEndBet()" @submit="sendEndBet()">
+          <div class="row">
+            <div v-if="betStore.data" class="col-12 q-gutter-md">
+              <div v-if="betStore.data.category == 'versus'">
+                <q-radio v-model="betStore.winner" val="First" label="First driver"></q-radio>
+                <p>Choose</p>
+                <q-radio v-model="betStore.winner" val="Second" label="Second driver"></q-radio>
+              </div>
+              <q-checkbox v-model="betStore.win">Win?</q-checkbox>
+
+              <div class="row justify-center">
+                <q-btn class="q-mr-md" color="green" :label="$t('save')" no-caps type="submit" />
+                <q-btn class="q-mr-md" color="red" :label="$t('cancel')" no-caps type="reset" />
+              </div>
+            </div>
+          </div>
+        </q-form>
+      </q-card>
+    </q-dialog>
   </q-page>
 </template>
 

@@ -22,6 +22,9 @@ import App from "./App.vue";
 const pinia = createPinia();
 const app = createApp(App);
 app.use(pinia);
+import NewBettingView from "./views/NewBettingView.vue";
+import StartPageView from "./views/StartPageView.vue";
+import BettingView from "./views/BettingView.vue";
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -59,6 +62,21 @@ const routes: Array<RouteRecordRaw> = [
     name: "examples",
     component: ExamplesView,
   },
+
+  {
+    path: "/betting",
+    name: "betting",
+    component: BettingView,
+  },
+  {
+    path: "/newbetting",
+    name: "newbetting",
+    component: NewBettingView,
+  },
+  {
+    path: "/:id",
+    component: StartPageView,
+  },
   {
     path: "/account",
     name: "account",
@@ -78,6 +96,11 @@ const routes: Array<RouteRecordRaw> = [
     path: "/about",
     name: "about",
     component: AboutView,
+  },
+  {
+    path: "/admin",
+    name: "admin",
+    component: AdminView,
   },
   {
     path: "/qhelp",
@@ -113,4 +136,7 @@ const router = createRouter({
 //   else next("/login");
 // });
 
+router.beforeEach((to, from, next) => {
+  next();
+});
 export default router;
