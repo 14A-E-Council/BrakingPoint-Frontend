@@ -1,6 +1,6 @@
 <script setup lang="ts">
   import { useUsersStore } from "..//store/usersStore";
-  import { ref, reactive, computed } from "vue";
+  import { ref, reactive } from "vue";
   import router from "src/router";
 
   const usersStore = useUsersStore();
@@ -41,7 +41,7 @@
 
   async function register() {
     await usersStore.getSanctumCookie();
-    if (usersStore.getLoggedUser) {
+    if (!usersStore.getLoggedUser) {
       await usersStore.register({
         username: informationsReg.username,
         email: informationsReg.email,
@@ -131,10 +131,7 @@
           </div>
 
           <!-- Registration -->
-          <div
-            v-if="registrationState"
-            class="column items-center animate__animated animate__fadeInDown"
-          >
+          <div v-if="registrationState" class="column items-center animate__animated animate__fadeInDown">
             <h3 style="color: white">Regisztráció</h3>
             <p style="color: white">Felhasználónév</p>
             <q-input
@@ -208,13 +205,7 @@
               />
             </div>
             <div class="column items-center">
-              <q-btn
-                class="vertical-middle q-mt-xl"
-                color="black"
-                label="Regisztrálás"
-                rounded
-                @click="register"
-              />
+              <q-btn class="vertical-middle q-mt-xl" color="black" label="Regisztrálás" rounded @click="register" />
             </div>
           </div>
         </div>

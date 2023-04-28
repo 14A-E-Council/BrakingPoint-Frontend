@@ -8,9 +8,7 @@
   const usersStore = useUsersStore();
   const anyLoggedUser = computed(() => (usersStore.getLoggedUser ? true : false));
 
-  const loggedUserHasVerifiedEmail = computed(() =>
-    usersStore.getLoggedUser?.email_verified_at ? true : false
-  );
+  const loggedUserHasVerifiedEmail = computed(() => (usersStore.getLoggedUser?.email_verified_at ? true : false));
 
   const $q = useQuasar();
 
@@ -219,11 +217,7 @@
                 <q-icon name="cloud_upload" @click.stop.prevent />
               </template>
               <template #append>
-                <q-icon
-                  class="cursor-pointer"
-                  name="close"
-                  @click.stop.prevent="filesImages = null"
-                />
+                <q-icon class="cursor-pointer" name="close" @click.stop.prevent="filesImages = null" />
               </template>
               <template #hint>Csak kép formátum elfogadott!</template>
             </q-file>
@@ -280,11 +274,7 @@
             :type="isPwd ? 'password' : 'text'"
           >
             <template #append>
-              <q-icon
-                class="cursor-pointer"
-                :name="isPwd ? 'visibility_off' : 'visibility'"
-                @click="isPwd = !isPwd"
-              />
+              <q-icon class="cursor-pointer" :name="isPwd ? 'visibility_off' : 'visibility'" @click="isPwd = !isPwd" />
             </template>
           </q-input>
           <p class="q-mt-lg" style="color: white">Jelszó megerősitése</p>
@@ -305,13 +295,7 @@
             </template>
           </q-input>
           <div class="column items-center">
-            <q-btn
-              class="vertical-middle q-mt-xl"
-              color="black"
-              label="Mentés"
-              rounded
-              @click="save"
-            />
+            <q-btn class="vertical-middle q-mt-xl" color="black" label="Mentés" rounded @click="save" />
           </div>
         </div>
         <!-- TODO összekötni a csapatokkal és aszerint az oldal színét változtatni -->
@@ -334,8 +318,7 @@
             <div class="col-md-4">
               <q-icon class="q-ml-md" color="blue" name="info" size="4em">
                 <q-tooltip>
-                  Kedvenc csapat kiválasztásával az oldal színe is megváltozik a választott csapat
-                  színeire
+                  Kedvenc csapat kiválasztásával az oldal színe is megváltozik a választott csapat színeire
                 </q-tooltip>
               </q-icon>
             </div>

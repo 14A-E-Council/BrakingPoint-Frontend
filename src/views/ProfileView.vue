@@ -64,9 +64,7 @@
                 </q-img>
               </q-avatar>
             </div>
-            <h2 class="q-pl-lg" style="color: white">
-              {{ usersStore.loggedUser?.username }} profilja
-            </h2>
+            <h2 class="q-pl-lg" style="color: white">{{ usersStore.loggedUser?.username }} profilja</h2>
             <!--TODO A ranglistán lévő pozíciója-->
             <h3 style="color: white">500</h3>
           </div>
@@ -80,36 +78,28 @@
                 icon="trending_up"
                 label="Statisztikák"
                 push
-                @click="
-                  (statistics = true), (leagues = false), (selfExclusion = false), (bets = false)
-                "
+                @click="(statistics = true), (leagues = false), (selfExclusion = false), (bets = false)"
               />
               <q-btn
                 class="menuButton"
                 icon="leaderboard"
                 label="Ligák"
                 push
-                @click="
-                  (statistics = false), (leagues = true), (selfExclusion = false), (bets = false)
-                "
+                @click="(statistics = false), (leagues = true), (selfExclusion = false), (bets = false)"
               />
               <q-btn
                 class="menuButton"
                 icon="block"
                 label="Önkizárás"
                 push
-                @click="
-                  (statistics = false), (leagues = false), (selfExclusion = true), (bets = false)
-                "
+                @click="(statistics = false), (leagues = false), (selfExclusion = true), (bets = false)"
               />
               <q-btn
                 class="menuButton"
                 icon="paid"
                 label="Fogadások"
                 push
-                @click="
-                  (statistics = false), (leagues = false), (selfExclusion = false), (bets = true)
-                "
+                @click="(statistics = false), (leagues = false), (selfExclusion = false), (bets = true)"
               />
 
               <!-- Statistics -->
@@ -150,22 +140,14 @@
                   </tr>
                   <tr>
                     <td>
-                      <q-img
-                        alt="PictureFrame"
-                        class="leaguePicture"
-                        src="..//assets/diamond.png"
-                      />
+                      <q-img alt="PictureFrame" class="leaguePicture" src="..//assets/diamond.png" />
                     </td>
                     <td>Gyémánt liga</td>
                     <td>XX szinttől egészen XX szintig tart</td>
                   </tr>
                   <tr>
                     <td>
-                      <q-img
-                        alt="PictureFrame"
-                        class="leaguePicture"
-                        src="..//assets/amethyst.png"
-                      />
+                      <q-img alt="PictureFrame" class="leaguePicture" src="..//assets/amethyst.png" />
                     </td>
                     <td>Ametiszt liga</td>
                     <td>XX szinttől egészen XX szintig tart</td>
@@ -194,13 +176,9 @@
                     <div class="col-md-4">
                       <q-icon class="q-ml-xl" color="blue" name="info" size="4em">
                         <q-tooltip>
-                          Ha bekapcsolja nem fog tudni fogadni. A többi funkció továbbra is elérhető
-                          marad.
+                          Ha bekapcsolja nem fog tudni fogadni. A többi funkció továbbra is elérhető marad.
                           <br />
-                          <b>
-                            Ezidő alatt nem áll módunkban visszavonni a tiltást, akkor sem ha
-                            meggondolja magát!
-                          </b>
+                          <b>Ezidő alatt nem áll módunkban visszavonni a tiltást, akkor sem ha meggondolja magát!</b>
                         </q-tooltip>
                       </q-icon>
                     </div>
@@ -222,8 +200,7 @@
                     </q-card-section>
 
                     <q-card-section class="q-pt-none">
-                      A választott ideig nem fog tudni fogadni, ezt nem áll módunkban visszavonni.
-                      Biztosan szeretné?
+                      A választott ideig nem fog tudni fogadni, ezt nem áll módunkban visszavonni. Biztosan szeretné?
                     </q-card-section>
 
                     <q-card-actions align="right">
