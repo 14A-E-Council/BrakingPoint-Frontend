@@ -7,7 +7,8 @@ import GridView from "./views/GridView.vue";
 import HelpView from "./views/HelpView.vue";
 import EditProfileView from "./views/EditProfileView.vue";
 import ProfileView from "./views/ProfileView.vue";
-import AdminView from "./views/AdminPageView.vue";
+import AdminPageView from "./views/AdminPageView.vue";
+import AdminView from "./views/AdminView.vue";
 import LoginView from "./views/LoginPageView.vue";
 import LeaderboardView from "./views/LeaderboardView.vue";
 import FerrariTeamView from "./views/infoViews/FerrariTeamView.vue";
@@ -55,7 +56,7 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: "/admin",
     name: "Admin",
-    component: AdminView,
+    component: AdminPageView,
   },
   {
     path: "/examples",
@@ -98,8 +99,8 @@ const routes: Array<RouteRecordRaw> = [
     component: AboutView,
   },
   {
-    path: "/admin",
-    name: "admin",
+    path: "/admin2",
+    name: "admin2",
     component: AdminView,
   },
   {

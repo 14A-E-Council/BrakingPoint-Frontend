@@ -4,12 +4,9 @@
   import { useAppStore } from "../store/appStore";
   import { onMounted, watch } from "vue";
   import { storeToRefs } from "pinia";
-  import { useI18n } from "vue-i18n";
 
   const betStore = useBetStore();
   const appStore = useAppStore();
-  const options = ["overall", "versus", "race"];
-  let { t } = useI18n();
 
   // isLoading variable is reactive, but we need convert to ref() for watch
   const { isLoading } = storeToRefs(betStore);
@@ -132,15 +129,15 @@
         :loading="betStore.isLoading"
         row-key="available_betID"
         :rows="betStore.bets"
-        :rows-per-page-label="$t('rowsPerPageLabel')"
+        :rows-per-page-label="'rowsPerPageLabel'"
         selection="single"
-        :title="$t('bets')"
+        :title="'bets'"
         wrap-cells
         @request="onRequest"
       >
         <!-- Search field -->
         <template #top-right>
-          <q-input v-model="betStore.filter" debounce="500" dense :placeholder="$t('search')">
+          <q-input v-model="betStore.filter" debounce="500" dense :placeholder="'search'">
             <template #append>
               <q-icon name="search" />
             </template>
@@ -148,9 +145,7 @@
         </template>
       </q-table>
     </div>
-    <q-btn v-show="betStore.selected.length == 1" color="blue" no-caps @click="newTicket()">
-      {{ $t("editBet") }}
-    </q-btn>
+    <q-btn v-show="betStore.selected.length == 1" color="blue" no-caps @click="newTicket()">editBet</q-btn>
     <!-- New post dialog: -->
     <q-dialog v-model="appStore.showTicketDialog" persistent>
       <q-card class="q-pa-md" style="width: 60vw; min-width: 300px">
@@ -160,8 +155,8 @@
               <h4 class="text-center q-mt-lg q-mb-none">Bet amount</h4>
               <q-input v-model="betStore.betAmount" filled type="number" />
               <div class="row justify-center">
-                <q-btn class="q-mr-md" color="green" :label="$t('save')" no-caps type="submit" />
-                <q-btn class="q-mr-md" color="red" :label="$t('cancel')" no-caps type="reset" />
+                <q-btn class="q-mr-md" color="green" :label="'save'" no-caps type="submit" />
+                <q-btn class="q-mr-md" color="red" :label="'cancel'" no-caps type="reset" />
               </div>
             </div>
           </div>

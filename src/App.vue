@@ -2,9 +2,6 @@
   import { ref, computed } from "vue";
   import router from "src/router";
   import { useUsersStore } from "./store/usersStore";
-  import { useI18n } from "vue-i18n";
-  import { useUsersStore } from "./store/usersStore";
-  import { onMounted, ref } from "vue";
   // import { Cookies } from "quasar";
 
   const leftDrawer = ref<boolean>(true);
@@ -94,6 +91,24 @@
       name: "driversandteamslist",
       route: "/driverteamlist",
     },
+    {
+      icon: "😒",
+      text: "Drivers and Teams List",
+      name: "driversandteamslist",
+      route: "/driverteamlist",
+    },
+    {
+      icon: "😒",
+      text: "Drivers and Teams List",
+      name: "driversandteamslist",
+      route: "/driverteamlist",
+    },
+    {
+      icon: "😒",
+      text: "simaadmin",
+      name: "admin",
+      route: "/admin",
+    },
   ]);
 
   const links = ref([
@@ -150,15 +165,7 @@
 
             <!--Hibák kijavítása-->
             <!--Kis menü-->
-            <q-input
-              v-model="text"
-              class="q-ml-md"
-              dark
-              dense
-              input-class="text-right"
-              rounded
-              standout
-            >
+            <q-input v-model="text" class="q-ml-md" dark dense input-class="text-right" rounded standout>
               <template #prepend>
                 <q-icon name="search" />
               </template>
@@ -171,19 +178,14 @@
               style="cursor: pointer; align-items: center"
               @click="router.push({ path: '/' })"
             >
-              <q-img
-                class="position: relative; text-align: center; q-mr-xl"
-                style="height: 80px; max-width: 350px"
-              >
+              <q-img class="position: relative; text-align: center; q-mr-xl" style="height: 80px; max-width: 350px">
                 <img alt="BrakingPointLogo" src="./assets/BrakingPointLogo.png" />
               </q-img>
             </q-toolbar-title>
             <q-btn no-caps size="15px" @click="toolbarButtonClicked">
               {{ usersStore.loggedUser ? usersStore.loggedUser.username : "Bejelentkezés" }}
             </q-btn>
-            <label v-if="usersStore.loggedUser">
-              Egyenleg: {{ usersStore.loggedUser.balance }}
-            </label>
+            <label v-if="usersStore.loggedUser">Egyenleg: {{ usersStore.loggedUser.balance }}</label>
             <!--Dark mode megoldása-->
             <q-btn flat icon="mdi-theme-light-dark" size="15px" @click="$q.dark.toggle" />
           </q-toolbar>
@@ -233,9 +235,7 @@
                 <q-separator v-if="linkItem.separator" :key="'sep' + index" />
               </template>
             </q-list>
-            <q-btn v-if="anyLoggedUser" no-caps size="15px" @click="logoutButtonClicked">
-              Kijelentkezés
-            </q-btn>
+            <q-btn v-if="anyLoggedUser" no-caps size="15px" @click="logoutButtonClicked">Kijelentkezés</q-btn>
           </q-scroll-area>
         </q-drawer>
 

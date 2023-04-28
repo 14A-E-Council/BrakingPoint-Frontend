@@ -4,13 +4,11 @@
   import { useAppStore } from "../store/appStore";
   import { onMounted, watch } from "vue";
   import { storeToRefs } from "pinia";
-  import { useI18n } from "vue-i18n";
   import { IColumns } from "../store/columns";
   import { generateRaceBets, useTicketsStore } from "../store/ticketsStore";
   const betStore = useBetStore();
   const appStore = useAppStore();
   const ticketsStore = useTicketsStore();
-  let { t } = useI18n();
 
   // isLoading variable is reactive, but we need convert to ref() for watch
   const { isLoading } = storeToRefs(betStore);
@@ -174,15 +172,15 @@
         :loading="betStore.isLoading"
         row-key="available_betID"
         :rows="betStore.bets"
-        :rows-per-page-label="$t('rowsPerPageLabel')"
+        :rows-per-page-label="'rowsPerPageLabel'"
         selection="multiple"
-        :title="$t('bets')"
+        :title="'bets'"
         wrap-cells
         @request="onRequest"
       >
         <!-- Search field -->
         <template #top-right>
-          <q-input v-model="betStore.filter" debounce="500" dense :placeholder="$t('search')">
+          <q-input v-model="betStore.filter" debounce="500" dense :placeholder="'search'">
             <template #append>
               <q-icon name="search" />
             </template>
@@ -192,16 +190,12 @@
       <!-- Action buttons: -->
       <div class="row justify-center q-ma-sm q-gutter-sm">
         <q-btn v-show="betStore.selected.length != 0" color="orange" no-caps @click="betStore.selected = []">
-          {{ betStore.selected.length > 1 ? $t("clearSelections") : $t("clearSelection") }}
+          {{ betStore.selected.length > 1 ? "clearSelections" : "clearSelection" }}
         </q-btn>
-        <q-btn v-show="betStore.selected.length == 0" color="green" no-caps @click="newBet()">
-          {{ $t("New Bet") }}
-        </q-btn>
-        <q-btn v-show="betStore.selected.length == 1" color="blue" no-caps @click="editBet()">
-          {{ $t("Edit Bet") }}
-        </q-btn>
+        <q-btn v-show="betStore.selected.length == 0" color="green" no-caps @click="newBet()">New Bet"</q-btn>
+        <q-btn v-show="betStore.selected.length == 1" color="blue" no-caps @click="editBet()">"Edit Bet"</q-btn>
         <q-btn v-show="betStore.selected.length != 0" color="red" no-caps @click="betStore.deleteById()">
-          {{ betStore.selected.length > 1 ? $t("Delete Bets") : $t("Delete Bet") }}
+          {{ betStore.selected.length > 1 ? "Delete Bets" : "Delete Bet" }}
         </q-btn>
         <q-btn v-show="betStore.selected.length == 0" color="red" no-caps @click="generateDialog()">
           Generate Bets
@@ -215,7 +209,7 @@
         <q-form class="q-mx-md" @reset="resetBetDialog()" @submit="submitEditBetDialog()">
           <div class="row">
             <div v-if="betStore.data" class="col-12 q-gutter-md">
-              <h4 class="text-center q-mt-lg q-mb-none">{{ $t("editBet") }}</h4>
+              <h4 class="text-center q-mt-lg q-mb-none">editBet</h4>
               <q-input v-model="betStore.data.date" filled mask="date" :rules="['date']">
                 <template #append>
                   <q-icon class="cursor-pointer" name="event">
@@ -236,8 +230,8 @@
               <q-input v-model="betStore.data.status" filled :label="'status'" type="text" />
               <q-input v-model="betStore.data.sportID" filled :label="'sportID'" type="text" />
               <div class="row justify-center">
-                <q-btn class="q-mr-md" color="green" :label="$t('save')" no-caps type="submit" />
-                <q-btn class="q-mr-md" color="red" :label="$t('cancel')" no-caps type="reset" />
+                <q-btn class="q-mr-md" color="green" :label="'save'" no-caps type="submit" />
+                <q-btn class="q-mr-md" color="red" :label="'cancel'" no-caps type="reset" />
               </div>
             </div>
           </div>
@@ -250,7 +244,7 @@
         <q-form class="q-mx-md" @reset="resetBetDialog()" @submit="submitNewBetDialog()">
           <div class="row">
             <div v-if="betStore.data" class="col-12 q-gutter-md">
-              <h4 class="text-center q-mt-lg q-mb-none">{{ t("newPost") }}</h4>
+              <h4 class="text-center q-mt-lg q-mb-none">newPost</h4>
               <q-input v-model="betStore.data.date" filled :label="'date'" mask="date" :rules="['date']">
                 <template #append>
                   <q-icon class="cursor-pointer" name="event">
@@ -275,8 +269,8 @@
                 type="text"
               />
               <div class="row justify-center">
-                <q-btn class="q-mr-md" color="green" :label="$t('save')" no-caps type="submit" />
-                <q-btn class="q-mr-md" color="red" :label="$t('cancel')" no-caps type="reset" />
+                <q-btn class="q-mr-md" color="green" :label="'save'" no-caps type="submit" />
+                <q-btn class="q-mr-md" color="red" :label="'cancel'" no-caps type="reset" />
               </div>
             </div>
           </div>
@@ -289,13 +283,13 @@
         <q-form class="q-mx-md" @reset="resetGenerateDialog()" @submit="sendGenerateDialog()">
           <div class="row">
             <div v-if="betStore.data" class="col-12 q-gutter-md">
-              <h4 class="text-center q-mt-lg q-mb-none">{{ t("newPost") }}</h4>
+              <h4 class="text-center q-mt-lg q-mb-none">newPost</h4>
 
               <q-input v-model="betStore.raceDate" filled :label="'Date'"></q-input>
               <q-input v-model="betStore.title" filled :label="'Title'" type="text" />
               <div class="row justify-center">
-                <q-btn class="q-mr-md" color="green" :label="$t('save')" no-caps type="submit" />
-                <q-btn class="q-mr-md" color="red" :label="$t('cancel')" no-caps type="reset" />
+                <q-btn class="q-mr-md" color="green" :label="'save'" no-caps type="submit" />
+                <q-btn class="q-mr-md" color="red" :label="'cancel'" no-caps type="reset" />
               </div>
             </div>
           </div>
@@ -309,15 +303,15 @@
           <div class="row">
             <div v-if="betStore.data" class="col-12 q-gutter-md">
               <div v-if="betStore.data.category == 'versus'">
-                <q-radio v-model="betStore.winner" val="First" label="First driver"></q-radio>
+                <q-radio v-model="betStore.winner" label="First driver" val="First"></q-radio>
                 <p>Choose</p>
-                <q-radio v-model="betStore.winner" val="Second" label="Second driver"></q-radio>
+                <q-radio v-model="betStore.winner" label="Second driver" val="Second"></q-radio>
               </div>
               <q-checkbox v-model="betStore.win">Win?</q-checkbox>
 
               <div class="row justify-center">
-                <q-btn class="q-mr-md" color="green" :label="$t('save')" no-caps type="submit" />
-                <q-btn class="q-mr-md" color="red" :label="$t('cancel')" no-caps type="reset" />
+                <q-btn class="q-mr-md" color="green" :label="'save'" no-caps type="submit" />
+                <q-btn class="q-mr-md" color="red" :label="'cancel'" no-caps type="reset" />
               </div>
             </div>
           </div>
