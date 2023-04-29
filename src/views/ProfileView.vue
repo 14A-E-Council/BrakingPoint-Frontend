@@ -75,6 +75,7 @@
             <div class="wrapper q-pt-xl">
               <q-btn
                 class="menuButton"
+                color="black"
                 icon="trending_up"
                 label="Statisztikák"
                 push
@@ -82,6 +83,7 @@
               />
               <q-btn
                 class="menuButton"
+                color="black"
                 icon="leaderboard"
                 label="Ligák"
                 push
@@ -89,6 +91,7 @@
               />
               <q-btn
                 class="menuButton"
+                color="black"
                 icon="block"
                 label="Önkizárás"
                 push
@@ -96,6 +99,7 @@
               />
               <q-btn
                 class="menuButton"
+                color="black"
                 icon="paid"
                 label="Fogadások"
                 push
@@ -119,35 +123,60 @@
                 <table>
                   <tr>
                     <td>
-                      <q-img alt="PictureFrame" class="leaguePicture" src="..//assets/bronze.png" />
+                      <q-img
+                        alt="PictureFrame"
+                        class="leaguePicture"
+                        src="..//assets/bronze.png"
+                        style="max-width: 7.5em"
+                      />
                     </td>
                     <td>Bronz liga</td>
                     <td>0-ás szinttől egészen XX szintig tart</td>
                   </tr>
                   <tr>
                     <td>
-                      <q-img alt="PictureFrame" class="leaguePicture" src="..//assets/silver.png" />
+                      <q-img
+                        alt="PictureFrame"
+                        class="leaguePicture"
+                        src="..//assets/silver.png"
+                        style="max-width: 7.5em"
+                      />
                     </td>
                     <td>Ezüst liga</td>
                     <td>XX szinttől egészen XX szintig tart</td>
                   </tr>
                   <tr>
                     <td>
-                      <q-img alt="PictureFrame" class="leaguePicture" src="..//assets/gold.png" />
+                      <q-img
+                        alt="PictureFrame"
+                        class="leaguePicture"
+                        src="..//assets/gold.png"
+                        style="max-width: 7.5em"
+                      />
                     </td>
                     <td>Arany liga</td>
                     <td>XX szinttől egészen XX szintig tart</td>
                   </tr>
                   <tr>
                     <td>
-                      <q-img alt="PictureFrame" class="leaguePicture" src="..//assets/diamond.png" />
+                      <q-img
+                        alt="PictureFrame"
+                        class="leaguePicture"
+                        src="..//assets/diamond.png"
+                        style="max-width: 7.5em"
+                      />
                     </td>
                     <td>Gyémánt liga</td>
                     <td>XX szinttől egészen XX szintig tart</td>
                   </tr>
                   <tr>
                     <td>
-                      <q-img alt="PictureFrame" class="leaguePicture" src="..//assets/amethyst.png" />
+                      <q-img
+                        alt="PictureFrame"
+                        class="leaguePicture"
+                        src="..//assets/amethyst.png"
+                        style="max-width: 7.5em"
+                      />
                     </td>
                     <td>Ametiszt liga</td>
                     <td>XX szinttől egészen XX szintig tart</td>

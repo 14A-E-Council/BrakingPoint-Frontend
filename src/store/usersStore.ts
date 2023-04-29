@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import server from "./axios.instance";
 import { defineStore } from "pinia";
-import { Loading } from "quasar";
+import { Loading, Notify } from "quasar";
 import router from "src/router";
 
 interface IUser {
@@ -64,15 +64,24 @@ export const useUsersStore = defineStore("user", {
             password: params.password,
           })
           .then(() => {
-            server.get("api/user").then((res) => {
-              this.loggedUser = res.data;
-              console.log(this.loggedUser);
-              router.push({ name: "FrontPage" });
-            });
+            server
+              .get("api/user")
+              .then((res) => {
+                this.loggedUser = res.data;
+                console.log(this.loggedUser);
+                return this.loggedUser;
+              })
+              .then(() => {
+                router.push({ name: "FrontPage" });
+              });
           })
-          .catch(() => {
+          .catch((error) => {
             this.loggedUser = null;
             Loading.hide();
+            Notify.create({
+              message: `Sikertelen bejelentkezés: ${error.response.data.message}`,
+              color: "negative",
+            });
           });
       }
     },
@@ -100,14 +109,23 @@ export const useUsersStore = defineStore("user", {
           password_confirmation: params.confirmPassword,
         })
         .then(() => {
-          server.get("api/user").then((res) => {
-            this.loggedUser = res.data;
-            console.log(this.loggedUser);
-            router.push({ name: "FrontPage" });
-          });
+          server
+            .get("api/user")
+            .then((res) => {
+              this.loggedUser = res.data;
+              console.log(this.loggedUser);
+              return this.loggedUser;
+            })
+            .then(() => {
+              router.push({ name: "FrontPage" });
+            });
         })
         .catch((error) => {
           console.log(error.response);
+          Notify.create({
+            message: `Sikertelen regisztráció: ${error.response.data.message}`,
+            color: "negative",
+          });
         });
     },
 
@@ -132,12 +150,24 @@ export const useUsersStore = defineStore("user", {
           profile_picture: params.profile_picture,
           colour_palette: params.colour_palette,
         })
-        .then((res) => {
-          console.log(res);
-          router.push({ name: "Profile" });
+        .then(() => {
+          server
+            .get("api/user")
+            .then((res) => {
+              this.loggedUser = res.data;
+              console.log(res);
+              return this.loggedUser;
+            })
+            .then(() => {
+              router.push({ name: "Profile" });
+            });
         })
         .catch((error) => {
           console.log(error.response);
+          Notify.create({
+            message: `Profil szerkesztése sikertelen: ${error.response.data.message}`,
+            color: "negative",
+          });
         });
     },
   },

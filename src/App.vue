@@ -77,7 +77,7 @@
 
 <!-- https://reactgo.com/vue-background-image/   kép változtatása változóból-->
 <template>
-  <div id="bg-color" elevated style="background: #1b1b1b">
+  <div id="bg-color" elevated style="background: #a71616">
     <div id="bg">
       <q-layout view="hHh Lpr fFf">
         <q-header class="text-white text-center" elevated style="background: #1b1b1b">

@@ -4,7 +4,9 @@
   import { useAppStore } from "../store/appStore";
   import { onMounted, watch } from "vue";
   import { storeToRefs } from "pinia";
+  import { useUsersStore } from "..//store/usersStore";
 
+  const usersStore = useUsersStore();
   const betStore = useBetStore();
   const appStore = useAppStore();
 
@@ -114,11 +116,17 @@
     });
     appStore.showTicketDialog = false;
   }
+
+  var bgColor1 = usersStore.getLoggedUser?.colour_palette?.slice(0, 7);
+  var bgColor2 = usersStore.getLoggedUser?.colour_palette?.slice(7, 14);
+  var logo = usersStore.getLoggedUser?.preferred_category;
+
+  var bgColor = "linear-gradient(to bottom, " + bgColor1 + ", " + bgColor2 + ")";
 </script>
 
 <template>
-  <q-page>
-    <div class="q-pa-md">
+  <q-page id="bg-color" :style="{ backgroundImage: bgColor }">
+    <div id="bg-img" class="q-pa-md" :style="{ backgroundImage: logo }">
       <q-table
         v-model:selected="betStore.selected"
         binary-state-sort
@@ -166,4 +174,16 @@
   </q-page>
 </template>
 
-<style scoped></style>
+<style lang="sccs" scoped>
+  #bg-color {
+      background-image: v-bind(bgColor);
+      background-size: cover;
+      background-attachment: fixed;
+    }
+
+    #bg-img {
+      background-size: 50%;
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+</style>

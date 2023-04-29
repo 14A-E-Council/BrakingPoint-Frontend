@@ -156,6 +156,9 @@
     console.log(colors);
     informations.preferred_category = logo;
     informations.colour_palette = colors;
+    if (imageUrl.value == null) {
+      imageUrl.value = "..//assets/default.png";
+    }
     await usersStore.getSanctumCookie();
     await usersStore.editProfile({
       username: informations.username,
@@ -170,10 +173,16 @@
     //router.push({ name: "Profile" });
     console.log(usersStore.loggedUser);
   }
+
+  var bgColor1 = usersStore.getLoggedUser?.colour_palette?.slice(0, 7);
+  var bgColor2 = usersStore.getLoggedUser?.colour_palette?.slice(7, 14);
+  var logo1 = usersStore.getLoggedUser?.preferred_category;
+
+  var bgColor = "linear-gradient(to bottom, " + bgColor1 + ", " + bgColor2 + ")";
 </script>
 
 <template>
-  <q-layout>
+  <q-layout id="bg-color" :style="{ backgroundImage: bgColor }">
     <div v-if="emailNotVerified" class="q-pa-md q-gutter-sm q-pt-xl row justify-center">
       <q-banner class="bg-red text-white" style="max-width: 50em">
         Kérjük erősítse meg email címét! ({{ usersStore.loggedUser?.email }})
@@ -182,7 +191,7 @@
         </template>
       </q-banner>
     </div>
-    <div class="q-pa-md">
+    <div id="bg-img" class="q-pa-md" :style="{ backgroundImage: logo1 }">
       <div class="row">
         <div class="col-md-4 col-12">
           <div class="column items-center">
@@ -329,4 +338,16 @@
   </q-layout>
 </template>
 
-<style lang="scss"></style>
+<style lang="scss">
+  #bg-color {
+    background-image: v-bind(bgColor);
+    background-size: cover;
+    background-attachment: fixed;
+  }
+
+  #bg-img {
+    background-size: 50%;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+</style>

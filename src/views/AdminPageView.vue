@@ -1,6 +1,6 @@
 <template lang="">
-  <q-layout>
-    <div class="q-pa-md">
+  <q-layout id="bg-color" :style="{ backgroundImage: bgColor }">
+    <div id="bg-img" class="q-pa-md" :style="{ backgroundImage: logo }">
       <div class="row">
         <div class="col-md-12 col-12">
           <div class="column">
@@ -230,9 +230,12 @@
   </q-layout>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
   import { ref } from "vue";
   import "animate.css";
+  import { useUsersStore } from "..//store/usersStore";
+
+  const usersStore = useUsersStore();
   //https://quasar.dev/vue-components/table
   // TODO Változók cseréje
   //Users
@@ -372,62 +375,65 @@
     row.index = index;
   });
 
-  export default {
-    setup() {
-      return {
-        columns,
-        rows,
-
-        card: ref(false),
-
-        columnsBets,
-        rowsBets,
-
-        filter: ref(""),
-        loading: ref(false),
-        initialPagination: {
-          sortBy: "desc",
-          descending: false,
-          page: 1,
-          rowsPerPage: 25,
-          // rowsNumber: xx if getting data from a server
-        },
-      };
-    },
-    data() {
-      return {
-        users: true,
-        bets: false,
-
-        usersButton: true,
-        betsButton: false,
-      };
-    },
-    computed: {
-      usersButtonStyle() {
-        if (this.usersButton) {
-          return {
-            height: "3.125em",
-            width: "25em",
-          };
-        } else {
-          return "";
-        }
-      },
-      betsButtonStyle() {
-        if (this.betsButton) {
-          return {
-            height: "3.125em",
-            width: "25em",
-          };
-        } else {
-          return "";
-        }
-      },
-    },
+  var card = ref(false);
+  var filter = ref("");
+  var loading = ref(false);
+  var initialPagination: {
+    sortBy: "desc";
+    descending: false;
+    page: 1;
+    rowsPerPage: 25;
+    // rowsNumber: xx if getting data from a server
   };
+
+  var users = ref(true);
+  var bets = ref(false);
+
+  var usersButton = ref(true);
+  var betsButton = ref(false);
+
+  function usersButtonStyle() {
+    if (usersButton.value) {
+      return {
+        height: "3.125em",
+        width: "25em",
+      };
+    } else {
+      return "";
+    }
+  }
+
+  function betsButtonStyle() {
+    if (betsButton.value) {
+      return {
+        height: "3.125em",
+        width: "25em",
+      };
+    } else {
+      return "";
+    }
+  }
+
+  var bgColor1 = usersStore.getLoggedUser?.colour_palette?.slice(0, 7);
+  var bgColor2 = usersStore.getLoggedUser?.colour_palette?.slice(7, 14);
+  var logo = usersStore.getLoggedUser?.preferred_category;
+
+  var bgColor = "linear-gradient(to bottom, " + bgColor1 + ", " + bgColor2 + ")";
+  console.log(bgColor);
 </script>
 <style lang="scss">
+  #bg-color {
+    background-image: v-bind(bgColor);
+    background-size: cover;
+    background-attachment: fixed;
+  }
+
+  #bg-img {
+    background-size: 50%;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+
   .cards {
     background-color: #1b1b1b;
     color: white;

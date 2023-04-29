@@ -1,7 +1,16 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+  import { useUsersStore } from "..//store/usersStore";
+
+  const usersStore = useUsersStore();
+
+  var bgColor1 = usersStore.getLoggedUser?.colour_palette?.slice(0, 7);
+  var bgColor2 = usersStore.getLoggedUser?.colour_palette?.slice(7, 14);
+
+  var bgColor = "linear-gradient(to bottom, " + bgColor1 + ", " + bgColor2 + ")";
+</script>
 
 <template>
-  <q-layout>
+  <q-layout :style="{ backgroundImage: bgColor }">
     <div class="q-pb-xl">
       <div id="circuitImage" class="row">
         <div class="q-pl-md col-xs-12 col-sm-12 col-md-12 col-lg-5">

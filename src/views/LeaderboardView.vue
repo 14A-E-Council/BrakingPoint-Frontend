@@ -11,6 +11,12 @@
     ? "../src/assets/" + usersStore.getLoggedUser.picture_frame
     : "../src/assets/bronze.png";
 
+  var bgColor1 = usersStore.getLoggedUser?.colour_palette?.slice(0, 7);
+  var bgColor2 = usersStore.getLoggedUser?.colour_palette?.slice(7, 14);
+  var logo = usersStore.getLoggedUser?.preferred_category;
+
+  var bgColor = "linear-gradient(to bottom, " + bgColor1 + ", " + bgColor2 + ")";
+  console.log(bgColor);
   // var picture_frameFirst = "../src/assets/bronze.png";
 
   // var picture_frameSecond = "../src/assets/bronze.png";
@@ -60,8 +66,8 @@
 </script>
 
 <template>
-  <q-layout>
-    <div class="q-pa-md">
+  <q-layout id="bg-color" :style="{ backgroundImage: bgColor }">
+    <div id="bg-img" class="q-pa-md" :style="{ backgroundImage: logo }">
       <div class="row">
         <div class="col-md-12 col-12">
           <div class="column">
@@ -72,18 +78,13 @@
               <!-- TODO Ne menjenek egymásba az elemek -->
               <!-- Rank 1 -->
               <div class="gt-md col-md-3 col-12">
-                <div
-                  style="background-color: #d4af37; border-radius: 10%; height: 40em; width: 30em"
-                >
+                <div style="background-color: #d4af37; border-radius: 10%; height: 40em; width: 30em">
                   <div class="column items-center">
                     <h3 style="color: white">Top 1</h3>
                     <q-avatar style="height: 3.6em; width: 3.6em; text-align: left">
                       <q-img alt="PictureFrame" src="..//assets/amethyst.png">
                         <q-avatar style="height: 2.8em; width: 2.8em; position: relative">
-                          <q-img
-                            alt="ProfilePicture"
-                            src="..//assets/2560px-Mercedes_AMG_Petronas_F1_Logo.svg.png"
-                          />
+                          <q-img alt="ProfilePicture" src="..//assets/2560px-Mercedes_AMG_Petronas_F1_Logo.svg.png" />
                         </q-avatar>
                       </q-img>
                     </q-avatar>
@@ -97,14 +98,7 @@
                 <div class="column">
                   <!-- If user's resolution lower than 1440x1920px  -->
                   <div class="lt-lg col-md-3 col-12 q-pb-sm">
-                    <div
-                      style="
-                        background-color: #d4af37;
-                        border-radius: 2.5em;
-                        height: 15em;
-                        width: 40em;
-                      "
-                    >
+                    <div style="background-color: #d4af37; border-radius: 2.5em; height: 15em; width: 40em">
                       <div class="row q-pl-sm q-pt-md items-center">
                         <h3 style="color: white">1</h3>
                         <div class="q-pr-xl q-pl-xl">
@@ -123,14 +117,7 @@
                   </div>
                   <!-- Rank 2 -->
                   <div class="col-md-4 col-12">
-                    <div
-                      style="
-                        background-color: #c0c0c0;
-                        border-radius: 2.5em;
-                        height: 12.5em;
-                        width: 40em;
-                      "
-                    >
+                    <div style="background-color: #c0c0c0; border-radius: 2.5em; height: 12.5em; width: 40em">
                       <div class="row q-pl-sm q-pt-md items-center">
                         <h4 style="color: white">2</h4>
                         <div class="q-pr-xl q-pl-xl">
@@ -150,14 +137,7 @@
 
                   <!-- Rank 3 -->
                   <div class="col-md-4 col-12 q-pt-sm">
-                    <div
-                      style="
-                        background-color: #967444;
-                        border-radius: 2.5em;
-                        height: 12.5em;
-                        width: 40em;
-                      "
-                    >
+                    <div style="background-color: #967444; border-radius: 2.5em; height: 12.5em; width: 40em">
                       <div class="row q-pl-sm q-pt-md items-center">
                         <h4 style="color: white">3</h4>
                         <div class="q-pr-xl q-pl-xl">
@@ -177,14 +157,7 @@
 
                   <!-- User's rank -->
                   <div class="col-md-4 col-12 q-pt-sm">
-                    <div
-                      style="
-                        background-color: #1b1b1b;
-                        border-radius: 2.5em;
-                        height: 12.5em;
-                        width: 40em;
-                      "
-                    >
+                    <div style="background-color: #1b1b1b; border-radius: 2.5em; height: 12.5em; width: 40em">
                       <div class="row q-pl-sm q-pt-md items-center">
                         <!-- TODO A felhasználó ranglistán elfoglalt helye -->
                         <h5 style="color: white">4</h5>
@@ -215,6 +188,18 @@
 </template>
 
 <style lang="scss">
+  #bg-color {
+    background-image: v-bind(bgColor);
+    background-size: cover;
+    background-attachment: fixed;
+  }
+
+  #bg-img {
+    background-size: 50%;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+
   .cards {
     background-color: #1b1b1b;
     color: white;
