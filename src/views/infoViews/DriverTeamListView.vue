@@ -23,7 +23,7 @@
             <q-img class="cardImage text-center" src="src\assets\teamsymbols\ferrari_card.png">
               <div class="cardShadow row">
                 <a class="teamName" href="/teams/ferrari">Ferrari</a>
-                <a class="driverName">Charles Leclerc</a>
+                <a class="driverName" href="/drivers">Charles Leclerc</a>
                 <p class="driverName">Carlos Sainz</p>
               </div>
             </q-img>
@@ -141,13 +141,6 @@
     font-family: Wallpoet;
     src: url(src/assets/fonts/Wallpoet-Regular.otf);
   }
-  .backgroundImage {
-    position: absolute;
-    top: 12em;
-    width: 80em;
-    z-index: 0;
-    opacity: 0.5;
-  }
   #cardAttributesFerrari {
     max-width: 20em;
     max-height: 21em;
@@ -232,20 +225,21 @@
     max-width: 15em;
     max-height: fit-content;
     height: 20em;
-    justify-content: flex-start;
   }
   .cardShadow {
     width: 100%;
     height: 100%;
   }
   .driverName {
-    position: relative;
+    text-decoration: none;
+
     color: white;
     font-family: "WallPoet";
     font-style: normal;
     font-weight: 450;
     font-size: 150%;
     text-shadow: 0.1em 0.1em 0.1em black;
+    width: 100%;
   }
   #pageTitle {
     text-shadow: 0.1em 0.1em 0.1em black;
@@ -255,6 +249,7 @@
   }
   .teamName {
     text-decoration: none;
+    width: 100%;
 
     margin-top: 0%;
     margin-bottom: 20%;

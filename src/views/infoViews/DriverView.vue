@@ -31,9 +31,8 @@
       <div style="position: relative"></div>
       <div id="driverDescriptionBackground">
         <p id="driverDescription">
-          A 2016-os GP3-szezon és a 2017-es FIA Formula–2 szezon bajnoka. 2018-ban az Alfa Romeo
-          Sauber csapat pilótájaként szerepelt először a Formula–1-ben. 2019-től a Scuderia Ferrari
-          versenyzője.
+          A 2016-os GP3-szezon és a 2017-es FIA Formula–2 szezon bajnoka. 2018-ban az Alfa Romeo Sauber csapat
+          pilótájaként szerepelt először a Formula–1-ben. 2019-től a Scuderia Ferrari versenyzője.
         </p>
       </div>
     </div>
