@@ -153,11 +153,20 @@
   async function save() {
     console.log(informations);
     var colors = `${color}${color2}`;
-    console.log(colors);
+    console.log(colors, "");
     informations.preferred_category = logo;
-    informations.colour_palette = colors;
+    if (model == "") {
+      informations.colour_palette = usersStore.loggedUser?.colour_palette!;
+    } else {
+      informations.colour_palette = colors;
+    }
+
     if (imageUrl.value == null) {
-      imageUrl.value = "..//assets/default.png";
+      if (usersStore.loggedUser?.profile_picture == null || usersStore.loggedUser?.profile_picture == "default.png") {
+        imageUrl.value = "../src/assets/default.png";
+      } else {
+        imageUrl.value = usersStore.loggedUser?.profile_picture;
+      }
     }
     await usersStore.getSanctumCookie();
     await usersStore.editProfile({

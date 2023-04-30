@@ -72,6 +72,10 @@ export const useUsersStore = defineStore("user", {
                 return this.loggedUser;
               })
               .then(() => {
+                Notify.create({
+                  message: `Sikeres bejelentkezés!`,
+                  color: "positive",
+                });
                 router.push({ name: "FrontPage" });
               });
           })
@@ -117,6 +121,10 @@ export const useUsersStore = defineStore("user", {
               return this.loggedUser;
             })
             .then(() => {
+              Notify.create({
+                message: `Sikeres regisztráció!`,
+                color: "positive",
+              });
               router.push({ name: "FrontPage" });
             });
         })
@@ -129,15 +137,63 @@ export const useUsersStore = defineStore("user", {
         });
     },
 
-    // async checkIfVerifiedEmail(params: emailVerified) {
-    //   await server.get("api/user").then(() => {
-    //     if (this.loggedUser?.email_verified_at != null) {
-    //       params = true;
-    //     } else {
-    //       params = false;
-    //     }
-    //   });
-    // },
+    async googleAuth(params: IUser) {
+      await server
+        .post("register", {
+          username: params.username,
+          email: params.email,
+          password: params.password,
+          password_confirmation: params.confirmPassword,
+        })
+        .then(() => {
+          server
+            .get("api/user")
+            .then((res) => {
+              this.loggedUser = res.data;
+              console.log(this.loggedUser);
+              return this.loggedUser;
+            })
+            .then(() => {
+              Notify.create({
+                message: `Sikeres regisztráció!`,
+                color: "positive",
+              });
+              router.push({ name: "FrontPage" });
+            });
+        })
+        .catch(() => {
+          server
+            .post("login", {
+              email: params.email,
+              password: params.password,
+            })
+            .then(() => {
+              server
+                .get("api/user")
+                .then((res) => {
+                  this.loggedUser = res.data;
+                  console.log(this.loggedUser, params.profile_picture);
+                  return this.loggedUser;
+                })
+                .then(() => {
+                  Notify.create({
+                    message: `Sikeres bejelentkezés!`,
+                    color: "positive",
+                  });
+                  router.push({ name: "FrontPage" });
+                });
+            })
+            .catch((error) => {
+              this.loggedUser = null;
+              Loading.hide();
+              Notify.create({
+                message: `Sikertelen bejelentkezés: ${error.response.data.message}`,
+                color: "negative",
+              });
+            });
+        });
+    },
+
     async editProfile(params: IUser) {
       await server
         .put("api/editprofile/" + this.loggedUser?.userID, {

@@ -2,6 +2,7 @@
   import { useUsersStore } from "..//store/usersStore";
   import { ref, reactive, computed } from "vue";
   import router from "src/router";
+  import { decodeCredential } from "vue3-google-login";
 
   const usersStore = useUsersStore();
 
@@ -26,6 +27,20 @@
     password: "",
     confirmPassword: "",
   });
+
+  const callback = (response: any) => {
+    console.log("Handle the response", response);
+    const userData = decodeCredential(response.credential);
+    console.log("Handle the userData", userData);
+    const { email, sub } = userData;
+    console.log(email, sub);
+    usersStore.googleAuth({
+      username: email,
+      email: email,
+      password: sub,
+      confirmPassword: sub,
+    });
+  };
 
   async function login() {
     await usersStore.getSanctumCookie();
@@ -78,7 +93,7 @@
             <!-- Login -->
             <h3 style="color: white">Belépés</h3>
             <div class="q-gutter-sm">
-              <q-btn class="q-mb-md" color="red" label="Belépés Google fiókkal" />
+              <GoogleLogin :callback="callback" />
               <q-btn class="q-mb-md" color="blue" label="Belépés Facebookkal" />
             </div>
             <p style="color: white"><sub>vagy</sub></p>
@@ -103,7 +118,7 @@
               rounded
               style="width: 37em; max-width: 37em"
               text-dark
-              :type="isPwd ? 'password' : 'text'"
+              :type="isPwdLogin ? 'password' : 'text'"
             >
               <template #append>
                 <q-icon

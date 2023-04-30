@@ -40,6 +40,11 @@
 
   var bgColor = "linear-gradient(to bottom, " + bgColor1 + ", " + bgColor2 + ")";
   console.log(bgColor);
+
+  var username = usersStore.loggedUser?.username;
+  if (usersStore.loggedUser?.username?.includes("@")) {
+    username = username?.split("@")[0];
+  }
 </script>
 
 <template>
@@ -64,7 +69,7 @@
                 </q-img>
               </q-avatar>
             </div>
-            <h2 class="q-pl-lg" style="color: white">{{ usersStore.loggedUser?.username }} profilja</h2>
+            <h2 class="q-pl-lg" style="color: white">{{ username }} profilja</h2>
             <!--TODO A ranglistán lévő pozíciója-->
             <h3 style="color: white">500</h3>
           </div>

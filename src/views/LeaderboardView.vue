@@ -17,52 +17,24 @@
 
   var bgColor = "linear-gradient(to bottom, " + bgColor1 + ", " + bgColor2 + ")";
   console.log(bgColor);
-  // var picture_frameFirst = "../src/assets/bronze.png";
 
-  // var picture_frameSecond = "../src/assets/bronze.png";
+  //console.log(users[0].picture_frame);
+  //var sortedUsers = users!.sort((a, b) => b.level! - a.level!);
 
-  // var picture_frameThird = "../src/assets/bronze.png";
+  //var picture_frameFirst = users ? "../src/assets/" + sortedUsers[0].picture_frame : "../src/assets/bronze.png";
+  //console.log(picture_frameFirst);
 
-  // var nameFirst = "Teszt";
-  // var nameSecond = "Teszt";
-  // var nameThird = "Teszt";
+  //var picture_frameSecond = users[1] ? "../src/assets/" + users[1].picture_frame! : "../src/assets/bronze.png";
 
-  // var levelFirst = 12;
-  // var levelSecond = 12;
-  // var levelThird = 12;
-  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-  if (allUserStore.getAllUser != null) {
-    var users = allUserStore.getAllUser;
+  //var picture_frameThird = users[2] ? "../src/assets/" + users[2].picture_frame! : "../src/assets/bronze.png";
 
-    console.log(users);
+  //var nameFirst = (await users) ? sortedUsers[0]?.username : "Teszt";
+  //var nameSecond = users ? users[1].username! : "Teszt";
+  //var nameThird = users ? users[2].username! : "Teszt";
 
-    // picture_frameFirst = users
-    //   ? "../src/assets/" + users.picture_frame
-    //   : "../src/assets/bronze.png";
-
-    // picture_frameSecond = users[1]
-    //   ? "../src/assets/" + users[1].picture_frame
-    //   : "../src/assets/bronze.png";
-
-    // picture_frameThird = users[2]
-    //   ? "../src/assets/" + users[2].picture_frame
-    //   : "../src/assets/bronze.png";
-
-    // nameFirst = users ? users[0].username! : "Teszt";
-    // nameSecond = users ? users[1].username! : "Teszt";
-    // nameThird = users ? users[2].username! : "Teszt";
-
-    // levelFirst = users ? users[0].level! : 12;
-    // levelSecond = users ? users[1].level! : 12;
-    // levelThird = users ? users[2].level! : 12;
-  } else {
-    console.log("Még nem!");
-  }
-
-  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-
-  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-  // var sortedUsers = users.sort((a, b) => a.level! - b.level!);
+  //var levelFirst = users ? users[0].level! : 12;
+  //var levelSecond = users ? users[1].level! : 12;
+  //var levelThird = users ? users[2].level! : 12;
 </script>
 
 <template>
@@ -88,7 +60,7 @@
                         </q-avatar>
                       </q-img>
                     </q-avatar>
-                    <h4 style="color: white">Levente</h4>
+                    <h4 style="color: white">István</h4>
                     <p style="color: white; font-size: 2em">3512</p>
                   </div>
                 </div>
@@ -110,7 +82,7 @@
                             </q-img>
                           </q-avatar>
                         </div>
-                        <h4 style="color: white; font-size: 2em">Levente</h4>
+                        <h4 style="color: white; font-size: 2em">István</h4>
                         <p class="q-pl-xl q-pt-sm" style="color: white; font-size: 1.7em">3512</p>
                       </div>
                     </div>
