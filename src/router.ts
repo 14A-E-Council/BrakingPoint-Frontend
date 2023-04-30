@@ -25,11 +25,13 @@ const routes: Array<RouteRecordRaw> = [
     path: "/",
     name: "FrontPage",
     component: FrontPageView,
+    meta: { mustNotBeLoggedIn: true },
   },
   {
     path: "/login",
     name: "Login",
     component: LoginView,
+    meta: { mustNotBeLoggedIn: true },
   },
   {
     path: "/profile",
@@ -70,16 +72,19 @@ const routes: Array<RouteRecordRaw> = [
     path: "/drivers",
     name: "drivers",
     component: DriverView,
+    meta: { mustNotBeLoggedIn: true },
   },
   {
     path: "/driverteamlist",
     name: "driversandteams",
     component: DriverTeamListView,
+    meta: { mustNotBeLoggedIn: true },
   },
   {
     path: "/teams/ferrari",
     name: "FerrariTeamPage",
     component: FerrariTeamView,
+    meta: { mustNotBeLoggedIn: true },
   },
 ];
 const router = createRouter({
@@ -87,15 +92,16 @@ const router = createRouter({
   routes,
 });
 
-// const usersStore = await import("./store/usersStore");
-// const user = usersStore.useUsersStore().getLoggedUser;
-// router.beforeEach(async (to, from, next) => {
-//   const user = usersStore.useUsersStore().getLoggedUser;
-//   if (user != null) next();
-//   else next("/login");
-// });
-router.beforeEach((to, from, next) => {
-  next();
+//https://mokkapps.de/vue-tips/dynamically-change-page-title/
+
+router.beforeEach(async (to, from, next) => {
+  const usersStore = await import("./store/usersStore");
+  const user = usersStore.useUsersStore().getLoggedUser;
+  if (user?.username != null) next();
+  else {
+    if (to.meta.mustNotBeLoggedIn) next();
+    else next("/login");
+  }
 });
 
 export default router;

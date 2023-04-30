@@ -75,7 +75,6 @@
   ]);
 </script>
 
-<!-- https://reactgo.com/vue-background-image/   kép változtatása változóból-->
 <template>
   <div id="bg-color" elevated style="background: #a71616">
     <div id="bg">

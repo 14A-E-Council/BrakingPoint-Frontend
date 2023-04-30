@@ -1,12 +1,22 @@
 <script setup lang="ts">
   import { useUsersStore } from "..//store/usersStore";
   import { ref, reactive, computed } from "vue";
-  import router from "src/router";
   import { decodeCredential } from "vue3-google-login";
+  import { Notify } from "quasar";
 
   const usersStore = useUsersStore();
 
   const anyLoggedUser = computed(() => (usersStore.loggedUser ? true : false));
+
+  const isPwd = ref(true);
+  const checkbox = ref(false);
+  const terms = ref(false);
+
+  var loginState = ref(true);
+  var registrationState = ref(false);
+
+  var isPwdAgain = ref(true);
+  var isPwdLogin = ref(true);
 
   interface IReactiveData {
     username: string;
@@ -51,7 +61,6 @@
           password: informationsLogin.password,
         })
         .then(() => {
-          router.push({ path: "/" });
           console.log(anyLoggedUser.value);
         });
     } else {
@@ -60,28 +69,25 @@
   }
 
   async function register() {
-    await usersStore.getSanctumCookie();
-    if (!anyLoggedUser.value) {
-      await usersStore.register({
-        username: informationsReg.username,
-        email: informationsReg.email,
-        password: informationsReg.password,
-        confirmPassword: informationsReg.confirmPassword,
+    if (checkbox.value == false) {
+      Notify.create({
+        message: `Fogadja el a felhasználási feltételeket`,
+        color: "negative",
       });
-      await router.push({ path: "/" });
     } else {
-      usersStore.logOut();
+      await usersStore.getSanctumCookie();
+      if (!anyLoggedUser.value) {
+        await usersStore.register({
+          username: informationsReg.username,
+          email: informationsReg.email,
+          password: informationsReg.password,
+          confirmPassword: informationsReg.confirmPassword,
+        });
+      } else {
+        usersStore.logOut();
+      }
     }
   }
-
-  const isPwd = ref(true);
-  const left = ref(true);
-
-  var loginState = ref(true);
-  var registrationState = ref(false);
-
-  var isPwdAgain = ref(true);
-  var isPwdLogin = ref(true);
 </script>
 
 <template>
@@ -129,16 +135,6 @@
               </template>
             </q-input>
             <q-btn class="q-mt-md" flat label="Elfelejtette jelszavát?" style="color: white" />
-            <div>
-              <q-checkbox
-                v-model="left"
-                color="dark"
-                keep-color
-                label="Maradjak belépve"
-                left-label
-                style="color: white"
-              />
-            </div>
             <div class="column items-center">
               <q-btn
                 class="vertical-middle q-mt-xl"
@@ -214,14 +210,49 @@
                 />
               </template>
             </q-input>
+            <q-dialog v-model="terms">
+              <q-card>
+                <q-card-section>
+                  <div class="text-h6">Felhasználási feltételek</div>
+                </q-card-section>
+
+                <q-separator />
+
+                <q-card-section class="scroll" style="max-height: 50vh">
+                  <p>
+                    Mi is az a BrakingPoint?
+                    <br />
+                    A BrakingPoint egy jelenleg Formula 1-re kiéleződött (később kibővíthető a többi motorsportra is)
+                    fogadó- és információszerző oldal. Ahol az oldal látogatói bejelentkezés nélkül tekinthetik meg a
+                    csapatok és versenyzők adatait, sikereit. Ezen felül oldalunk szórakozásra is biztosít lehetőséget,
+                    valódi tét nélküli fogadásokként, melyek még izgalmasabbá teszik a futamok nézését.
+                    <br />
+                    Célja
+                    <br />
+                    Projektünk célja, hogy egyszerűen, modern környezetben tudják a felhasználók elolvasni kedvenc
+                    csapatuk vagy akár pilótájuk minden adatát, a nevétől kezdve egészen az elért eredményekig. A
+                    fogadásnak hála összemérhetik tudásukat, ezáltal az unalmasabb futamokat is könnyedén izgalmassá
+                    tehetik.
+                  </p>
+                </q-card-section>
+
+                <q-separator />
+
+                <q-card-actions align="right">
+                  <q-btn v-close-popup color="primary" flat label="Decline" @click="checkbox = false" />
+                  <q-btn v-close-popup color="primary" flat label="Accept" @click="checkbox = true" />
+                </q-card-actions>
+              </q-card>
+            </q-dialog>
             <div>
               <q-checkbox
-                v-model="left"
+                v-model="checkbox"
                 color="dark"
                 keep-color
                 label="Elfogadom a felhasználási feltételeket"
                 left-label
                 style="color: white"
+                @click="terms = true"
               />
             </div>
             <div class="column items-center">
