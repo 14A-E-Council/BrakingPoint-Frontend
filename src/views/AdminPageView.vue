@@ -226,6 +226,18 @@
           </div>
         </div>
       </div>
+      <!-- API kérés a versenyzőkről-->
+      <div>
+        <h5>Versenyzőkkel kapcsolatos adatok frissítése</h5>
+        <q-btn
+          class="vertical-middle q-ma-lg"
+          color="black"
+          label="Versenyzők/csapatok alap adatok"
+          rounded
+          @click="alap_adatok"
+        />
+        <q-btn />
+      </div>
     </div>
   </q-layout>
 </template>
@@ -234,6 +246,7 @@
   import { ref } from "vue";
   import "animate.css";
   import { useUsersStore } from "..//store/usersStore";
+  import server from "../store/axios.instance";
 
   const usersStore = useUsersStore();
   //https://quasar.dev/vue-components/table
@@ -375,7 +388,6 @@
     row.index = index;
   });
 
-  var card = ref(false);
   var filter = ref("");
   var loading = ref(false);
   var initialPagination: {
@@ -420,6 +432,18 @@
 
   var bgColor = "linear-gradient(to bottom, " + bgColor1 + ", " + bgColor2 + ")";
   console.log(bgColor);
+
+  // api kérések metódus
+
+  function alap_adatok() {
+    server
+      .get("api/storecompetitors")
+      .then((res) => {
+        console.log("potat");
+        console.log(res.data);
+      })
+      .catch((err) => console.log(err));
+  }
 </script>
 <style lang="scss">
   #bg-color {
