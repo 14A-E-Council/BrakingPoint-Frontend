@@ -100,7 +100,7 @@
             <h3 style="color: white">Belépés</h3>
             <div class="q-gutter-sm">
               <GoogleLogin :callback="callback" />
-              <q-btn class="q-mb-md" color="blue" label="Belépés Facebookkal" />
+              <q-btn class="q-mb-md" color="blue" label="Belépés Facebookkal" @click="usersStore.facebookLogin()" />
             </div>
             <p style="color: white"><sub>vagy</sub></p>
             <p style="color: white">E-mail</p>
@@ -284,6 +284,7 @@
               <h4 style="color: white; width: 10em">Még nem regisztrált?</h4>
               <p style="color: white">Hozzon létre fiókot, hogy Ön is csatlakozzon!</p>
               <q-btn
+                v-if="!anyLoggedUser"
                 class="vertical-middle q-mt-xl"
                 color="black"
                 label="Regisztráció"
