@@ -5,6 +5,7 @@
   // import { Cookies } from "quasar";
 
   const leftDrawer = ref<boolean>(true);
+  const text = ref();
   const usersStore = useUsersStore();
   const anyLoggedUser = computed(() => (usersStore.loggedUser ? true : false));
 
@@ -83,7 +84,6 @@
           <q-toolbar>
             <q-btn dense flat icon="mdi-menu" round size="15px" @click="leftDrawer = !leftDrawer" />
 
-            <!--Hibák kijavítása-->
             <!--Kis menü-->
             <q-input v-model="text" class="q-ml-md" dark dense input-class="text-right" rounded standout>
               <template #prepend>
@@ -115,6 +115,7 @@
           v-model="leftDrawer"
           bordered
           :breakpoint="500"
+          class="q-pa-md"
           :class="$q.dark.isActive ? 'bg-grey-9' : 'bg-grey-3'"
           show-if-above
           :width="200"
@@ -124,9 +125,6 @@
             <q-list>
               <template v-for="(menuItem, index) in menuItems" :key="index">
                 <q-item clickable :disable="menuItem.disabled" :to="menuItem.route">
-                  <q-item-section avatar>
-                    <q-icon :name="menuItem.icon" />
-                  </q-item-section>
                   <q-item-section>
                     {{ menuItem.text }}
                   </q-item-section>
@@ -135,20 +133,7 @@
               </template>
               <q-separator />
             </q-list>
-            <!-- links: -->
-            <q-list>
-              <template v-for="(linkItem, index) in links" :key="index">
-                <q-item clickable :href="linkItem.link">
-                  <q-item-section avatar>
-                    <q-icon :name="linkItem.icon" />
-                  </q-item-section>
-                  <q-item-section>
-                    {{ linkItem.text }}
-                  </q-item-section>
-                </q-item>
-                <q-separator v-if="linkItem.separator" :key="'sep' + index" />
-              </template>
-            </q-list>
+            <br />
             <q-btn v-if="anyLoggedUser" no-caps size="15px" @click="logoutButtonClicked">Kijelentkezés</q-btn>
           </q-scroll-area>
         </q-drawer>

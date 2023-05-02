@@ -25,6 +25,20 @@
     confirmPassword: string;
   }
 
+  interface PasswordValidators {
+    length: boolean;
+    capitalLetter: boolean;
+    number: boolean;
+    symbol: boolean;
+  }
+
+  const validPassword = reactive<PasswordValidators>({
+    length: false,
+    capitalLetter: false,
+    number: false,
+    symbol: false,
+  });
+
   const informationsLogin = reactive<IReactiveData>({
     username: "",
     email: "",
@@ -37,6 +51,14 @@
     password: "",
     confirmPassword: "",
   });
+
+  function validatePassword(password: string): boolean {
+    validPassword.length = password.length >= 8;
+    validPassword.capitalLetter = /^(?=.*[A-Z])/.test(password);
+    validPassword.number = /^(?=.*[0-9])/.test(password);
+    validPassword.symbol = /^(?=.*[!@#$%^&*_\-=+])/.test(password);
+    return validPassword.length && validPassword.capitalLetter && validPassword.number && validPassword.symbol;
+  }
 
   const callback = (response: any) => {
     console.log("Handle the response", response);
@@ -75,16 +97,23 @@
         color: "negative",
       });
     } else {
-      await usersStore.getSanctumCookie();
-      if (!anyLoggedUser.value) {
-        await usersStore.register({
-          username: informationsReg.username,
-          email: informationsReg.email,
-          password: informationsReg.password,
-          confirmPassword: informationsReg.confirmPassword,
+      if (informationsReg.password != informationsReg.confirmPassword) {
+        Notify.create({
+          message: `A jelszavak nem egyeznek!`,
+          color: "negative",
         });
       } else {
-        usersStore.logOut();
+        await usersStore.getSanctumCookie();
+        if (!anyLoggedUser.value) {
+          await usersStore.register({
+            username: informationsReg.username,
+            email: informationsReg.email,
+            password: informationsReg.password,
+            confirmPassword: informationsReg.confirmPassword,
+          });
+        } else {
+          usersStore.logOut();
+        }
       }
     }
   }
@@ -100,7 +129,13 @@
             <h3 style="color: white">Belépés</h3>
             <div class="q-gutter-sm">
               <GoogleLogin :callback="callback" />
-              <q-btn class="q-mb-md" color="blue" label="Belépés Facebookkal" @click="usersStore.facebookLogin()" />
+              <q-btn
+                class="q-mb-xl"
+                color="blue"
+                label="Belépés Facebookkal"
+                style="height: 3.1em; width: 15em"
+                @click="usersStore.facebookLogin()"
+              />
             </div>
             <p style="color: white"><sub>vagy</sub></p>
             <p style="color: white">E-mail</p>
@@ -182,6 +217,7 @@
               rounded
               style="width: 37em; max-width: 37em"
               :type="isPwd ? 'password' : 'text'"
+              @update:model-value="validatePassword(informationsReg.password)"
             >
               <template #append>
                 <q-icon
@@ -191,6 +227,7 @@
                 />
               </template>
             </q-input>
+
             <p class="q-mt-md" style="color: white">Jelszó megerősitése</p>
             <q-input
               v-model="informationsReg.confirmPassword"
@@ -210,6 +247,36 @@
                 />
               </template>
             </q-input>
+            <div class="q-pa-sm q-pt-md">
+              <div>
+                <q-icon
+                  :color="validPassword.length ? 'positive' : 'negative'"
+                  :name="validPassword.length ? 'check_circle' : 'cancel'"
+                ></q-icon>
+                A jelszónak minimum 8 karakterből kell állnia!
+              </div>
+              <div>
+                <q-icon
+                  :color="validPassword.capitalLetter ? 'positive' : 'negative'"
+                  :name="validPassword.capitalLetter ? 'check_circle' : 'cancel'"
+                ></q-icon>
+                A jelszónak legalább egy nagybetűt kell tartalmaznia!
+              </div>
+              <div>
+                <q-icon
+                  :color="validPassword.number ? 'positive' : 'negative'"
+                  :name="validPassword.number ? 'check_circle' : 'cancel'"
+                ></q-icon>
+                A jelszónak legalább egy számot kell tartalmaznia!
+              </div>
+              <div>
+                <q-icon
+                  :color="validPassword.symbol ? 'positive' : 'negative'"
+                  :name="validPassword.symbol ? 'check_circle' : 'cancel'"
+                ></q-icon>
+                A jelszónak legalább egy szimbólumot kell tartalmaznia!
+              </div>
+            </div>
             <q-dialog v-model="terms">
               <q-card>
                 <q-card-section>
@@ -239,8 +306,8 @@
                 <q-separator />
 
                 <q-card-actions align="right">
-                  <q-btn v-close-popup color="primary" flat label="Decline" @click="checkbox = false" />
-                  <q-btn v-close-popup color="primary" flat label="Accept" @click="checkbox = true" />
+                  <q-btn v-close-popup color="negative" flat label="Nem fogadom el" @click="checkbox = false" />
+                  <q-btn v-close-popup color="positive" flat label="Elfogadom" @click="checkbox = true" />
                 </q-card-actions>
               </q-card>
             </q-dialog>
