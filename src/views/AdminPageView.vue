@@ -375,7 +375,6 @@
     row.index = index;
   });
 
-  var card = ref(false);
   var filter = ref("");
   var loading = ref(false);
   var initialPagination: {

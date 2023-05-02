@@ -41,6 +41,7 @@
   ];
 
   interface IReactiveData {
+    userID: number;
     username: string;
     email: string;
     last_name: string;
@@ -53,6 +54,7 @@
   }
 
   const informations = reactive<IReactiveData>({
+    userID: usersStore.loggedUser?.userID!,
     username: usersStore.loggedUser?.username!,
     email: usersStore.loggedUser?.email!,
     last_name: usersStore.loggedUser?.last_name!,
@@ -157,8 +159,10 @@
     informations.preferred_category = logo;
     if (model == "") {
       informations.colour_palette = usersStore.loggedUser?.colour_palette!;
+      informations.preferred_category = usersStore.loggedUser?.preferred_category!;
     } else {
       informations.colour_palette = colors;
+      informations.preferred_category = logo;
     }
 
     if (imageUrl.value == null) {

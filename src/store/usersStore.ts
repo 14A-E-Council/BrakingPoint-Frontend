@@ -5,7 +5,7 @@ import { Loading, Notify } from "quasar";
 import router from "src/router";
 
 interface IUser {
-  userID?: string;
+  userID?: number;
   email?: string;
   username?: string;
   password?: string;
@@ -42,7 +42,7 @@ export const useUsersStore = defineStore("user", {
         return this.loggedUser;
       } else {
         console.log(this.loggedUser);
-        localStorage.setItem("id", this.loggedUser.userID!);
+        localStorage.setItem("id", this.loggedUser.userID!.toString());
         return this.loggedUser;
       }
     },
@@ -225,6 +225,14 @@ export const useUsersStore = defineStore("user", {
             color: "negative",
           });
         });
+    },
+
+    async facebookLogin() {
+      await server.get("auth/facebook").then((res) => {
+        console.log("Response", res.data);
+        //router.go(res.data);
+        window.location.href = res.data;
+      });
     },
   },
 });
