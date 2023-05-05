@@ -200,7 +200,12 @@
       <q-banner class="bg-red text-white" style="max-width: 50em">
         Kérjük erősítse meg email címét! ({{ usersStore.loggedUser?.email }})
         <template #action>
-          <q-btn color="white" flat label="Megerősítő email újraküldése" />
+          <q-btn
+            color="white"
+            flat
+            label="Megerősítő email újraküldése"
+            @click="usersStore.resendVerificationEmail()"
+          />
         </template>
       </q-banner>
     </div>

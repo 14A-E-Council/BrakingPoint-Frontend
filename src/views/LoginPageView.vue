@@ -103,16 +103,23 @@
           color: "negative",
         });
       } else {
-        await usersStore.getSanctumCookie();
-        if (!anyLoggedUser.value) {
-          await usersStore.register({
-            username: informationsReg.username,
-            email: informationsReg.email,
-            password: informationsReg.password,
-            confirmPassword: informationsReg.confirmPassword,
+        if (!validPassword.length || !validPassword.capitalLetter || !validPassword.number || !validPassword.symbol) {
+          Notify.create({
+            message: `A jelszó nem megfelelő!`,
+            color: "negative",
           });
         } else {
-          usersStore.logOut();
+          await usersStore.getSanctumCookie();
+          if (!anyLoggedUser.value) {
+            await usersStore.register({
+              username: informationsReg.username,
+              email: informationsReg.email,
+              password: informationsReg.password,
+              confirmPassword: informationsReg.confirmPassword,
+            });
+          } else {
+            usersStore.logOut();
+          }
         }
       }
     }
@@ -128,8 +135,9 @@
             <!-- Login -->
             <h3 style="color: white">Belépés</h3>
             <div class="q-gutter-sm">
-              <GoogleLogin :callback="callback" />
+              <GoogleLogin v-if="!anyLoggedUser" :callback="callback" />
               <q-btn
+                v-if="!anyLoggedUser"
                 class="q-mb-xl"
                 color="blue"
                 label="Belépés Facebookkal"

@@ -337,5 +337,6 @@
     border-collapse: collapse;
     color: white;
     width: 40em;
+    pointer-events: none;
   }
 </style>

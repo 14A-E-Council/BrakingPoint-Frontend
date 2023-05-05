@@ -234,5 +234,9 @@ export const useUsersStore = defineStore("user", {
         window.location.href = res.data;
       });
     },
+
+    async resendVerificationEmail() {
+      await server.post("email/verification-notification");
+    },
   },
 });
