@@ -136,7 +136,7 @@
                       />
                     </td>
                     <td>Bronz liga</td>
-                    <td>0-ás szinttől egészen XX szintig tart</td>
+                    <td>0-ás szinttől egészen 49-es szintig tart</td>
                   </tr>
                   <tr>
                     <td>
@@ -148,7 +148,7 @@
                       />
                     </td>
                     <td>Ezüst liga</td>
-                    <td>XX szinttől egészen XX szintig tart</td>
+                    <td>50-es szinttől egészen 124-es szintig tart</td>
                   </tr>
                   <tr>
                     <td>
@@ -160,7 +160,7 @@
                       />
                     </td>
                     <td>Arany liga</td>
-                    <td>XX szinttől egészen XX szintig tart</td>
+                    <td>125-ös szinttől egészen 199-es szintig tart</td>
                   </tr>
                   <tr>
                     <td>
@@ -172,7 +172,7 @@
                       />
                     </td>
                     <td>Gyémánt liga</td>
-                    <td>XX szinttől egészen XX szintig tart</td>
+                    <td>200-as szinttől egészen 299-es szintig tart</td>
                   </tr>
                   <tr>
                     <td>
@@ -184,7 +184,7 @@
                       />
                     </td>
                     <td>Ametiszt liga</td>
-                    <td>XX szinttől egészen XX szintig tart</td>
+                    <td>300 szinttől</td>
                   </tr>
                 </table>
               </div>

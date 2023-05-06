@@ -1,7 +1,11 @@
 <template lang="">
   <q-layout id="bg-color" :style="{ backgroundImage: bgColor }">
     <div id="bg-img" class="q-pa-md" :style="{ backgroundImage: logo }">
-      <div class="row">
+      <div class="desktop-hide">
+        <h2 class="text-bold text-center" style="color: white">Sajnáljuk!</h2>
+        <h4 class="text-bold text-center" style="color: white">Ez a felület mobilon jelenleg nem elérhető!</h4>
+      </div>
+      <div class="row mobile-hide">
         <div class="col-md-12 col-12">
           <div class="column">
             <div class="row">
@@ -227,7 +231,7 @@
         </div>
       </div>
       <!-- API kérés a versenyzőkről-->
-      <div>
+      <div class="mobile-hide">
         <h5>Versenyzőkkel kapcsolatos adatok frissítése</h5>
         <q-btn
           class="vertical-middle q-ma-lg"

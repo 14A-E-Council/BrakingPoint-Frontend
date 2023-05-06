@@ -44,12 +44,12 @@
         <div class="col-md-12 col-12">
           <div class="column">
             <div class="row justify-center">
-              <h4 class style="color: white">Ranglista</h4>
+              <h4 class="text-center" style="color: white">Ranglista</h4>
             </div>
             <div class="row flex-center">
               <!-- TODO Ne menjenek egymásba az elemek -->
               <!-- Rank 1 -->
-              <div class="gt-md col-md-3 col-12">
+              <div class="mobile-hide gt-md col-md-3 col-12">
                 <div style="background-color: #d4af37; border-radius: 10%; height: 40em; width: 30em">
                   <div class="column items-center">
                     <h3 style="color: white">Top 1</h3>
@@ -70,7 +70,10 @@
                 <div class="column">
                   <!-- If user's resolution lower than 1440x1920px  -->
                   <div class="lt-lg col-md-3 col-12 q-pb-sm">
-                    <div style="background-color: #d4af37; border-radius: 2.5em; height: 15em; width: 40em">
+                    <div
+                      class="mobile-hide"
+                      style="background-color: #d4af37; border-radius: 2.5em; height: 15em; width: 40em"
+                    >
                       <div class="row q-pl-sm q-pt-md items-center">
                         <h3 style="color: white">1</h3>
                         <div class="q-pr-xl q-pl-xl">
@@ -86,50 +89,71 @@
                         <p class="q-pl-xl q-pt-sm" style="color: white; font-size: 1.7em">3512</p>
                       </div>
                     </div>
+
+                    <!-- If user is on mobile  -->
+                    <div class="desktop-hide col-md-3 col-12 q-pb-sm">
+                      <div style="background-color: #d4af37; border-radius: 2.5em; height: 12em; width: 27em">
+                        <div class="row q-pl-sm q-pt-md items-center">
+                          <h3 style="color: white">1</h3>
+                          <div class="q-pr-xl q-pl-xl">
+                            <q-avatar style="height: 2em; width: 2em; text-align: left">
+                              <q-img alt="PictureFrame" src="..//assets/amethyst.png">
+                                <q-avatar style="height: 1.4em; width: 1.4em; position: relative">
+                                  <q-img alt="ProfilePicture" src="..//assets/default.png" />
+                                </q-avatar>
+                              </q-img>
+                            </q-avatar>
+                          </div>
+                          <h4 style="color: white; font-size: 1.5em">István</h4>
+                          <p class="q-pl-lg q-pt-md" style="color: white; font-size: 1.2em">3512</p>
+                        </div>
+                      </div>
+                    </div>
                   </div>
+
                   <!-- Rank 2 -->
-                  <div class="col-md-4 col-12">
-                    <div style="background-color: #c0c0c0; border-radius: 2.5em; height: 12.5em; width: 40em">
+                  <div class="desktop-hide col-md-4 col-12">
+                    <div style="background-color: #c0c0c0; border-radius: 2.5em; height: 12em; width: 27em">
                       <div class="row q-pl-sm q-pt-md items-center">
                         <h4 style="color: white">2</h4>
                         <div class="q-pr-xl q-pl-xl">
-                          <q-avatar style="height: 2.6em; width: 2.6em; text-align: left">
+                          <q-avatar style="height: 2em; width: 2em; text-align: left">
                             <q-img alt="PictureFrame" src="..//assets/amethyst.png">
-                              <q-avatar style="height: 1.95em; width: 1.95em; position: relative">
+                              <q-avatar style="height: 1.4em; width: 1.4em; position: relative">
                                 <q-img alt="ProfilePicture" src="..//assets/Jedlik_small.png" />
                               </q-avatar>
                             </q-img>
                           </q-avatar>
                         </div>
-                        <h5 style="color: white">Larisza</h5>
-                        <h5 class="q-pl-xl" style="color: white; font-size: 1.5em">2000</h5>
+                        <h5 style="color: white; font-size: 1.5em">Larisza</h5>
+                        <h5 class="q-pl-lg q-pt-sm" style="color: white; font-size: 1.2em">2000</h5>
                       </div>
                     </div>
                   </div>
 
                   <!-- Rank 3 -->
-                  <div class="col-md-4 col-12 q-pt-sm">
-                    <div style="background-color: #967444; border-radius: 2.5em; height: 12.5em; width: 40em">
+                  <div class="desktop-hide col-md-4 col-12 q-pt-sm">
+                    <div style="background-color: #967444; border-radius: 2.5em; height: 12em; width: 27em">
                       <div class="row q-pl-sm q-pt-md items-center">
                         <h4 style="color: white">3</h4>
                         <div class="q-pr-xl q-pl-xl">
-                          <q-avatar style="height: 2.6em; width: 2.6em; text-align: left">
+                          <q-avatar style="height: 2em; width: 2em; text-align: left">
                             <q-img alt="PictureFrame" src="..//assets/amethyst.png">
-                              <q-avatar style="height: 1.95em; width: 1.95em; position: relative">
+                              <q-avatar style="height: 1.4em; width: 1.4em; position: relative">
                                 <q-img alt="ProfilePicture" src="..//assets/tesztkep2.png" />
                               </q-avatar>
                             </q-img>
                           </q-avatar>
                         </div>
-                        <h5 style="color: white">István</h5>
-                        <h5 class="q-pl-xl" style="color: white; font-size: 1.5em">743</h5>
+                        <h5 style="color: white; font-size: 1.5em">István</h5>
+                        <h5 class="q-pl-lg q-pt-sm" style="color: white; font-size: 1.2em">743</h5>
                       </div>
                     </div>
                   </div>
 
                   <!-- User's rank -->
-                  <div class="col-md-4 col-12 q-pt-sm">
-                    <div style="background-color: #1b1b1b; border-radius: 2.5em; height: 12.5em; width: 40em">
+                  <div class="desktop-hide col-md-4 col-12 q-pt-sm">
+                    <div style="background-color: #1b1b1b; border-radius: 2.5em; height: 12em; width: 27em">
                       <div class="row q-pl-sm q-pt-md items-center">
                         <!-- TODO A felhasználó ranglistán elfoglalt helye -->
                         <h5 style="color: white">4</h5>
@@ -143,10 +167,73 @@
                           </q-avatar>
                         </div>
                         <h6 style="color: white">{{ usersStore.loggedUser?.username }}</h6>
-                        <h6 class="q-pl-xl" style="color: white; font-size: 1.5em">
+                        <h6 class="q-pl-lg" style="color: white; font-size: 1.2em">
                           {{ usersStore.loggedUser?.level }}
                         </h6>
                       </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Rank 2 -->
+                <div class="col-md-4 col-12 mobile-hide">
+                  <div style="background-color: #c0c0c0; border-radius: 2.5em; height: 12.5em; width: 40em">
+                    <div class="row q-pl-sm q-pt-md items-center">
+                      <h4 style="color: white">2</h4>
+                      <div class="q-pr-xl q-pl-xl">
+                        <q-avatar style="height: 2.6em; width: 2.6em; text-align: left">
+                          <q-img alt="PictureFrame" src="..//assets/amethyst.png">
+                            <q-avatar style="height: 1.95em; width: 1.95em; position: relative">
+                              <q-img alt="ProfilePicture" src="..//assets/Jedlik_small.png" />
+                            </q-avatar>
+                          </q-img>
+                        </q-avatar>
+                      </div>
+                      <h5 style="color: white">Larisza</h5>
+                      <h5 class="q-pl-xl" style="color: white; font-size: 1.5em">2000</h5>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Rank 3 -->
+                <div class="col-md-4 col-12 q-pt-sm mobile-hide">
+                  <div style="background-color: #967444; border-radius: 2.5em; height: 12.5em; width: 40em">
+                    <div class="row q-pl-sm q-pt-md items-center">
+                      <h4 style="color: white">3</h4>
+                      <div class="q-pr-xl q-pl-xl">
+                        <q-avatar style="height: 2.6em; width: 2.6em; text-align: left">
+                          <q-img alt="PictureFrame" src="..//assets/amethyst.png">
+                            <q-avatar style="height: 1.95em; width: 1.95em; position: relative">
+                              <q-img alt="ProfilePicture" src="..//assets/tesztkep2.png" />
+                            </q-avatar>
+                          </q-img>
+                        </q-avatar>
+                      </div>
+                      <h5 style="color: white">István</h5>
+                      <h5 class="q-pl-xl" style="color: white; font-size: 1.5em">743</h5>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- User's rank -->
+                <div class="col-md-4 col-12 q-pt-sm mobile-hide">
+                  <div style="background-color: #1b1b1b; border-radius: 2.5em; height: 12.5em; width: 40em">
+                    <div class="row q-pl-sm q-pt-md items-center">
+                      <!-- TODO A felhasználó ranglistán elfoglalt helye -->
+                      <h5 style="color: white">4</h5>
+                      <div class="q-pr-xl q-pl-xl">
+                        <q-avatar style="height: 1.6em; width: 1.6em; text-align: left">
+                          <q-img alt="PictureFrame" :src="picture_frame">
+                            <q-avatar style="height: 0.95em; width: 0.95em; position: relative">
+                              <q-img alt="ProfilePicture" src="..//assets/default.png" />
+                            </q-avatar>
+                          </q-img>
+                        </q-avatar>
+                      </div>
+                      <h6 style="color: white">{{ usersStore.loggedUser?.username }}</h6>
+                      <h6 class="q-pl-xl" style="color: white; font-size: 1.5em">
+                        {{ usersStore.loggedUser?.level }}
+                      </h6>
                     </div>
                   </div>
                 </div>
