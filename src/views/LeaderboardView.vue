@@ -3,6 +3,8 @@
   import "animate.css";
   import { useUsersStore } from "..//store/usersStore";
   import { useAllUserStore } from "..//store/allUserStore";
+  import { ref, isProxy, toRaw, onMounted } from "vue";
+  import { useQuasar } from "quasar";
 
   const usersStore = useUsersStore();
   const allUserStore = useAllUserStore();
@@ -16,30 +18,65 @@
   var logo = usersStore.getLoggedUser?.preferred_category;
 
   var bgColor = "linear-gradient(to bottom, " + bgColor1 + ", " + bgColor2 + ")";
-  console.log(bgColor);
 
-  //console.log(users[0].picture_frame);
-  //var sortedUsers = users!.sort((a, b) => b.level! - a.level!);
+  var loaded = ref(false);
+  var nameFirst = "";
+  var nameSecond = "";
+  var nameThird = "";
 
-  //var picture_frameFirst = users ? "../src/assets/" + sortedUsers[0].picture_frame : "../src/assets/bronze.png";
-  //console.log(picture_frameFirst);
+  var levelFirst = 0;
+  var levelSecond = 0;
+  var levelThird = 0;
 
-  //var picture_frameSecond = users[1] ? "../src/assets/" + users[1].picture_frame! : "../src/assets/bronze.png";
+  var pictureFrameFirst = "../src/assets/bronze.png";
+  var pictureFrameSecond = "../src/assets/bronze.png";
+  var pictureFrameThird = "../src/assets/bronze.png";
 
-  //var picture_frameThird = users[2] ? "../src/assets/" + users[2].picture_frame! : "../src/assets/bronze.png";
+  var profPictureFirst = "..//assets/default.png";
+  var profPictureSecond = "..//assets/default.png";
+  var profPictureThird = "..//assets/default.png";
 
-  //var nameFirst = (await users) ? sortedUsers[0]?.username : "Teszt";
-  //var nameSecond = users ? users[1].username! : "Teszt";
-  //var nameThird = users ? users[2].username! : "Teszt";
+  const $q = useQuasar();
 
-  //var levelFirst = users ? users[0].level! : 12;
-  //var levelSecond = users ? users[1].level! : 12;
-  //var levelThird = users ? users[2].level! : 12;
+  onMounted(() => {
+    $q.loading.show({
+      message: "A ranglista épp töltődik. Kérem várjon!",
+    });
+    allUserStore.getAllUser.then((result) => {
+      const users = result;
+      let rawUsers = users;
+      if (isProxy(users)) {
+        rawUsers = toRaw(users);
+        var sortedUsers = rawUsers!.sort((a, b) => b.level! - a.level!);
+        nameFirst = sortedUsers[0].username!;
+        nameSecond = sortedUsers[1].username!;
+        nameThird = sortedUsers[2].username!;
+
+        levelFirst = sortedUsers[0].level!;
+        levelSecond = sortedUsers[1].level!;
+        levelThird = sortedUsers[2].level!;
+
+        pictureFrameFirst = "../src/assets/" + sortedUsers[0].picture_frame!;
+        pictureFrameSecond = "../src/assets/" + sortedUsers[1].picture_frame!;
+        pictureFrameThird = "../src/assets/" + sortedUsers[2].picture_frame!;
+
+        profPictureFirst = sortedUsers[0].profile_picture!;
+        profPictureSecond = sortedUsers[1].profile_picture!;
+        profPictureThird = sortedUsers[2].profile_picture!;
+      }
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars, no-unused-vars
+      let timer = setTimeout(() => {
+        $q.loading.hide();
+        loaded.value = true;
+      }, 500);
+      return loaded.value;
+    });
+  });
 </script>
 
 <template>
   <q-layout id="bg-color" :style="{ backgroundImage: bgColor }">
-    <div id="bg-img" class="q-pa-md" :style="{ backgroundImage: logo }">
+    <div v-if="loaded" id="bg-img" class="q-pa-md" :style="{ backgroundImage: logo }">
       <div class="row">
         <div class="col-md-12 col-12">
           <div class="column">
@@ -54,14 +91,14 @@
                   <div class="column items-center">
                     <h3 style="color: white">Top 1</h3>
                     <q-avatar style="height: 3.6em; width: 3.6em; text-align: left">
-                      <q-img alt="PictureFrame" src="..//assets/amethyst.png">
+                      <q-img alt="PictureFrame" :src="pictureFrameFirst">
                         <q-avatar style="height: 2.8em; width: 2.8em; position: relative">
-                          <q-img alt="ProfilePicture" src="..//assets/2560px-Mercedes_AMG_Petronas_F1_Logo.svg.png" />
+                          <q-img alt="ProfilePicture" :src="profPictureFirst" />
                         </q-avatar>
                       </q-img>
                     </q-avatar>
-                    <h4 style="color: white">István</h4>
-                    <p style="color: white; font-size: 2em">3512</p>
+                    <h4 style="color: white">{{ nameFirst }}</h4>
+                    <p style="color: white; font-size: 2em">{{ levelFirst }}</p>
                   </div>
                 </div>
               </div>
@@ -78,15 +115,15 @@
                         <h3 style="color: white">1</h3>
                         <div class="q-pr-xl q-pl-xl">
                           <q-avatar style="height: 3.6em; width: 3.6em; text-align: left">
-                            <q-img alt="PictureFrame" src="..//assets/amethyst.png">
+                            <q-img alt="PictureFrame" :src="pictureFrameFirst">
                               <q-avatar style="height: 2.8em; width: 2.8em; position: relative">
-                                <q-img alt="ProfilePicture" src="..//assets/default.png" />
+                                <q-img alt="ProfilePicture" :src="profPictureFirst" />
                               </q-avatar>
                             </q-img>
                           </q-avatar>
                         </div>
-                        <h4 style="color: white; font-size: 2em">István</h4>
-                        <p class="q-pl-xl q-pt-sm" style="color: white; font-size: 1.7em">3512</p>
+                        <h4 style="color: white; font-size: 2em">{{ nameFirst }}</h4>
+                        <p class="q-pl-xl q-pt-sm" style="color: white; font-size: 1.7em">{{ levelFirst }}</p>
                       </div>
                     </div>
 
@@ -97,15 +134,15 @@
                           <h3 style="color: white">1</h3>
                           <div class="q-pr-xl q-pl-xl">
                             <q-avatar style="height: 2em; width: 2em; text-align: left">
-                              <q-img alt="PictureFrame" src="..//assets/amethyst.png">
+                              <q-img alt="PictureFrame" :src="pictureFrameFirst">
                                 <q-avatar style="height: 1.4em; width: 1.4em; position: relative">
-                                  <q-img alt="ProfilePicture" src="..//assets/default.png" />
+                                  <q-img alt="ProfilePicture" :src="profPictureFirst" />
                                 </q-avatar>
                               </q-img>
                             </q-avatar>
                           </div>
-                          <h4 style="color: white; font-size: 1.5em">István</h4>
-                          <p class="q-pl-lg q-pt-md" style="color: white; font-size: 1.2em">3512</p>
+                          <h4 style="color: white; font-size: 1.5em">{{ nameFirst }}</h4>
+                          <p class="q-pl-lg q-pt-md" style="color: white; font-size: 1.2em">{{ levelFirst }}</p>
                         </div>
                       </div>
                     </div>
@@ -118,15 +155,15 @@
                         <h4 style="color: white">2</h4>
                         <div class="q-pr-xl q-pl-xl">
                           <q-avatar style="height: 2em; width: 2em; text-align: left">
-                            <q-img alt="PictureFrame" src="..//assets/amethyst.png">
+                            <q-img alt="PictureFrame" :src="pictureFrameSecond">
                               <q-avatar style="height: 1.4em; width: 1.4em; position: relative">
-                                <q-img alt="ProfilePicture" src="..//assets/Jedlik_small.png" />
+                                <q-img alt="ProfilePicture" :src="profPictureSecond" />
                               </q-avatar>
                             </q-img>
                           </q-avatar>
                         </div>
-                        <h5 style="color: white; font-size: 1.5em">Larisza</h5>
-                        <h5 class="q-pl-lg q-pt-sm" style="color: white; font-size: 1.2em">2000</h5>
+                        <h5 style="color: white; font-size: 1.5em">{{ nameSecond }}</h5>
+                        <h5 class="q-pl-lg q-pt-sm" style="color: white; font-size: 1.2em">{{ levelSecond }}</h5>
                       </div>
                     </div>
                   </div>
@@ -138,15 +175,15 @@
                         <h4 style="color: white">3</h4>
                         <div class="q-pr-xl q-pl-xl">
                           <q-avatar style="height: 2em; width: 2em; text-align: left">
-                            <q-img alt="PictureFrame" src="..//assets/amethyst.png">
+                            <q-img alt="PictureFrame" :src="pictureFrameThird">
                               <q-avatar style="height: 1.4em; width: 1.4em; position: relative">
-                                <q-img alt="ProfilePicture" src="..//assets/tesztkep2.png" />
+                                <q-img alt="ProfilePicture" :src="profPictureThird" />
                               </q-avatar>
                             </q-img>
                           </q-avatar>
                         </div>
-                        <h5 style="color: white; font-size: 1.5em">István</h5>
-                        <h5 class="q-pl-lg q-pt-sm" style="color: white; font-size: 1.2em">743</h5>
+                        <h5 style="color: white; font-size: 1.5em">{{ nameThird }}</h5>
+                        <h5 class="q-pl-lg q-pt-sm" style="color: white; font-size: 1.2em">{{ levelThird }}</h5>
                       </div>
                     </div>
                   </div>
@@ -161,7 +198,7 @@
                           <q-avatar style="height: 1.6em; width: 1.6em; text-align: left">
                             <q-img alt="PictureFrame" :src="picture_frame">
                               <q-avatar style="height: 0.95em; width: 0.95em; position: relative">
-                                <q-img alt="ProfilePicture" src="..//assets/default.png" />
+                                <q-img alt="ProfilePicture" :src="usersStore.loggedUser?.profile_picture" />
                               </q-avatar>
                             </q-img>
                           </q-avatar>
@@ -182,15 +219,15 @@
                       <h4 style="color: white">2</h4>
                       <div class="q-pr-xl q-pl-xl">
                         <q-avatar style="height: 2.6em; width: 2.6em; text-align: left">
-                          <q-img alt="PictureFrame" src="..//assets/amethyst.png">
+                          <q-img alt="PictureFrame" :src="pictureFrameSecond">
                             <q-avatar style="height: 1.95em; width: 1.95em; position: relative">
-                              <q-img alt="ProfilePicture" src="..//assets/Jedlik_small.png" />
+                              <q-img alt="ProfilePicture" :src="profPictureSecond" />
                             </q-avatar>
                           </q-img>
                         </q-avatar>
                       </div>
-                      <h5 style="color: white">Larisza</h5>
-                      <h5 class="q-pl-xl" style="color: white; font-size: 1.5em">2000</h5>
+                      <h5 style="color: white">{{ nameSecond }}</h5>
+                      <h5 class="q-pl-xl" style="color: white; font-size: 1.5em">{{ levelSecond }}</h5>
                     </div>
                   </div>
                 </div>
@@ -202,15 +239,15 @@
                       <h4 style="color: white">3</h4>
                       <div class="q-pr-xl q-pl-xl">
                         <q-avatar style="height: 2.6em; width: 2.6em; text-align: left">
-                          <q-img alt="PictureFrame" src="..//assets/amethyst.png">
+                          <q-img alt="PictureFrame" :src="pictureFrameThird">
                             <q-avatar style="height: 1.95em; width: 1.95em; position: relative">
-                              <q-img alt="ProfilePicture" src="..//assets/tesztkep2.png" />
+                              <q-img alt="ProfilePicture" :src="profPictureThird" />
                             </q-avatar>
                           </q-img>
                         </q-avatar>
                       </div>
-                      <h5 style="color: white">István</h5>
-                      <h5 class="q-pl-xl" style="color: white; font-size: 1.5em">743</h5>
+                      <h5 style="color: white">{{ nameThird }}</h5>
+                      <h5 class="q-pl-xl" style="color: white; font-size: 1.5em">{{ levelThird }}</h5>
                     </div>
                   </div>
                 </div>
@@ -225,7 +262,7 @@
                         <q-avatar style="height: 1.6em; width: 1.6em; text-align: left">
                           <q-img alt="PictureFrame" :src="picture_frame">
                             <q-avatar style="height: 0.95em; width: 0.95em; position: relative">
-                              <q-img alt="ProfilePicture" src="..//assets/default.png" />
+                              <q-img alt="ProfilePicture" :src="usersStore.loggedUser?.profile_picture" />
                             </q-avatar>
                           </q-img>
                         </q-avatar>

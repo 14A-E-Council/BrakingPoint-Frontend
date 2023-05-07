@@ -39,13 +39,5 @@ export const useAllUserStore = defineStore({
       return this.users;
     },
   },
-  actions: {
-    async getSanctumCookie() {
-      try {
-        await server.get("sanctum/csrf-cookie");
-      } catch (error) {
-        if (error) throw error;
-      }
-    },
-  },
+  actions: {},
 });

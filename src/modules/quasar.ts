@@ -4,10 +4,10 @@ import "@quasar/extras/mdi-v6/mdi-v6.css";
 // Import Quasar css
 import "quasar/src/css/index.sass";
 
-import { Quasar, Notify, Dialog, LocalStorage } from "quasar";
+import { Quasar, Notify, Dialog, LocalStorage, Loading } from "quasar";
 
 const config = {
-  plugins: { Notify, Dialog, LocalStorage }, // import Quasar plugins and add here
+  plugins: { Notify, Dialog, LocalStorage, Loading }, // import Quasar plugins and add here
   /*
   config: {
     brand: {
