@@ -90,7 +90,7 @@
     margin-left: 4em;
     margin-bottom: 3em;
     margin-top: 2em;
-    width: 40rem;
+    width: 75%;
   }
 
   #circuitName {
