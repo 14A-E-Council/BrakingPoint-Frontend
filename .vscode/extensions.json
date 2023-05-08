@@ -9,7 +9,6 @@
     "codecoaching.quasar-docs",
     "vue.volar",
     "eg2.vscode-npm-script",
-    "formulahendry.auto-close-tag",
-    "lokalise.i18n-ally"
+    "formulahendry.auto-close-tag"
   ]
 }

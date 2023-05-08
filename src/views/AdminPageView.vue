@@ -236,11 +236,17 @@
         <q-btn
           class="vertical-middle q-ma-lg"
           color="black"
-          label="Versenyzők/csapatok alap adatok"
+          label="Versenyzők/csapatok alap adatainak lekérése"
           rounded
           @click="alap_adatok"
         />
-        <q-btn />
+        <q-btn
+          class="vertical-middle q-ma-lg"
+          color="black"
+          label="Helyezések és pontok lekérése"
+          rounded
+          @click="helyezesek_adatok"
+        />
       </div>
     </div>
   </q-layout>
@@ -442,6 +448,16 @@
   function alap_adatok() {
     server
       .get("api/storecompetitors")
+      .then((res) => {
+        console.log("potat");
+        console.log(res.data);
+      })
+      .catch((err) => console.log(err));
+  }
+
+  function helyezesek_adatok() {
+    server
+      .get("api/storecurrentstandings")
       .then((res) => {
         console.log("potat");
         console.log(res.data);
