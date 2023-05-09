@@ -106,8 +106,6 @@
               {{ usersStore.loggedUser ? usersStore.loggedUser.username : "Bejelentkezés" }}
             </q-btn>
             <label v-if="usersStore.loggedUser">Egyenleg: {{ usersStore.loggedUser.balance }}</label>
-            <!--Dark mode megoldása-->
-            <q-btn flat icon="mdi-theme-light-dark" size="15px" @click="$q.dark.toggle" />
           </q-toolbar>
         </q-header>
 

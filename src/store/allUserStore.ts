@@ -6,7 +6,10 @@ interface IAllUser {
   userID?: string;
   email?: string;
   username?: string;
+  first_name?: string;
+  last_name?: string;
   level?: number;
+  balance?: number;
   picture_frame?: string;
   profile_picture?: string;
 }

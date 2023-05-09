@@ -112,7 +112,6 @@
               />
 
               <!-- Statistics -->
-              <!-- TODO kiegésziteni -->
               <div v-if="statistics" class="column items-center">
                 <h4 style="color: white">Profil statisztikák</h4>
                 <q-space />

@@ -222,7 +222,6 @@
               </q-img>
             </q-avatar>
 
-            <!-- https://quasar.dev/vue-components/file-picker -->
             <q-file
               v-model="filesImages"
               accept=".jpg, image/*"
@@ -325,7 +324,6 @@
             <q-btn class="vertical-middle q-mt-xl" color="black" label="Mentés" rounded @click="save" />
           </div>
         </div>
-        <!-- TODO összekötni a csapatokkal és aszerint az oldal színét változtatni -->
         <div class="col-md-4 col-12 q-pl-xl">
           <p style="color: white">Kedvenc csapat kiválasztása</p>
           <div class="row">

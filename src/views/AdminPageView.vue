@@ -1,3 +1,217 @@
+<script setup lang="ts">
+  import { ref, isProxy, toRaw, onMounted } from "vue";
+  import "animate.css";
+  import { useUsersStore } from "..//store/usersStore";
+  import { useAllUserStore } from "..//store/allUserStore";
+  import server from "../store/axios.instance";
+  import { useQuasar } from "quasar";
+
+  const usersStore = useUsersStore();
+  const allUserStore = useAllUserStore();
+  const $q = useQuasar();
+  var loaded = ref(false);
+
+  // api kérések metódus
+
+  function driverTeamBaseData() {
+    server
+      .get("api/storecompetitors")
+      .then((res) => {
+        console.log("Kérés elküldve");
+        console.log(res.data);
+      })
+      .catch((err) => console.log(err));
+  }
+
+  function placementData() {
+    server
+      .get("api/storecurrentstandings")
+      .then((res) => {
+        console.log("Kérés elküldve");
+        console.log(res.data);
+      })
+      .catch((err) => console.log(err));
+  }
+
+  function lastRaceScores() {
+    server
+      .get("api/storeracescores")
+      .then((res) => {
+        console.log("Kérés elküldve");
+        console.log(res.data);
+      })
+      .catch((err) => console.log(err));
+  }
+
+  //https://quasar.dev/vue-components/table
+  // TODO Változók cseréje
+  //Users
+  const columns = [
+    {
+      name: "index",
+      label: "#",
+      field: (row: any) => row.index,
+      format: (val: any) => `${val}`,
+      sortable: true,
+    },
+    {
+      name: "username",
+      required: true,
+      label: "Felhasználónév",
+      sortable: true,
+      align: "center",
+    },
+    { name: "firstName", align: "center", label: "Keresztnév", field: "firstName", sortable: true },
+    { name: "lastName", align: "center", label: "Vezetéknév", field: "lastName", sortable: true },
+    { name: "level", align: "center", label: "Szint", field: "level", sortable: true },
+    { name: "balance", align: "center", label: "Egyenleg", field: "balance", sortable: true },
+  ];
+  let rows: any = ref([]);
+
+  onMounted(() => {
+    $q.loading.show({
+      message: "Az admin felület épp töltődik. Kérem várjon!",
+    });
+    allUserStore.getAllUser.then((result) => {
+      const users = result;
+      let rawUsers = users;
+
+      if (isProxy(users)) {
+        rawUsers = toRaw(users);
+        rawUsers?.forEach((element) => {
+          rows.value.push({
+            index: element.userID,
+            username: element.username,
+            firstName: element.first_name ? element.first_name : "-",
+            lastName: element.last_name ? element.last_name : "-",
+            balance: element.balance,
+            level: element.level,
+          });
+        });
+      }
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars, no-unused-vars
+      let timer = setTimeout(() => {
+        $q.loading.hide();
+        loaded.value = true;
+        console.log(rows);
+      }, 500);
+      return loaded.value, rows.value;
+    });
+  });
+
+  //Bets
+  const columnsBets = [
+    {
+      name: "desc",
+      required: true,
+      label: "#",
+      align: "left",
+      field: (row: any) => row.id,
+      sortable: true,
+    },
+    { name: "Fogadás", align: "center", label: "Fogadás", field: "name", sortable: true },
+    { name: "Verseny", align: "center", label: "Verseny", field: "race", sortable: true },
+    { name: "Szorzó", align: "center", label: "Szorzó", field: "odd", sortable: true },
+    { name: "Eredmény", align: "center", label: "Eredmény", field: "result" },
+  ];
+
+  const rowsBets = [
+    {
+      id: "1",
+      name: "Max Verstappen világbajnok lesz",
+      race: "X",
+      odd: 1.2,
+      result: "Nyert",
+    },
+    {
+      id: "2",
+      name: "Lewis Hamilton világbajnok lesz",
+      race: "X",
+      odd: 2.1,
+      result: "Vesztett",
+    },
+    {
+      id: "3",
+      name: "Max Verstappen nyer",
+      race: "Szaúd-arábiai nagydíj",
+      odd: 1.1,
+      result: "Nyert",
+    },
+    {
+      id: "4",
+      name: "George Russel nyer",
+      race: "Magyar nagydíj",
+      odd: 3.5,
+      result: "Vesztett",
+    },
+    {
+      id: "5",
+      name: "Sergio Pérez nyer",
+      race: "Szingapúri nagydíj",
+      odd: 2.7,
+      result: "Nyert",
+    },
+    {
+      id: "6",
+      name: "Charles Leclerc nyer",
+      race: "Osztrák nagydíj",
+      odd: 2.0,
+      result: "Nyert",
+    },
+    {
+      id: "7",
+      name: "Valteri Bottas nyer",
+      race: "Japán nagydíj",
+      odd: 7.9,
+      result: "Vesztett",
+    },
+  ];
+
+  var filter = ref("");
+  var loading = ref(false);
+  var initialPagination: {
+    sortBy: "desc";
+    descending: false;
+    page: 1;
+    rowsPerPage: 25;
+    // rowsNumber: xx if getting data from a server
+  };
+
+  var users = ref(true);
+  var bets = ref(false);
+
+  var usersButton = ref(true);
+  var betsButton = ref(false);
+
+  function usersButtonStyle() {
+    if (usersButton.value) {
+      return {
+        height: "3.125em",
+        width: "25em",
+      };
+    } else {
+      return "";
+    }
+  }
+
+  function betsButtonStyle() {
+    if (betsButton.value) {
+      return {
+        height: "3.125em",
+        width: "25em",
+      };
+    } else {
+      return "";
+    }
+  }
+
+  var bgColor1 = usersStore.getLoggedUser?.colour_palette?.slice(0, 7);
+  var bgColor2 = usersStore.getLoggedUser?.colour_palette?.slice(7, 14);
+  var logo = usersStore.getLoggedUser?.preferred_category;
+
+  var bgColor = "linear-gradient(to bottom, " + bgColor1 + ", " + bgColor2 + ")";
+  console.log(bgColor);
+</script>
 <template lang="">
   <q-layout id="bg-color" :style="{ backgroundImage: bgColor }">
     <div id="bg-img" class="q-pa-md" :style="{ backgroundImage: logo }">
@@ -35,6 +249,7 @@
             <!-- TODO Ha változtatás történik küldjön egy értesítést az érintett felhasználóknak -->
             <div v-if="users" class="q-pa-md q-pr-xl animate__animated animate__fadeIn">
               <q-table
+                v-if="loaded"
                 binary-state-sort
                 class="my-sticky-virtscroll-table"
                 :columns="columns"
@@ -42,15 +257,13 @@
                 :filter="filter"
                 :grid="$q.screen.xs"
                 :loading="loading"
-                no-data-label="Nem található ilyen felhasználó"
+                no-data-label="Nem található felhasználó"
                 :pagination="initialPagination"
                 row-key="index"
                 :rows="rows"
                 :rows-per-page-options="[0]"
                 style="height: 35em"
                 title="Felhasználók"
-                virtual-scroll
-                :virtual-scroll-sticky-size-start="48"
               >
                 <template #top-right>
                   <q-input
@@ -259,229 +472,6 @@
   </q-layout>
 </template>
 
-<script setup lang="ts">
-  import { ref } from "vue";
-  import "animate.css";
-  import { useUsersStore } from "..//store/usersStore";
-  import server from "../store/axios.instance";
-
-  const usersStore = useUsersStore();
-  //https://quasar.dev/vue-components/table
-  // TODO Változók cseréje
-  //Users
-  const columns = [
-    {
-      name: "index",
-      label: "#",
-      field: "index",
-      sortable: true,
-    },
-    {
-      name: "username",
-      required: true,
-      label: "Felhasználónév",
-      sortable: true,
-      align: "center",
-    },
-    { name: "firstName", align: "center", label: "Keresztnév", field: "firstName", sortable: true },
-    { name: "lastName", align: "center", label: "Vezetéknév", field: "lastName", sortable: true },
-    { name: "level", align: "center", label: "Szint", field: "level", sortable: true },
-    { name: "balance", align: "center", label: "Egyenleg", field: "balance", sortable: true },
-  ];
-
-  // Teszt adatok
-  const seed = [
-    {
-      username: "teszt12",
-      firstName: "Elek",
-      lastName: "Teszt",
-      balance: 1500,
-      level: 52,
-    },
-    {
-      username: "teszt13",
-      firstName: "Pista",
-      lastName: "Nagy",
-      balance: 2500,
-      level: 120,
-    },
-    {
-      username: "teszt14",
-      firstName: "Pista",
-      lastName: "Kis",
-      balance: 150,
-      level: 5,
-    },
-    {
-      username: "teszt15",
-      firstName: "Endre",
-      lastName: "Tóth",
-      balance: 15000,
-      level: 260,
-    },
-    {
-      username: "teszt16",
-      firstName: "László",
-      lastName: "Török",
-      balance: 2400,
-      level: 45,
-    },
-  ];
-
-  //Bets
-  const columnsBets = [
-    {
-      name: "desc",
-      required: true,
-      label: "#",
-      align: "left",
-      field: (row: any) => row.id,
-      sortable: true,
-    },
-    { name: "Fogadás", align: "center", label: "Fogadás", field: "name", sortable: true },
-    { name: "Verseny", align: "center", label: "Verseny", field: "race", sortable: true },
-    { name: "Szorzó", align: "center", label: "Szorzó", field: "odd", sortable: true },
-    { name: "Eredmény", align: "center", label: "Eredmény", field: "result" },
-  ];
-
-  const rowsBets = [
-    {
-      id: "1",
-      name: "Max Verstappen világbajnok lesz",
-      race: "X",
-      odd: 1.2,
-      result: "Nyert",
-    },
-    {
-      id: "2",
-      name: "Lewis Hamilton világbajnok lesz",
-      race: "X",
-      odd: 2.1,
-      result: "Vesztett",
-    },
-    {
-      id: "3",
-      name: "Max Verstappen nyer",
-      race: "Szaúd-arábiai nagydíj",
-      odd: 1.1,
-      result: "Nyert",
-    },
-    {
-      id: "4",
-      name: "George Russel nyer",
-      race: "Magyar nagydíj",
-      odd: 3.5,
-      result: "Vesztett",
-    },
-    {
-      id: "5",
-      name: "Sergio Pérez nyer",
-      race: "Szingapúri nagydíj",
-      odd: 2.7,
-      result: "Nyert",
-    },
-    {
-      id: "6",
-      name: "Charles Leclerc nyer",
-      race: "Osztrák nagydíj",
-      odd: 2.0,
-      result: "Nyert",
-    },
-    {
-      id: "7",
-      name: "Valteri Bottas nyer",
-      race: "Japán nagydíj",
-      odd: 7.9,
-      result: "Vesztett",
-    },
-  ];
-
-  // Később törölni, csak teszt idejére generál sorokat
-  let rows: any = [];
-  for (let i = 0; i < 100; i++) {
-    rows = rows.concat(seed.slice(0).map((r) => ({ ...r })));
-  }
-  rows.forEach((row: any, index: any) => {
-    row.index = index;
-  });
-
-  var filter = ref("");
-  var loading = ref(false);
-  var initialPagination: {
-    sortBy: "desc";
-    descending: false;
-    page: 1;
-    rowsPerPage: 25;
-    // rowsNumber: xx if getting data from a server
-  };
-
-  var users = ref(true);
-  var bets = ref(false);
-
-  var usersButton = ref(true);
-  var betsButton = ref(false);
-
-  function usersButtonStyle() {
-    if (usersButton.value) {
-      return {
-        height: "3.125em",
-        width: "25em",
-      };
-    } else {
-      return "";
-    }
-  }
-
-  function betsButtonStyle() {
-    if (betsButton.value) {
-      return {
-        height: "3.125em",
-        width: "25em",
-      };
-    } else {
-      return "";
-    }
-  }
-
-  var bgColor1 = usersStore.getLoggedUser?.colour_palette?.slice(0, 7);
-  var bgColor2 = usersStore.getLoggedUser?.colour_palette?.slice(7, 14);
-  var logo = usersStore.getLoggedUser?.preferred_category;
-
-  var bgColor = "linear-gradient(to bottom, " + bgColor1 + ", " + bgColor2 + ")";
-  console.log(bgColor);
-
-  // api kérések metódus
-
-  function driverTeamBaseData() {
-    server
-      .get("api/storecompetitors")
-      .then((res) => {
-        console.log("Kérés elküldve");
-        console.log(res.data);
-      })
-      .catch((err) => console.log(err));
-  }
-
-  function placementData() {
-    server
-      .get("api/storecurrentstandings")
-      .then((res) => {
-        console.log("Kérés elküldve");
-        console.log(res.data);
-      })
-      .catch((err) => console.log(err));
-  }
-
-  function lastRaceScores() {
-    server
-      .get("api/storeracescores")
-      .then((res) => {
-        console.log("Kérés elküldve");
-        console.log(res.data);
-      })
-      .catch((err) => console.log(err));
-  }
-</script>
 <style lang="scss">
   #bg-color {
     background-image: v-bind(bgColor);
