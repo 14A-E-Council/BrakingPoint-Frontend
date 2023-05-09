@@ -238,14 +238,21 @@
           color="black"
           label="Versenyzők/csapatok alap adatainak lekérése"
           rounded
-          @click="alap_adatok"
+          @click="driverTeamBaseData"
         />
         <q-btn
           class="vertical-middle q-ma-lg"
           color="black"
           label="Helyezések és pontok lekérése"
           rounded
-          @click="helyezesek_adatok"
+          @click="placementData"
+        />
+        <q-btn
+          class="vertical-middle q-ma-lg"
+          color="black"
+          label="Legutóbbi verseny eredményei"
+          rounded
+          @click="lastRaceScores"
         />
       </div>
     </div>
@@ -445,21 +452,31 @@
 
   // api kérések metódus
 
-  function alap_adatok() {
+  function driverTeamBaseData() {
     server
       .get("api/storecompetitors")
       .then((res) => {
-        console.log("potat");
+        console.log("Kérés elküldve");
         console.log(res.data);
       })
       .catch((err) => console.log(err));
   }
 
-  function helyezesek_adatok() {
+  function placementData() {
     server
       .get("api/storecurrentstandings")
       .then((res) => {
-        console.log("potat");
+        console.log("Kérés elküldve");
+        console.log(res.data);
+      })
+      .catch((err) => console.log(err));
+  }
+
+  function lastRaceScores() {
+    server
+      .get("api/storeracescores")
+      .then((res) => {
+        console.log("Kérés elküldve");
         console.log(res.data);
       })
       .catch((err) => console.log(err));
