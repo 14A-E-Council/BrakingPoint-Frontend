@@ -197,7 +197,6 @@ export const useUsersStore = defineStore("user", {
     async editProfile(params: IUser) {
       await server
         .put("api/editprofile/" + this.loggedUser?.userID, {
-          // TODO JELSZÓ
           username: params.username,
           email: params.email,
           last_name: params.last_name,
@@ -205,6 +204,32 @@ export const useUsersStore = defineStore("user", {
           preferred_category: params.preferred_category,
           profile_picture: params.profile_picture,
           colour_palette: params.colour_palette,
+        })
+        .then(() => {
+          server
+            .get("api/user")
+            .then((res) => {
+              this.loggedUser = res.data;
+              console.log(res);
+              return this.loggedUser;
+            })
+            .then(() => {
+              router.push({ name: "Profile" });
+            });
+        })
+        .catch((error) => {
+          console.log(error.response);
+          Notify.create({
+            message: `Profil szerkesztése sikertelen: ${error.response.data.message}`,
+            color: "negative",
+          });
+        });
+    },
+
+    async editPassword(params: IUser) {
+      await server
+        .put("api/editpassword/" + this.loggedUser?.userID, {
+          password: params.password,
         })
         .then(() => {
           server

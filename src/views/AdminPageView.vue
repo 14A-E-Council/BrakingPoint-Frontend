@@ -43,8 +43,6 @@
       .catch((err) => console.log(err));
   }
 
-  //https://quasar.dev/vue-components/table
-  // TODO Változók cseréje
   //Users
   const columns = [
     {

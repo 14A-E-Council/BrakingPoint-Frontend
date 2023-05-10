@@ -2,7 +2,7 @@
 <!-- eslint-disable @typescript-eslint/no-non-null-assertion -->
 <script setup lang="ts">
   import { ref, reactive, computed } from "vue";
-  import { useQuasar } from "quasar";
+  import { useQuasar, Notify } from "quasar";
   import { useUsersStore } from "..//store/usersStore";
 
   const usersStore = useUsersStore();
@@ -19,12 +19,8 @@
     });
   }
 
-  var password = ref("");
   var isPwd = ref(true);
-
-  var confirmPassword = ref("");
   var isPwdAgain = ref(true);
-
   var model = "";
 
   const options = [
@@ -49,8 +45,11 @@
     preferred_category: string;
     profile_picture: string;
     colour_palette: string;
-    // password: string;
-    // confirmPassword: string;
+  }
+
+  interface IPassword {
+    password: string;
+    confirmPassword: string;
   }
 
   const informations = reactive<IReactiveData>({
@@ -62,8 +61,11 @@
     preferred_category: usersStore.loggedUser?.preferred_category!,
     profile_picture: usersStore.loggedUser?.profile_picture!,
     colour_palette: usersStore.loggedUser?.colour_palette!,
-    // password: "",
-    // confirmPassword: "",
+  });
+
+  const passwords = reactive<IPassword>({
+    password: "",
+    confirmPassword: "",
   });
 
   var filesImages = ref(null);
@@ -172,19 +174,70 @@
         imageUrl.value = usersStore.loggedUser?.profile_picture;
       }
     }
-    await usersStore.getSanctumCookie();
-    await usersStore.editProfile({
-      username: informations.username,
-      email: informations.email,
-      //password: informations.password,
-      last_name: informations.last_name,
-      first_name: informations.first_name,
-      profile_picture: imageUrl.value,
-      preferred_category: informations.preferred_category,
-      colour_palette: informations.colour_palette,
-    });
-    //router.push({ name: "Profile" });
-    console.log(usersStore.loggedUser);
+
+    if (passwords.password != passwords.confirmPassword) {
+      Notify.create({
+        message: `A jelszavak nem egyeznek!`,
+        color: "negative",
+      });
+    }
+    if (passwords.password == "") {
+      await usersStore.getSanctumCookie();
+      await usersStore
+        .editProfile({
+          username: informations.username,
+          email: informations.email,
+          last_name: informations.last_name,
+          first_name: informations.first_name,
+          profile_picture: imageUrl.value,
+          preferred_category: informations.preferred_category,
+          colour_palette: informations.colour_palette,
+        })
+        .then(() => {
+          Notify.create({
+            message: `Felhasználó sikeresen módosítva`,
+            color: "positive",
+          });
+          console.log(usersStore.loggedUser);
+        })
+        .catch((err) => {
+          Notify.create({
+            message: `Hiba a profil módosítása közben!`,
+            color: "negative",
+          });
+          console.log(err);
+        });
+    } else {
+      await usersStore.getSanctumCookie();
+      await usersStore.editPassword({
+        password: passwords.password,
+      });
+      await usersStore
+        .editProfile({
+          username: informations.username,
+          email: informations.email,
+          last_name: informations.last_name,
+          first_name: informations.first_name,
+          profile_picture: imageUrl.value,
+          preferred_category: informations.preferred_category,
+          colour_palette: informations.colour_palette,
+        })
+        .then(() => {
+          Notify.create({
+            message: `Felhasználó sikeresen módosítva`,
+            color: "positive",
+          });
+          console.log(usersStore.loggedUser);
+        })
+        .catch((err) => {
+          Notify.create({
+            message: `Hiba a profil módosítása közben!`,
+            color: "negative",
+          });
+
+          console.log(err);
+        });
+    }
   }
 
   var bgColor1 = usersStore.getLoggedUser?.colour_palette?.slice(0, 7);
@@ -289,10 +342,9 @@
             type="email"
           />
 
-          <!--TODO Ezt majd kötelezővé kell csinálni-->
           <p class="q-mt-lg" style="color: white">Jelszó</p>
           <q-input
-            v-model="password"
+            v-model="passwords.password"
             bg-color="white"
             color="grey-6"
             filled
@@ -305,7 +357,7 @@
           </q-input>
           <p class="q-mt-lg" style="color: white">Jelszó megerősitése</p>
           <q-input
-            v-model="confirmPassword"
+            v-model="passwords.confirmPassword"
             bg-color="white"
             color="grey-6"
             filled
