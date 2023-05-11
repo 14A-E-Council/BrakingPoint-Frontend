@@ -1,52 +1,47 @@
 <script setup lang="ts"></script>
 
 <template>
-  <q-layout>
-    <div>
-      <div>
-        <q-img id="backgroundImage" src="/src/assets/backgrounds/ferrari.png" />
-      </div>
-      <div class="row">
-        <div class="col-lg-4 col-md-4 col-12 teamInfo q-pa-xl">
-          <p id="teamName">Ferrari</p>
-          <q-img id="teamLogo" alt="Ferrari logo" src="/src/assets/teamsymbols/ferrari.png" />
-          <div style="float: inline-start">
-            <p id="teamStatistics">
-              Nemzetiség: olasz
-              <br />
-              Jelenlegi helyezés: 4.
-            </p>
-          </div>
-        </div>
-        <div class="row col-lg-8">
-          <div class="col-lg-6 col-md-6 col-sm-6 col-12 racerInfo q-pt-xl">
-            <div class="row text-center" style="display: flex; justify-content: center">
-              <q-img alt="Charles Leclerc" class="racerPicture" src="/src/assets/teammembers/leclerc.png" />
-              <a class="racerName" href="/drivers">Charles Leclerc</a>
-            </div>
-          </div>
-          <div class="col-lg-6 col-md-6 col-sm-6 col-12 racerInfo q-pt-xl">
-            <div class="row text-center" style="display: flex; justify-content: center">
-              <q-img alt="Carlos Sainz" class="racerPicture" src="/src/assets/teammembers/sainz.png" />
-              <p class="racerName">Carlos Sainz</p>
-            </div>
-          </div>
+  <div>
+    <div class="row">
+      <div class="col-lg-4 col-md-4 col-12 teamInfo q-pa-xl">
+        <p id="teamName">Ferrari</p>
+        <q-img id="teamLogo" alt="Ferrari logo" src="/src/assets/teamsymbols/ferrari.png" />
+        <div style="float: inline-start">
+          <p id="teamStatistics">
+            Nemzetiség: olasz
+            <br />
+            Jelenlegi helyezés: 4.
+          </p>
         </div>
       </div>
-
-      <div id="teamDescriptionBackground">
-        <p id="teamDescription">
-          A Scuderia Ferrari olasz Formula–1-es versenycsapat, a sportág eddigi legsikeresebbje, a világbajnokság
-          kezdete, 1950 óta jelen van a Formula–1-ben. Enzo Ferrari alapította 1929-ben (a Scuderia olaszul istállót
-          jelent, a Ferrari az alapító Enzo Ferrari nevére utal), és 1939-ig az Alfa Romeo autóit versenyeztette. Csak
-          később kezdtek saját autókat készíteni. A 2019-es szezonban a versenyzők a négyszeres világbajnok Sebastian
-          Vettel, aki 2015 óta van a csapatnál, és a Saubertől érkező Charles Leclerc, aki Kimi Räikkönent váltotta.
-          Maurizio Arriavebenét pedig, aki 2015 és 2018 közt volt csapatfőnök, Mattia Binotto váltotta. 2023-tól
-          Frédéric Vasseur irányítja a csapatot Binotto helyett.
-        </p>
+      <div class="row col-lg-8">
+        <div class="col-lg-6 col-md-6 col-sm-6 col-12 racerInfo q-pt-xl">
+          <div class="row text-center" style="display: flex; justify-content: center">
+            <q-img alt="Charles Leclerc" class="racerPicture" src="/src/assets/teammembers/leclerc.png" />
+            <a class="racerName" href="/drivers">Charles Leclerc</a>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6 col-12 racerInfo q-pt-xl">
+          <div class="row text-center" style="display: flex; justify-content: center">
+            <q-img alt="Carlos Sainz" class="racerPicture" src="/src/assets/teammembers/sainz.png" />
+            <p class="racerName">Carlos Sainz</p>
+          </div>
+        </div>
       </div>
     </div>
-  </q-layout>
+
+    <div id="teamDescriptionBackground">
+      <p id="teamDescription">
+        A Scuderia Ferrari olasz Formula–1-es versenycsapat, a sportág eddigi legsikeresebbje, a világbajnokság kezdete,
+        1950 óta jelen van a Formula–1-ben. Enzo Ferrari alapította 1929-ben (a Scuderia olaszul istállót jelent, a
+        Ferrari az alapító Enzo Ferrari nevére utal), és 1939-ig az Alfa Romeo autóit versenyeztette. Csak később
+        kezdtek saját autókat készíteni. A 2019-es szezonban a versenyzők a négyszeres világbajnok Sebastian Vettel, aki
+        2015 óta van a csapatnál, és a Saubertől érkező Charles Leclerc, aki Kimi Räikkönent váltotta. Maurizio
+        Arriavebenét pedig, aki 2015 és 2018 közt volt csapatfőnök, Mattia Binotto váltotta. 2023-tól Frédéric Vasseur
+        irányítja a csapatot Binotto helyett.
+      </p>
+    </div>
+  </div>
 </template>
 
 <style lang="scss" scoped>
