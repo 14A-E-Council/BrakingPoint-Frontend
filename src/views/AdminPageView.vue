@@ -42,6 +42,15 @@
       })
       .catch((err) => console.log(err));
   }
+  function currentSeasonRaces() {
+    server
+      .get("api/storecurrentseasonraces")
+      .then((res) => {
+        console.log("Kérés elküldve");
+        console.log(res.data);
+      })
+      .catch((err) => console.log(err));
+  }
 
   //Users
   const columns = [
@@ -457,6 +466,13 @@
           label="Helyezések és pontok lekérése"
           rounded
           @click="placementData"
+        />
+        <q-btn
+          class="vertical-middle q-ma-lg"
+          color="black"
+          label="A jelenlegi szezon versenyei"
+          rounded
+          @click="currentSeasonRaces"
         />
         <q-btn
           class="vertical-middle q-ma-lg"

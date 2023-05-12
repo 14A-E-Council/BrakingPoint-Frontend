@@ -20,7 +20,7 @@
       <div>
         <div id="cardContainer" class="row q-gutter-lg">
           <q-card id="cardAttributesFerrari">
-            <q-img class="cardImage text-center" src="src\assets\teamsymbols\ferrari_card.png">
+            <q-img class="cardImage text-center" src="src\assets\teamsymbols\ferrari.png">
               <div class="cardShadow row">
                 <a class="teamName" href="/teams/ferrari">Ferrari</a>
                 <a class="driverName" href="/drivers">Charles Leclerc</a>
