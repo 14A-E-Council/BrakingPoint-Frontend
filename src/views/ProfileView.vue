@@ -70,8 +70,7 @@
               </q-avatar>
             </div>
             <h2 class="q-pl-lg" style="color: white">{{ username }} profilja</h2>
-            <!--TODO A ranglistán lévő pozíciója-->
-            <h3 style="color: white">500</h3>
+            <h3 style="color: white">{{ usersStore.loggedUser?.level }}. szint</h3>
           </div>
         </div>
 
@@ -245,7 +244,6 @@
               </div>
 
               <!-- Bets -->
-              <!--TODO Foreach-el megoldani -->
               <div v-if="bets" class="column items-center">
                 <h4 style="color: white">Fogadások</h4>
                 <div class="row">

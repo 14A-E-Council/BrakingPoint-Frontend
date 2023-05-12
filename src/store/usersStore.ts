@@ -255,7 +255,6 @@ export const useUsersStore = defineStore("user", {
     async facebookLogin() {
       await server.get("auth/facebook").then((res) => {
         console.log("Response", res.data);
-        //router.go(res.data);
         window.location.href = res.data;
       });
     },

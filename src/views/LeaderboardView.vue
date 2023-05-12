@@ -84,7 +84,6 @@
               <h4 class="text-center" style="color: white">Ranglista</h4>
             </div>
             <div class="row flex-center">
-              <!-- TODO Ne menjenek egymásba az elemek -->
               <!-- Rank 1 -->
               <div class="mobile-hide gt-md col-md-3 col-12">
                 <div style="background-color: #d4af37; border-radius: 10%; height: 40em; width: 30em">
@@ -306,7 +305,6 @@
   .q-table__top,
   .q-table__bottom,
   thead tr:first-child th {
-    /* bg color is important for th; just specify one */
     background-color: #1b1b1b;
     color: white;
   }
@@ -316,11 +314,9 @@
     z-index: 1;
   }
 
-  /* this will be the loading indicator */
   thead tr:last-child th {
     top: 3em;
   }
-  /* height of all previous header rows */
 
   thead tr:first-child th {
     top: 0;

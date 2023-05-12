@@ -91,7 +91,6 @@
   var color = "";
   var color2 = "";
   var logo = "";
-  //var profile_picture = usersStore.getLoggedUser?.profile_picture;
   function teamSelected() {
     switch (model) {
       case "RED BULL RACING RBPT":

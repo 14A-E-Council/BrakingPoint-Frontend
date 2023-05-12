@@ -178,7 +178,7 @@
                   />
                 </template>
               </q-input>
-              <q-btn class="q-mt-md" flat label="Elfelejtette jelszavát?" style="color: white" />
+              <!-- <q-btn class="q-mt-md" flat label="Elfelejtette jelszavát?" style="color: white" /> -->
               <div class="column items-center">
                 <q-btn
                   class="vertical-middle q-mt-xl"
@@ -274,7 +274,6 @@
                 type="email"
               />
 
-              <!--TODO Ezt majd kötelezővé kell csinálni-->
               <p class="q-mt-md" style="color: white">Jelszó</p>
               <q-input
                 v-model="informationsReg.password"
@@ -419,7 +418,6 @@
                 type="email"
               />
 
-              <!--TODO Ezt majd kötelezővé kell csinálni-->
               <p class="q-mt-md" style="color: white">Jelszó</p>
               <q-input
                 v-model="informationsReg.password"
