@@ -1,5 +1,61 @@
 <script setup lang="ts">
+  import server from "../store/axios.instance";
   import { useUsersStore } from "..//store/usersStore";
+  import { ref } from "vue";
+
+  // verseny kép, név, dátum és helyszín lekérése az adatbázisból
+  const race = ref({
+    circuitName: "",
+    circuitUrl: "",
+    country: "",
+    date: "",
+  });
+
+  var bgImage = "";
+
+  //a következő verseny adatainak lekérése
+  server
+    .get("api/shownextrace")
+    .then((res) => {
+      console.log("proba");
+      race.value = res.data;
+      bgImage = "/src/assets/backgrounds/" + race.value.circuitUrl + ".png";
+      console.log(race.value);
+    })
+    .catch((err) => console.log(err));
+
+  //versenyzők lekérése az adatbázisból
+  const topDrivers = ref({
+    competitorID: "",
+    name: "",
+    position: "",
+    points: "",
+  });
+
+  server
+    .get("api/gettopcompetitors")
+    .then((res) => {
+      console.log("proba2");
+      topDrivers.value = res.data;
+      console.log(topDrivers.value);
+    })
+    .catch((err) => console.log(err));
+
+  //előző verseny top 5 versenyzőjének lekérése az adatbázisból
+  const lastRaceTopDrivers = ref({
+    competitorID: "",
+    name: "",
+    position: "",
+  });
+
+  server
+    .get("api/getlastracetopcompetitors")
+    .then((res) => {
+      console.log("proba3");
+      lastRaceTopDrivers.value = res.data;
+      console.log(lastRaceTopDrivers.value);
+    })
+    .catch((err) => console.log(err));
 
   const usersStore = useUsersStore();
 
@@ -12,32 +68,33 @@
 <template>
   <q-layout :style="{ backgroundImage: bgColor }">
     <div class="q-pb-xl">
-      <div id="circuitImage" class="row">
+      <div
+        class="row"
+        :style="{
+          background: `linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url(${bgImage}) left center / cover no-repeat`,
+        }"
+      >
         <div class="q-pl-md col-xs-12 col-sm-12 col-md-12 col-lg-5">
-          <div id="circuitCountry">Azerbaijan</div>
-          <div id="circuitName">Baku City Circuit</div>
-          <div id="raceDate">2023.04.30.</div>
+          <div id="circuitCountry">{{ race.country }}</div>
+          <div id="circuitName">{{ race.circuitName }}</div>
+          <div id="raceDate">{{ race.date }}</div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-7">
-          <q-img id="circuitPlanImage" src="/src/assets/circuitimages/baku.png" />
+          <q-img id="circuitPlanImage" :src="`/src/assets/circuitimages/${race.circuitUrl}.png`" />
         </div>
       </div>
       <div class="row">
         <div id="lastRaceResults" class="col-xs-12 col-sm-12 col-md-6">
           <p id="lastRaceResultsTitle">Előző verseny helyezettjei</p>
-          <p class="placements">1. Max Verstappen</p>
-          <p class="placements">2. Lewis Hamilton</p>
-          <p class="placements">3. Fernando Alonso</p>
-          <p class="placements">4. Lance Stroll</p>
-          <p class="placements">5. Sergio Perez</p>
+          <p v-for="lastRaceTopDriver in lastRaceTopDrivers" :key="lastRaceTopDriver.competitorID" class="placements">
+            {{ lastRaceTopDriver.position }}. {{ lastRaceTopDriver.name }}
+          </p>
         </div>
         <div id="seasonsResults" class="col-xs-12 col-sm-12 col-md-6">
           <p id="seasonsResultsTitle">A szezon legjobbjai</p>
-          <p class="placements">1. Max Verstappen - 69 pt</p>
-          <p class="placements">2. Sergio Perez - 54 pt</p>
-          <p class="placements">3. Fernando Alonso - 45 pt</p>
-          <p class="placements">4. Lewis Hamilton - 38 pt</p>
-          <p class="placements">5. Carlos Sainz - 20 pt</p>
+          <p v-for="topDriver in topDrivers" :key="topDriver.competitorID" class="placements">
+            {{ topDriver.position }}. {{ topDriver.name }} - {{ topDriver.points }} pt
+          </p>
         </div>
       </div>
       <div class="row">
@@ -75,14 +132,6 @@
     font-family: Formula1;
     font-size: 7em;
     color: white;
-  }
-
-  #circuitImage {
-    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url("/src/assets/backgrounds/baku.png");
-
-    width: 100%;
-    background-repeat: no-repeat;
-    background-size: cover;
   }
 
   #circuitPlanImage {
