@@ -1,7 +1,26 @@
 <script setup lang="ts">
+  import server from "..//..//store/axios.instance";
   import { useUsersStore } from "..//..//store/usersStore";
+  import { ref } from "vue";
 
   const usersStore = useUsersStore();
+
+  // csapat név és Url
+  const teams = ref({
+    teamID: "",
+    name: "",
+    teamUrl: "",
+  });
+
+  //csapat adatok lekérése
+  server
+    .get("api/showallteams")
+    .then((res) => {
+      console.log("proba");
+      teams.value = res.data;
+      console.log(teams.value);
+    })
+    .catch((err) => console.log(err));
 
   var bgColor1 = usersStore.getLoggedUser?.colour_palette?.slice(0, 7);
   var bgColor2 = usersStore.getLoggedUser?.colour_palette?.slice(7, 14);
@@ -19,102 +38,12 @@
       </div>
       <div>
         <div id="cardContainer" class="row q-gutter-lg">
-          <q-card id="cardAttributesFerrari">
-            <q-img class="cardImage text-center" src="src\assets\teamsymbols\ferrari.png">
+          <q-card v-for="team in teams" :id="`cardAttributes-${team.teamUrl}`" :key="team.teamID">
+            <q-img class="cardImage text-center" :src="`src/assets/teamsymbols/${team.teamUrl}.png`">
               <div class="cardShadow row">
-                <a class="teamName" href="/teams/ferrari">Ferrari</a>
-                <a class="driverName" href="/drivers">Charles Leclerc</a>
-                <p class="driverName">Carlos Sainz</p>
-              </div>
-            </q-img>
-          </q-card>
-
-          <q-card id="cardAttributesMercedes" class="col-3">
-            <q-img class="cardImage text-center" src="src\assets\teamsymbols\mercedes.png">
-              <div class="cardShadow">
-                <h4 class="teamName">Mercedes</h4>
-                <p class="driverName">Lewis Hamilton</p>
-                <p class="driverName">George Russell</p>
-              </div>
-            </q-img>
-          </q-card>
-
-          <q-card id="cardAttributesRedBull" class="col-3">
-            <q-img class="cardImage text-center" src="src\assets\teamsymbols\redbull.png">
-              <div class="cardShadow">
-                <p class="teamName">Red Bull</p>
-                <p class="driverName">Max Verstappen</p>
-                <p class="driverName">Sergio Perez</p>
-              </div>
-            </q-img>
-          </q-card>
-
-          <q-card id="cardAttributesAstonMartin" class="col-3">
-            <q-img class="cardImage text-center" src="src\assets\teamsymbols\astonmartin.png">
-              <div class="cardShadow">
-                <p class="teamName">Aston Martin</p>
-                <p class="driverName">Fernando Alonso</p>
-                <p class="driverName">Lance Stroll</p>
-              </div>
-            </q-img>
-          </q-card>
-
-          <q-card id="cardAttributesMcLaren" class="col-3">
-            <q-img class="cardImage text-center" src="src\assets\teamsymbols\mclaren.png">
-              <div class="cardShadow">
-                <p class="teamName">McLaren</p>
-                <p class="driverName">Lando Norris</p>
-                <p class="driverName">Oscar Piastri</p>
-              </div>
-            </q-img>
-          </q-card>
-
-          <q-card id="cardAttributesAlpine" class="col-3">
-            <q-img class="cardImage text-center" src="src\assets\teamsymbols\alpine.png">
-              <div class="cardShadow">
-                <p class="teamName">Alpine</p>
-                <p class="driverName">Esteban Ocon</p>
-                <p class="driverName">Pierre Gasly</p>
-              </div>
-            </q-img>
-          </q-card>
-
-          <q-card id="cardAttributesHaas" class="col-3">
-            <q-img class="cardImage text-center" src="src\assets\teamsymbols\haas.png">
-              <div class="cardShadow">
-                <p class="teamName">Haas</p>
-                <p class="driverName">Nico Hulkenberg</p>
-                <p class="driverName">Kevin Magnussen</p>
-              </div>
-            </q-img>
-          </q-card>
-
-          <q-card id="cardAttributesAlfaRomeo" class="col-3">
-            <q-img class="cardImage text-center" src="src\assets\teamsymbols\alfaromeo.png">
-              <div class="cardShadow">
-                <p class="teamName">Alfa Romeo</p>
-                <p class="driverName">Valtteri Bottas</p>
-                <p class="driverName">Zhou Guanyu</p>
-              </div>
-            </q-img>
-          </q-card>
-
-          <q-card id="cardAttributesAlphaTauri" class="col-3">
-            <q-img class="cardImage text-center" src="src\assets\teamsymbols\alphatauri.png">
-              <div class="cardShadow">
-                <p class="teamName">Alpha Tauri</p>
-                <p class="driverName">Yuki Tsunoda</p>
-                <p class="driverName">Nyck De Vries</p>
-              </div>
-            </q-img>
-          </q-card>
-
-          <q-card id="cardAttributesWilliams" class="col-3">
-            <q-img class="cardImage text-center" src="src\assets\teamsymbols\williams.png">
-              <div class="cardShadow">
-                <p class="teamName">Williams</p>
-                <p class="driverName">Alexander Albon</p>
-                <p class="driverName">Logan Sargeant</p>
+                <router-link class="teamName" :to="`/teams/${team.teamUrl}`">
+                  {{ team.name }}
+                </router-link>
               </div>
             </q-img>
           </q-card>
@@ -141,7 +70,7 @@
     font-family: Wallpoet;
     src: url(src/assets/fonts/Wallpoet-Regular.otf);
   }
-  #cardAttributesFerrari {
+  #cardAttributes-ferrari {
     max-width: 20em;
     max-height: 21em;
     height: 21em;
@@ -149,7 +78,7 @@
     background-color: darkred;
     padding: 0.5em;
   }
-  #cardAttributesMercedes {
+  #cardAttributes-mercedes {
     max-width: 20em;
     max-height: 21em;
     height: 21em;
@@ -157,7 +86,7 @@
     background-color: rgb(75, 228, 255);
     padding: 0.5em;
   }
-  #cardAttributesRedBull {
+  #cardAttributes-red_bull {
     max-width: 20em;
     max-height: 21em;
     height: 21em;
@@ -165,7 +94,7 @@
     background-color: rgb(0, 0, 102);
     padding: 0.5em;
   }
-  #cardAttributesAstonMartin {
+  #cardAttributes-aston_martin {
     max-width: 20em;
     max-height: 21em;
     height: 21em;
@@ -173,7 +102,7 @@
     background-color: rgb(0, 151, 76);
     padding: 0.5em;
   }
-  #cardAttributesMcLaren {
+  #cardAttributes-mclaren {
     max-width: 20em;
     max-height: 21em;
     height: 21em;
@@ -181,7 +110,7 @@
     background-color: orangered;
     padding: 0.5em;
   }
-  #cardAttributesAlpine {
+  #cardAttributes-alpine {
     max-width: 20em;
     max-height: 21em;
     height: 21em;
@@ -189,7 +118,7 @@
     background-color: rgb(64, 180, 219);
     padding: 0.5em;
   }
-  #cardAttributesHaas {
+  #cardAttributes-haas {
     max-width: 20em;
     max-height: 21em;
     height: 21em;
@@ -197,15 +126,15 @@
     background-color: darkgray;
     padding: 0.5em;
   }
-  #cardAttributesAlfaRomeo {
+  #cardAttributes-alfa {
     max-width: 20em;
     max-height: 21em;
     height: 21em;
     width: 16em;
-    background-color: rgb(226, 14, 32);
+    background-color: rgb(30, 83, 65);
     padding: 0.5em;
   }
-  #cardAttributesAlphaTauri {
+  #cardAttributes-alphatauri {
     max-width: 20em;
     max-height: 21em;
     height: 21em;
@@ -213,7 +142,7 @@
     background-color: rgb(64, 59, 122);
     padding: 0.5em;
   }
-  #cardAttributesWilliams {
+  #cardAttributes-williams {
     max-width: 20em;
     max-height: 21em;
     height: 21em;

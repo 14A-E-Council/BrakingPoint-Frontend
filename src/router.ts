@@ -69,7 +69,7 @@ const routes: Array<RouteRecordRaw> = [
     component: AdminView,
   },
   {
-    path: "/drivers",
+    path: "/drivers/:driverUrl",
     name: "drivers",
     component: DriverView,
     meta: { mustNotBeLoggedIn: true },
@@ -81,7 +81,7 @@ const routes: Array<RouteRecordRaw> = [
     meta: { mustNotBeLoggedIn: true },
   },
   {
-    path: "/teams/ferrari",
+    path: "/teams/:teamUrl",
     name: "FerrariTeamPage",
     component: FerrariTeamView,
     meta: { mustNotBeLoggedIn: true },
