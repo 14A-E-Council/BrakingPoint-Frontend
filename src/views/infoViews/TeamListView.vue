@@ -16,9 +16,7 @@
   server
     .get("api/showallteams")
     .then((res) => {
-      console.log("proba");
       teams.value = res.data;
-      console.log(teams.value);
     })
     .catch((err) => console.log(err));
 
@@ -159,17 +157,7 @@
     width: 100%;
     height: 100%;
   }
-  .driverName {
-    text-decoration: none;
 
-    color: white;
-    font-family: "WallPoet";
-    font-style: normal;
-    font-weight: 450;
-    font-size: 150%;
-    text-shadow: 0.1em 0.1em 0.1em black;
-    width: 100%;
-  }
   #pageTitle {
     text-shadow: 0.1em 0.1em 0.1em black;
     font-size: large;

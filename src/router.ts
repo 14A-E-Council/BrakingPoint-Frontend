@@ -6,10 +6,10 @@ import AdminPageView from "./views/AdminPageView.vue";
 import AdminView from "./views/AdminView.vue";
 import LoginView from "./views/LoginPageView.vue";
 import LeaderboardView from "./views/LeaderboardView.vue";
-import FerrariTeamView from "./views/infoViews/FerrariTeamView.vue";
+import TeamView from "./views/infoViews/TeamView.vue";
 import DriverView from "./views/infoViews/DriverView.vue";
 import FrontPageView from "./views/FrontPageView.vue";
-import DriverTeamListView from "./views/infoViews/DriverTeamListView.vue";
+import TeamListView from "./views/infoViews/TeamListView.vue";
 import NewBettingView from "./views/NewBettingView.vue";
 
 import { createPinia } from "pinia";
@@ -70,20 +70,20 @@ const routes: Array<RouteRecordRaw> = [
   },
   {
     path: "/drivers/:driverUrl",
-    name: "drivers",
+    name: "driver",
     component: DriverView,
     meta: { mustNotBeLoggedIn: true },
   },
   {
-    path: "/driverteamlist",
-    name: "driversandteams",
-    component: DriverTeamListView,
+    path: "/teamlist",
+    name: "teams",
+    component: TeamListView,
     meta: { mustNotBeLoggedIn: true },
   },
   {
     path: "/teams/:teamUrl",
-    name: "FerrariTeamPage",
-    component: FerrariTeamView,
+    name: "teampage",
+    component: TeamView,
     meta: { mustNotBeLoggedIn: true },
   },
 ];

@@ -1,42 +1,112 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+  import server from "../../store/axios.instance";
+  import { useRoute } from "vue-router";
+
+  import { ref } from "vue";
+
+  const route = useRoute();
+  console.log(route.params.driverUrl);
+
+  const team = ref({});
+  const driver = ref({});
+
+  var color = "";
+  var color2 = "";
+  var bgColor = "";
+
+  server
+    .get("api/getdriverbydriverurl/" + route.params.driverUrl)
+    .then((res) => {
+      driver.value = res.data;
+      server
+        .get("api/getteambyteamid/" + driver.value.teamID)
+        .then((resp) => {
+          team.value = resp.data;
+          console.log(team.value.teamUrl);
+          switch (team.value.teamUrl) {
+            case "red_bull":
+              color = "#000B8D";
+              color2 = "#000A82";
+              break;
+            case "ferrari":
+              color = "#EF1A2D";
+              color2 = "#CB1626";
+              break;
+            case "mercedes":
+              color = "#00A19B";
+              color2 = "#008883";
+              break;
+            case "alpine":
+              color = "#0078C1";
+              color2 = "#005BA9";
+              break;
+            case "mclaren":
+              color = "#FF8000";
+              color2 = "#EE7800";
+              break;
+            case "alfa":
+              color = "#295294";
+              color2 = "#981E32";
+              break;
+            case "aston_martin":
+              color = "#00594F";
+              color2 = "#00352F";
+              break;
+            case "haas":
+              color = "#EFEFEF";
+              color2 = "#AEAEAE";
+              break;
+            case "alphatauri":
+              color = "#041F3D";
+              color2 = "#011321";
+              break;
+            case "williams":
+              color = "#00A3E0";
+              color2 = "#041E42";
+              bgColor = "linear-gradient(to bottom, #00A3E0, #041E42)";
+              break;
+            default:
+              color = "#a71616";
+              color2 = "#6d0f0f";
+              break;
+          }
+        })
+        .catch((err) => console.log(err));
+    })
+    .catch((err) => console.log(err));
+</script>
 
 <template>
-  <q-layout>
-    <div>
-      <div>
-        <q-img id="backgroundImage" src="/src/assets/backgrounds/ferrari.png" />
+  <div :style="{ backgroundImage: bgColor }">
+    <div class="row">
+      <div class="col-lg-6">
+        <q-img id="driverImage" :src="`/src/assets/teammembers/${driver.driverUrl}.png`" />
       </div>
-      <div id="mainInfo" class="row">
-        <div class="col-lg-6">
-          <q-img id="driverImage" src="/src/assets/teammembers/leclerc.png" />
-        </div>
-        <div class="col-lg-6">
-          <p id="driverName">Charles Leclerc</p>
-          <p id="dob">(1997.10.16)</p>
-          <p class="driverInfo">
-            Nemzetiség: monacói
-            <br />
-          </p>
-          <p class="driverInfo">
-            Nyert futamok száma: 5
-            <br />
-          </p>
-          <p class="driverInfo">
-            Legutóbbi helyezés: 10.
-            <br />
-          </p>
-        </div>
-      </div>
-
-      <div style="position: relative"></div>
-      <div id="driverDescriptionBackground">
-        <p id="driverDescription">
-          A 2016-os GP3-szezon és a 2017-es FIA Formula–2 szezon bajnoka. 2018-ban az Alfa Romeo Sauber csapat
-          pilótájaként szerepelt először a Formula–1-ben. 2019-től a Scuderia Ferrari versenyzője.
+      <div class="col-lg-6">
+        <p id="driverName">{{ driver.name }}</p>
+        <p id="dob">({{ driver.dateOfBirth }})</p>
+        <p class="driverInfo">
+          Nemzetiség: {{ driver.nationality }}
+          <br />
+        </p>
+        <p class="driverInfo">
+          Pontjainak száma: {{ driver.points }}
+          <br />
+        </p>
+        <p class="driverInfo">
+          Szezonbeli helyezés: {{ driver.position }}.
+          <br />
         </p>
       </div>
     </div>
-  </q-layout>
+
+    <div style="position: relative"></div>
+    <div id="driverDescriptionBackground">
+      <p id="driverDescription">
+        {{ driver.description }}
+      </p>
+    </div>
+  </div>
 </template>
 
 <style lang="scss" scoped>
@@ -83,14 +153,6 @@
     color: #ffffff;
   }
 
-  #backgroundImage {
-    position: absolute;
-    top: 12em;
-    width: 80em;
-    z-index: 0;
-    opacity: 0.5;
-  }
-
   #teamSymbolImage {
     height: 15em;
     width: 15em;
@@ -125,9 +187,5 @@
     font-size: 1.5em;
     letter-spacing: 0.2em;
     margin-left: 1.5em;
-  }
-
-  .zdefault {
-    z-index: 1;
   }
 </style>

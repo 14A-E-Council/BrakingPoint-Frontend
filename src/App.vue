@@ -5,7 +5,6 @@
   // import { Cookies } from "quasar";
 
   const leftDrawer = ref<boolean>(true);
-  const text = ref();
   const usersStore = useUsersStore();
   const anyLoggedUser = computed(() => (usersStore.loggedUser ? true : false));
 
@@ -60,8 +59,8 @@
     },
     {
       text: "Csapatok",
-      name: "driversandteamslist",
-      route: "/driverteamlist",
+      name: "teamslist",
+      route: "/teamlist",
     },
     {
       text: "Fogadás",
@@ -78,73 +77,59 @@
 
 <template>
   <div id="bg-color" elevated style="background: #a71616">
-    <div id="bg">
-      <q-layout view="hHh Lpr fFf">
-        <q-header class="text-white text-center" elevated style="background: #1b1b1b">
-          <q-toolbar>
-            <q-btn dense flat icon="mdi-menu" round size="15px" @click="leftDrawer = !leftDrawer" />
+    <q-layout view="hHh Lpr fFf">
+      <q-header class="text-white text-center" elevated style="background: #1b1b1b">
+        <q-toolbar>
+          <q-btn dense flat icon="mdi-menu" round size="15px" @click="leftDrawer = !leftDrawer" />
 
-            <!--Kis menü-->
-            <q-input v-model="text" class="q-ml-md" dark dense input-class="text-right" rounded standout>
-              <template #prepend>
-                <q-icon name="search" />
-              </template>
-              <template #append>
-                <q-icon class="cursor-pointer" name="close" @click="text = ''" />
-              </template>
-            </q-input>
-            <q-toolbar-title
-              id="title"
-              style="cursor: pointer; align-items: center"
-              @click="router.push({ path: '/' })"
-            >
-              <q-img class="position: relative; text-align: center; q-mr-xl" style="height: 80px; max-width: 350px">
-                <img alt="BrakingPointLogo" src="./assets/BrakingPointLogo.png" />
-              </q-img>
-            </q-toolbar-title>
-            <q-btn no-caps size="15px" @click="toolbarButtonClicked">
-              {{ usersStore.loggedUser ? usersStore.loggedUser.username : "Bejelentkezés" }}
-            </q-btn>
-            <label v-if="usersStore.loggedUser">Egyenleg: {{ usersStore.loggedUser.balance }}</label>
-          </q-toolbar>
-        </q-header>
+          <!--Kis menü-->
+          <q-toolbar-title id="title" style="cursor: pointer; align-items: center" @click="router.push({ path: '/' })">
+            <q-img class="position: relative; text-align: center; q-mr-xl" style="height: 80px; max-width: 350px">
+              <img alt="BrakingPointLogo" src="./assets/BrakingPointLogo.png" />
+            </q-img>
+          </q-toolbar-title>
+          <q-btn no-caps size="15px" @click="toolbarButtonClicked">
+            {{ usersStore.loggedUser ? usersStore.loggedUser.username : "Bejelentkezés" }}
+          </q-btn>
+          <label v-if="usersStore.loggedUser">Egyenleg: {{ usersStore.loggedUser.balance }}</label>
+        </q-toolbar>
+      </q-header>
 
-        <q-drawer
-          v-model="leftDrawer"
-          bordered
-          :breakpoint="500"
-          class="q-pa-md"
-          :class="$q.dark.isActive ? 'bg-grey-9' : 'bg-grey-3'"
-          show-if-above
-          :width="200"
-        >
-          <q-scroll-area class="fit">
-            <!-- routes: -->
-            <q-list>
-              <template v-for="(menuItem, index) in menuItems" :key="index">
-                <q-item clickable :disable="menuItem.disabled" :to="menuItem.route">
-                  <q-item-section>
-                    {{ menuItem.text }}
-                  </q-item-section>
-                </q-item>
-                <q-separator v-if="menuItem.separator" :key="'sep' + index" />
-              </template>
-              <q-separator />
-            </q-list>
-            <br />
-            <q-btn v-if="anyLoggedUser" no-caps size="15px" @click="logoutButtonClicked">Kijelentkezés</q-btn>
-          </q-scroll-area>
-        </q-drawer>
+      <q-drawer
+        v-model="leftDrawer"
+        bordered
+        :breakpoint="500"
+        class="q-pa-md"
+        :class="$q.dark.isActive ? 'bg-grey-9' : 'bg-grey-3'"
+        show-if-above
+        :width="200"
+      >
+        <q-scroll-area class="fit">
+          <!-- routes: -->
+          <q-list>
+            <template v-for="(menuItem, index) in menuItems" :key="index">
+              <q-item clickable :disable="menuItem.disabled" :to="menuItem.route">
+                <q-item-section>
+                  {{ menuItem.text }}
+                </q-item-section>
+              </q-item>
+              <q-separator v-if="menuItem.separator" :key="'sep' + index" />
+            </template>
+            <q-separator />
+          </q-list>
+          <br />
+          <q-btn v-if="anyLoggedUser" no-caps size="15px" @click="logoutButtonClicked">Kijelentkezés</q-btn>
+        </q-scroll-area>
+      </q-drawer>
 
-        <q-page-container id="container">
-          <router-view v-slot="{ Component }">
-            <transition name="fade">
-              <component :is="Component" />
-            </transition>
-          </router-view>
-        </q-page-container>
-      </q-layout>
-    </div>
+      <q-page-container id="container">
+        <router-view v-slot="{ Component }">
+          <transition name="fade">
+            <component :is="Component" />
+          </transition>
+        </router-view>
+      </q-page-container>
+    </q-layout>
   </div>
 
   <footer style="background: #1b1b1b; min-height: 12vh; position: relative; text-align: center">
@@ -160,11 +145,6 @@
     /* background-image: linear-gradient(to bottom, v-bind(mainColor1), v-bind(mainColor2)); */
     background-size: cover;
     background-attachment: fixed;
-  }
-
-  div#bg {
-    background-size: 50%;
-    background-repeat: no-repeat;
   }
 
   .fade-enter-active,

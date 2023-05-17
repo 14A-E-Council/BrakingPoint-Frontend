@@ -6,6 +6,7 @@
 
   const route = useRoute();
   console.log(route.params.teamUrl);
+
   const team = ref({});
   const drivers = ref({});
 
@@ -25,49 +26,59 @@
             case "red_bull":
               color = "#000B8D";
               color2 = "#000A82";
+              bgColor = "linear-gradient(to bottom, " + color + ", " + color2 + ")";
               break;
             case "ferrari":
               color = "#EF1A2D";
               color2 = "#CB1626";
+              bgColor = "linear-gradient(to bottom, " + color + ", " + color2 + ")";
               break;
             case "mercedes":
               color = "#00A19B";
               color2 = "#008883";
+              bgColor = "linear-gradient(to bottom, " + color + ", " + color2 + ")";
               break;
             case "alpine":
               color = "#0078C1";
               color2 = "#005BA9";
+              bgColor = "linear-gradient(to bottom, " + color + ", " + color2 + ")";
               break;
             case "mclaren":
               color = "#FF8000";
               color2 = "#EE7800";
+              bgColor = "linear-gradient(to bottom, " + color + ", " + color2 + ")";
               break;
             case "alfa":
               color = "#295294";
               color2 = "#981E32";
+              bgColor = "linear-gradient(to bottom, " + color + ", " + color2 + ")";
               break;
             case "aston_martin":
               color = "#00594F";
               color2 = "#00352F";
+              bgColor = "linear-gradient(to bottom, " + color + ", " + color2 + ")";
               break;
             case "haas":
               color = "#EFEFEF";
               color2 = "#AEAEAE";
+              bgColor = "linear-gradient(to bottom, " + color + ", " + color2 + ")";
               break;
             case "alphatauri":
               color = "#041F3D";
               color2 = "#011321";
+              bgColor = "linear-gradient(to bottom, " + color + ", " + color2 + ")";
               break;
             case "williams":
               color = "#00A3E0";
               color2 = "#041E42";
+              bgColor = "linear-gradient(to bottom, #00A3E0, #041E42)";
               break;
             default:
               color = "#a71616";
               color2 = "#6d0f0f";
+              bgColor = "linear-gradient(to bottom, #a71616, #6d0f0f)";
               break;
           }
-          bgColor = "linear-gradient(to bottom, " + color + ", " + color2 + ")";
         })
         .catch((err) => console.log(err));
     })
@@ -75,7 +86,7 @@
 </script>
 
 <template>
-  <div style="min-height: 50vw" :style="{ backgroundImage: bgColor }">
+  <div :style="{ backgroundImage: bgColor }">
     <div class="row">
       <div class="col-lg-4 col-md-4 col-12 teamInfo q-pa-xl">
         <p id="teamName">{{ team.name }}</p>
@@ -92,7 +103,7 @@
         <div v-for="driver in drivers" class="col-lg-6 col-md-6 col-sm-6 col-12 racerInfo q-pt-xl">
           <div class="row text-center" style="display: flex; justify-content: center">
             <q-img :alt="driver.name" class="racerPicture" :src="`/src/assets/teammembers/${driver.driverUrl}.png`" />
-            <a class="racerName" href="/drivers">{{ driver.name }}</a>
+            <router-link class="racerName" :to="`/drivers/${driver.driverUrl}`">{{ driver.name }}</router-link>
           </div>
         </div>
       </div>
@@ -110,14 +121,6 @@
   @font-face {
     font-family: Wallpoet;
     src: url(src/assets/fonts/Wallpoet-Regular.otf);
-  }
-
-  #backgroundImage {
-    position: absolute;
-    top: 12em;
-    width: 80em;
-    z-index: 0;
-    opacity: 0.5;
   }
 
   #teamDescriptionBackground {
